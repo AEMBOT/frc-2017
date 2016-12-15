@@ -54,9 +54,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit () {
-		autonomousCommand =  (Command) chooser.getSelected();
+		autonomy =  (Command) chooser.getSelected();
 
-		if (autonomousCommand != null) autonomousCommand.start();
+		if (autonomy != null) autonomy.start();
 	}
 
 	/*
@@ -72,7 +72,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopInit () {
-		if (autonomousCommand != null) autonomousCommand.cancel();
+		if (autonomy != null) autonomy.cancel();
 	}
 
 	/*

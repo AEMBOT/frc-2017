@@ -10,6 +10,7 @@
 *.swp
 
 # generated files
+dist/
 bin/
 gen/
 
