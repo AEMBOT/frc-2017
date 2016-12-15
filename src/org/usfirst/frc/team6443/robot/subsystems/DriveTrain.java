@@ -24,7 +24,7 @@ public class DriveTrain extends Subsystem {
 		for (Victor motor : leftMotors)
 			motor.set(left);
 		for (Victor motor : rightMotors)
-			motor.set(right)
+			motor.set(right);
 	}
 	
 }
