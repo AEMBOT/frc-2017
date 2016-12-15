@@ -29,7 +29,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit () {
 		oi = new OI();
 		chooser = new SendableChooser();
-		chooser.addDefault("Move Forward", new MoveForward());
+		chooser.addDefault("Move Forward", new MoveForwardCommand());
 		SmartDashboard.putData("Auto", chooser);
 	}
 	
