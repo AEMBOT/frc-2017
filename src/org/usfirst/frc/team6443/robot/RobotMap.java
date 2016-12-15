@@ -9,6 +9,9 @@ import edu.wpi.first.wpilibj.Victor;
  * floating around.
  */
 public class RobotMap {
-    public static Victor driveTrainMotorLeft = new Victor(/*what is "channel"?*/);
-    public static Victor driveTrainMotorRight = new Victor();
-}
+	public static final Victor[] driveTrainVictorsLeft = new Victor[] {
+		new Victor(/*channel?*/), new Victor(/*channel?*/)
+	};
+	public static final Victor[] driveTrainVictorsRight = new Victor[] {
+		new Victor(/*channel?*/), new Victor(/*channel?*/)
+	};
