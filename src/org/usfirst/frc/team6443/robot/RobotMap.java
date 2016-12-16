@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Victor;
  * floating around.
  */
 public class RobotMap {
+	//NOTE: the 0th index is the rear motor for the side, the 1st index is the front motor fo the side.
 	public static final Victor[] driveTrainVictorsLeft = new Victor[] {
 		new Victor(0), new Victor(0)
 	};
