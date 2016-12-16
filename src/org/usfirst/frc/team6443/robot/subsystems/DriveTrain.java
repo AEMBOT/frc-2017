@@ -9,11 +9,14 @@ public class DriveTrain extends Subsystem {
 
 	Victor[] leftMotors = RobotMap.driveTrainVictorsLeft;
 	Victor[] rightMotors = RobotMap.driveTrainVictorsRight;
+
+	public double turn;
+	public double throttle;
 	
 	@Override
 	public void initDefaultCommand() {
 	}
-	
+
 	/**
 	 * Allows for custom setting of motor power level.
 	 *
