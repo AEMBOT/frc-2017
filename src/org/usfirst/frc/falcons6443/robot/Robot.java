@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @author Christopher Medlin
  */
 public class Robot extends IterativeRobot {
-	public static final DriveTrain DRIVE_TRAIN = new DriveTrain();
+	public static final DriveTrainSystem Drivetrain = new DriveTrainSystem();
 	public static OI oi;
 
 	private Command autonomy;
@@ -29,8 +29,10 @@ public class Robot extends IterativeRobot {
 	public void robotInit () {
 		oi = new OI();
 		chooser = new SendableChooser();
-		chooser.addDefault("Move Forward", new MoveForwardCommand());
+		chooser.addDefault("Move Forward", new MoveForward());
 		SmartDashboard.putData("Auto", chooser);
+		
+		assert RobotMap.isOK();
 	}
 	
 	/*
@@ -73,7 +75,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopInit () {
 		if (autonomy != null) autonomy.cancel();
-		new MoveArcadeDriveCommand(oi.getJoystick()).start();
+		new ArcadeDrive(oi.getJoystick()).start();
 	}
 
 	/*

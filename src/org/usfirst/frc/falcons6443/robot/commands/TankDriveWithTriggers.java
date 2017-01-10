@@ -1,5 +1,8 @@
 package org.usfirst.frc.falcons6443.robot.commands;
 
+import org.usfirst.frc.falcons6443.robot.Robot;
+import org.usfirst.frc.falcons6443.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
 
@@ -14,23 +17,24 @@ import edu.wpi.first.wpilibj.Timer;
  *
  * @author Christopher Medlin
  */
-public class MoveTankDriveTrigCommand extends SimpleCommand {
+public class TankDriveWithTriggers extends SimpleCommand {
 
-	Joystick leftStick;
-	Joystick rightStick;
+	Joystick gamepad;
 
-	public MoveTankDriveTrigCommand(Joystick leftStick, Joystick rightStick) {
+	public TankDriveWithTriggers() {
 		super("Move With Triggers Using Tank Drive");
 		requires(driveTrain);
+		
 
-		this.leftStick = leftStick;
-		this.rightStick = rightStick;
+		
 	}
-	
+	@Override
+	public void initialize () {
+		gamepad = Robot.oi.getJoystick();
+	}
 	@Override
 	public void execute () {
-		driveTrain.tankTrigDrive(leftStick, rightStick);
-		Timer.delay(0.01);
+		driveTrain.updateGamepadInput(gamepad.getRawAxis(RobotMap.GamepadLeftTriggerAxisID), gamepad.getRawAxis(RobotMap.GamepadRightTriggerAxisID));
 	}
 
 	/* There are no particular conditions in which we want the command to stop autonomously. */

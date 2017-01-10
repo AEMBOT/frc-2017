@@ -1,7 +1,7 @@
 package org.usfirst.frc.falcons6443.robot.commands;
 
 import org.usfirst.frc.falcons6443.robot.Robot;
-import org.usfirst.frc.falcons6443.robot.subsystems.DriveTrain;
+import org.usfirst.frc.falcons6443.robot.subsystems.DriveTrainSystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -14,11 +14,11 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  * @author Christopher Medlin
  */
-public class MoveForwardCommand extends SimpleCommand {
+public class MoveForward extends SimpleCommand {
 	
 	long initTime;
 
-	public MoveForwardCommand () {
+	public MoveForward () {
 		super("Move Forward");
 		initTime = 0;
 		requires(driveTrain);
