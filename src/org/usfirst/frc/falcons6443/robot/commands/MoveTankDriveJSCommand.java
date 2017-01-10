@@ -1,5 +1,8 @@
 package org.usfirst.frc.falcons6443.robot.commands;
 
+import org.usfirst.frc.falcons6443.robot.Robot;
+import org.usfirst.frc.falcons6443.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
 
@@ -11,25 +14,26 @@ import edu.wpi.first.wpilibj.Timer;
  * This could be one of the joysticks on an XBox-like controller, or it could be something
  * like an arcade flight stick.
  *
- * @author Shivashriganesh Mahato
+ * @author Shivashriganesh Mahato, Patrick Higgins
  */
 public class MoveTankDriveJSCommand extends SimpleCommand {
 
-	Joystick leftStick;
-	Joystick rightStick;
+	Joystick gamepad;
 
-	public MoveTankDriveJSCommand(Joystick leftStick, Joystick rightStick) {
+	public MoveTankDriveJSCommand() {
 		super("Move With Joystick Using Tank Drive");
 		requires(driveTrain);
+		
 
-		this.leftStick = leftStick;
-		this.rightStick = rightStick;
+		
 	}
-	
+	@Override
+	public void initialize () {
+		gamepad = Robot.oi.getJoystick();
+	}
 	@Override
 	public void execute () {
-		driveTrain.tankJSDrive(leftStick, rightStick);
-		Timer.delay(0.01);
+		driveTrain.updateGamepadInput(gamepad.getRawAxis(RobotMap.GamepadLeftStickAxisID), gamepad.getRawAxis(RobotMap.GamepadRightStickAxisID));
 	}
 
 	/* There are no particular conditions in which we want the command to stop autonomously. */

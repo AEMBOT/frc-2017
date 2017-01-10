@@ -1,5 +1,8 @@
 package org.usfirst.frc.falcons6443.robot.commands;
 
+import org.usfirst.frc.falcons6443.robot.Robot;
+import org.usfirst.frc.falcons6443.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
 
@@ -16,10 +19,8 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class MoveTankDriveTrigCommand extends SimpleCommand {
 
-	Joystick leftStick;
-	Joystick rightStick;
+	Joystick gamepad;
 
-	public MoveTankDriveTrigCommand(Joystick leftStick, Joystick rightStick) {
 		super("Move With Triggers Using Tank Drive");
 		requires(driveTrain);
 

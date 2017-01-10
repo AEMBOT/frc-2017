@@ -31,6 +31,8 @@ public class Robot extends IterativeRobot {
 		chooser = new SendableChooser();
 		chooser.addDefault("Move Forward", new MoveForwardCommand());
 		SmartDashboard.putData("Auto", chooser);
+		
+		assert RobotMap.isOK();
 	}
 	
 	/*

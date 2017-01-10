@@ -16,10 +16,11 @@ import edu.wpi.first.wpilibj.GenericHID;
  */
 public class OI {
 	private Joystick joystick;
-     	private HashMap<String, Button> buttons; 
+     	
+	private HashMap<String, Button> buttons; 
 	
 	public OI () {
-		joystick = new Joystick(0 /*specify port*/);
+		joystick = new Joystick(RobotMap.GamepadPortNumber);
 		buttons = new HashMap<String, Button>(4);
 	}	
 	
