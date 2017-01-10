@@ -8,14 +8,14 @@ import org.usfirst.frc.falcons6443.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.GenericHID;
 
-public class DriveTrain extends Subsystem {
+public class DriveTrainSystem extends Subsystem {
 
-	Victor[] leftMotors = RobotMap.driveTrainVictorsLeft;
-	Victor[] rightMotors = RobotMap.driveTrainVictorsRight;
+	Victor[] leftMotors = RobotMap.DrivetrainVictorsLeft;
+	Victor[] rightMotors = RobotMap.DrivetrainVictorsRight;
 	
 	RobotDrive drive;
 
-	public DriveTrain () {
+	public DriveTrainSystem () {
 		drive = new RobotDrive(leftMotors[1], leftMotors[0], rightMotors[1], rightMotors[0]);
 	}
 	
