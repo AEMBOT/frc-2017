@@ -29,7 +29,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit () {
 		oi = new OI();
 		chooser = new SendableChooser();
-		chooser.addDefault("Move Forward", new MoveForwardCommand());
+		chooser.addDefault("Move Forward", new MoveForward());
 		SmartDashboard.putData("Auto", chooser);
 		
 		assert RobotMap.isOK();
@@ -75,7 +75,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopInit () {
 		if (autonomy != null) autonomy.cancel();
-		new MoveArcadeDriveCommand(oi.getJoystick()).start();
+		new ArcadeDrive(oi.getJoystick()).start();
 	}
 
 	/*

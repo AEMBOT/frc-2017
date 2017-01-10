@@ -16,11 +16,11 @@ import edu.wpi.first.wpilibj.Timer;
  *
  * @author Shivashriganesh Mahato, Patrick Higgins
  */
-public class MoveTankDriveJSCommand extends SimpleCommand {
+public class TankDriveWithJoysticks extends SimpleCommand {
 
 	Joystick gamepad;
 
-	public MoveTankDriveJSCommand() {
+	public TankDriveWithJoysticks() {
 		super("Move With Joystick Using Tank Drive");
 		requires(driveTrain);
 		

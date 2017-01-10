@@ -13,11 +13,11 @@ import edu.wpi.first.wpilibj.Timer;
  *
  * @author Christopher Medlin
  */
-public class MoveArcadeDriveCommand extends SimpleCommand {
+public class ArcadeDrive extends SimpleCommand {
 	
 	Joystick stick;
 
-	public MoveArcadeDriveCommand(Joystick stick) {
+	public ArcadeDrive(Joystick stick) {
 		super("Move With Joystick Using Arcade Drive");
 		requires(driveTrain);
 
