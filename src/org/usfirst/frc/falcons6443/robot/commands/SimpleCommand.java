@@ -1,7 +1,7 @@
-package org.usfirst.frc.team6443.robot.commands;
+package org.usfirst.frc.falcons6443.robot.commands;
 
-import org.usfirst.frc.team6443.robot.Robot;
-import org.usfirst.frc.team6443.robot.subsystems.*;
+import org.usfirst.frc.falcons6443.robot.Robot;
+import org.usfirst.frc.falcons6443.robot.subsystems.*;
 
 import edu.wpi.first.wpilibj.command.Command;
 
