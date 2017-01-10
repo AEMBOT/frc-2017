@@ -73,7 +73,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopInit () {
 		if (autonomy != null) autonomy.cancel();
-		new MoveWithJoystickCommand(oi.getJoystick()).start();
+		new MoveArcadeDriveCommand(oi.getJoystick()).start();
 	}
 
 	/*

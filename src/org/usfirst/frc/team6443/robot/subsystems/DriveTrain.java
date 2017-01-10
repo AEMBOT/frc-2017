@@ -27,6 +27,20 @@ public class DriveTrain extends Subsystem {
 		drive.arcadeDrive(hid);
 	}
 
+	public void tankJSDrive(GenericHID leftJS, GenericHID rightJS) {
+		drive.tankDrive(leftJS, rightJS);
+	}
+
+	public void tankTrigDrive(GenericHID leftJS, GenericHID rightJS) {
+		if(leftJS == null || rightJS == null)
+			throw new NullPointerException("Null HID provided");
+
+		double leftTrigVal = leftJS.getRawAxis(-1);
+		double rightTrigVal = rightJS.getRawAxis(-1);
+
+		drive.setLeftRightMotorOutputs(leftTrigVal, rightTrigVal);
+	}
+
 	/**
 	 * Allows for custom setting of motor power level.
 	 *
