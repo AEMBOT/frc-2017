@@ -21,17 +21,20 @@ public class MoveTankDriveTrigCommand extends SimpleCommand {
 
 	Joystick gamepad;
 
+	public MoveTankDriveTrigCommand() {
 		super("Move With Triggers Using Tank Drive");
 		requires(driveTrain);
+		
 
-		this.leftStick = leftStick;
-		this.rightStick = rightStick;
+		
 	}
-	
+	@Override
+	public void initialize () {
+		gamepad = Robot.oi.getJoystick();
+	}
 	@Override
 	public void execute () {
-		driveTrain.tankTrigDrive(leftStick, rightStick);
-		Timer.delay(0.01);
+		driveTrain.updateGamepadInput(gamepad.getRawAxis(RobotMap.GamepadLeftTriggerAxisID), gamepad.getRawAxis(RobotMap.GamepadRightTriggerAxisID));
 	}
 
 	/* There are no particular conditions in which we want the command to stop autonomously. */

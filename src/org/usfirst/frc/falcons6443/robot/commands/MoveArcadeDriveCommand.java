@@ -26,8 +26,7 @@ public class MoveArcadeDriveCommand extends SimpleCommand {
 	
 	@Override
 	public void execute () {
-		driveTrain.arcadeDrive(stick);
-		Timer.delay(0.01);
+		//driveTrain.arcadeDrive(stick);
 	}
 
 	/* There are no particular conditions in which we want the command to stop autonomously. */

@@ -5,9 +5,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.RobotDrive;
 
 import org.usfirst.frc.falcons6443.robot.RobotMap;
+import org.usfirst.frc.falcons6443.robot.commands.*;
 
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
+
 
 public class DriveTrainSystem extends Subsystem {
 
@@ -22,7 +22,7 @@ public class DriveTrainSystem extends Subsystem {
 	
 	@Override
 	public void initDefaultCommand () {
-		
+		setDefaultCommand(new MoveTankDriveJSCommand());
 	}
 	/**
 	 * Passes desired tank drive inputs to instance of RobotDrive
