@@ -1,6 +1,6 @@
 package org.usfirst.frc.falcons6443.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 import org.usfirst.frc.falcons6443.robot.RobotMap;
@@ -10,8 +10,8 @@ import org.usfirst.frc.falcons6443.robot.commands.*;
 
 public class DriveTrainSystem extends Subsystem {
 
-	Victor[] leftMotors = RobotMap.DrivetrainVictorsLeft;
-	Victor[] rightMotors = RobotMap.DrivetrainVictorsRight;
+	VictorSP[] leftMotors = RobotMap.DrivetrainVictorsLeft;
+	VictorSP[] rightMotors = RobotMap.DrivetrainVictorsRight;
 	
 
 	public DriveTrainSystem () {
@@ -39,9 +39,9 @@ public class DriveTrainSystem extends Subsystem {
 	 * @param right the power for the right motors.
 	 */
 	public void drive (double left, double right) {
-		for (Victor motor : leftMotors)
+		for (VictorSP motor : leftMotors)
 			motor.set(left);
-		for (Victor motor : rightMotors)
+		for (VictorSP motor : rightMotors)
 			motor.set(right);
 	}
 }

@@ -1,6 +1,6 @@
 package org.usfirst.frc.falcons6443.robot;
 
-import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.VictorSP;
 
 //TODO Currently the parameters for the Victor constructors are placeholders. We need the correct channel numbers for the Victors.
 
@@ -21,11 +21,11 @@ public class RobotMap {
 	public static final int GamepadPortNumber = 1;
 	
 	//NOTE: the 0th index is the rear motor for the side, the 1st index is the front motor for the side.
-	public static final Victor[] DrivetrainVictorsLeft = new Victor[] {
-		new Victor(0), new Victor(0)
+	public static final VictorSP[] DrivetrainVictorsLeft = new VictorSP[] {
+		new VictorSP(0), new VictorSP(0)
 	};
-	public static final Victor[] DrivetrainVictorsRight = new Victor[] {
-		new Victor(0), new Victor(0)
+	public static final VictorSP[] DrivetrainVictorsRight = new VictorSP[] {
+		new VictorSP(0), new VictorSP(0)
 	};
 	
 	/**
