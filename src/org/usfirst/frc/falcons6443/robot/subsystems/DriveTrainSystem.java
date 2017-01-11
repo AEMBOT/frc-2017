@@ -2,7 +2,6 @@ package org.usfirst.frc.falcons6443.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.RobotDrive;
 
 import org.usfirst.frc.falcons6443.robot.RobotMap;
 import org.usfirst.frc.falcons6443.robot.commands.*;
@@ -14,10 +13,9 @@ public class DriveTrainSystem extends Subsystem {
 	Victor[] leftMotors = RobotMap.DrivetrainVictorsLeft;
 	Victor[] rightMotors = RobotMap.DrivetrainVictorsRight;
 	
-	RobotDrive drive;
 
 	public DriveTrainSystem () {
-		drive = new RobotDrive(leftMotors[1], leftMotors[0], rightMotors[1], rightMotors[0]);
+		
 	}
 	
 	@Override
@@ -31,7 +29,7 @@ public class DriveTrainSystem extends Subsystem {
 	 * @param right right axis value.
 	 */
 	public void updateGamepadInput(double left, double right) {
-		drive.tankDrive(left, right);
+		drive(left, right);
 	}
 
 	/**
@@ -40,7 +38,7 @@ public class DriveTrainSystem extends Subsystem {
 	 * @param left the power for the left motors.
 	 * @param right the power for the right motors.
 	 */
-	public void drive (int left, int right) {
+	public void drive (double left, double right) {
 		for (Victor motor : leftMotors)
 			motor.set(left);
 		for (Victor motor : rightMotors)
