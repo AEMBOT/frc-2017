@@ -8,8 +8,8 @@ import org.usfirst.frc.falcons6443.robot.commands.*;
 
 public class DriveTrainSystem extends Subsystem {
 
-	VictorSPGroup leftMotors = new VictorSPGroup(RobotMap.DrivetrainVictorsLeft);
-	VictorSPGroup rightMotors = new VictorSPGroup(RobotMap.DrivetrainVictorsRight);
+	private VictorSPGroup leftMotors = new VictorSPGroup(RobotMap.DrivetrainVictorsLeft);
+	private VictorSPGroup rightMotors = new VictorSPGroup(RobotMap.DrivetrainVictorsRight);
 	
 
 	public DriveTrainSystem () {
