@@ -58,6 +58,11 @@ public class VictorSPGroup implements SpeedController {
 
 	}
 
+	/**
+	 * @deprecated @abstract edu.wpi.first.wpilibj.SpeedController.set(double arg0, byte arg1) is deprecated
+	 * (non-Javadoc)
+	 * @see edu.wpi.first.wpilibj.SpeedController#set(double, byte)
+	 */
 	@Override
 	@Deprecated
 	public void set(double arg0, byte arg1) {
