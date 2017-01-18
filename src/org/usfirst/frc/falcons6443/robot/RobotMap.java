@@ -22,21 +22,17 @@ public class RobotMap {
 	public static final int GamepadRightTriggerAxisID = 3;
 	
 	public static final int GamepadPortNumber = 0;
-	
-	//NOTE: the 0th index is the rear motor for the side, the 1st index is the front motor for the side.
-	public static final VictorSP[] DrivetrainVictorsLeft = new VictorSP[] {
-		new VictorSP(0), new VictorSP(0)
-	};
-	public static final VictorSP[] DrivetrainVictorsRight = new VictorSP[] {
-		new VictorSP(0), new VictorSP(0)
-	};
+
+	public static final int FrontRightVictor = 0;
+	public static final int FrontLeftVictor = 0;
+	public static final int BackRightVictor = 0;
+	public static final int BackLeftVictor = 0;
 	
 	/**
 	 * Checks RobotMap for out-of-bounds values.
 	 * 
 	 * @return whether RobotMap contains only valid ( < 0 ) values
 	 */
-	
 	@SuppressWarnings("unused")
 	public static boolean isOK() {
 		
