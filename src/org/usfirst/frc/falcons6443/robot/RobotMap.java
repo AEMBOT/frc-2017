@@ -11,17 +11,6 @@ import edu.wpi.first.wpilibj.VictorSP;
  * floating around.
  */
 public class RobotMap {
-	
-	public static final int GamepadLeftStickAxisXID = 0;
-	public static final int GamepadLeftStickAxisYID = 1;
-	
-	public static final int GamepadRightStickAxisXID = 4;
-	public static final int GamepadRightStickAxisYID = 5;
-	
-	public static final int GamepadLeftTriggerAxisID = 2;
-	public static final int GamepadRightTriggerAxisID = 3;
-	
-	public static final int GamepadPortNumber = 0;
 
 	public static final int FrontRightVictor = 0;
 	public static final int FrontLeftVictor = 0;
