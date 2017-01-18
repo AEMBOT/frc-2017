@@ -13,15 +13,12 @@ public class DriveTrainSystem extends Subsystem {
 	private VictorSPGroup rightMotors = new VictorSPGroup(new VictorSP(RobotMap.FrontRightVictor),
 							      new VictorSP(RobotMap.BackRightVictor));
 	
-
-	public DriveTrainSystem () {
-		
-	}
 	
 	@Override
 	public void initDefaultCommand () {
 		setDefaultCommand(new TankDriveWithJoysticks());
 	}
+
 	/**
 	 * Passes desired tank drive inputs to instance of RobotDrive
 	 * 
