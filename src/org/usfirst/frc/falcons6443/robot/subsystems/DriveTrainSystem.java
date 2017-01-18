@@ -3,7 +3,7 @@ package org.usfirst.frc.falcons6443.robot.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 import org.usfirst.frc.falcons6443.robot.RobotMap;
-import org.usfirst.frc.falcons6443.robot.VictorSPGroup;
+import org.usfirst.frc.falcons6443.robot.hardware.VictorSPGroup;
 import org.usfirst.frc.falcons6443.robot.commands.*;
 
 public class DriveTrainSystem extends Subsystem {
