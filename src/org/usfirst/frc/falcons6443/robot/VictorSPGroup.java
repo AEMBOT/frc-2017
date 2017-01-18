@@ -17,6 +17,10 @@ public class VictorSPGroup implements SpeedController {
 	public VictorSPGroup(VictorSP[] controllers) {
 		this.controllers = controllers;
 	}
+
+	public VictorSPGroup(VictorSP one, VictorSP two) {
+		controllers = {one, two};
+	}
 	
 	@Override
 	public void pidWrite(double arg0) {
