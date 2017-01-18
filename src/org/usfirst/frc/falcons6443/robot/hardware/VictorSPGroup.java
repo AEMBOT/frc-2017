@@ -1,4 +1,4 @@
-package org.usfirst.frc.falcons6443.robot;
+package org.usfirst.frc.falcons6443.robot.hardware;
 
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.VictorSP;
