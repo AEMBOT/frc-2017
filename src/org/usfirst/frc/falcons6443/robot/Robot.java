@@ -75,7 +75,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopInit () {
 		if (autonomy != null) autonomy.cancel();
-		new ArcadeDrive(oi.getGamepad()).start();
 	}
 
 	/*
