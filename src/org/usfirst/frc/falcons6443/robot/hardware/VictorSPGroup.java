@@ -18,8 +18,8 @@ public class VictorSPGroup implements SpeedController {
 		this.controllers = controllers;
 	}
 
-	public VictorSPGroup(VictorSP one, VictorSP two) {
-		controllers = {one, two};
+	public VictorSPGroup(VictorSP front, VictorSP back) {
+		controllers = {front, back};
 	}
 	
 	@Override
