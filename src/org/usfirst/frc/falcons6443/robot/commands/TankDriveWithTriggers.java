@@ -2,6 +2,7 @@ package org.usfirst.frc.falcons6443.robot.commands;
 
 import org.usfirst.frc.falcons6443.robot.Robot;
 import org.usfirst.frc.falcons6443.robot.RobotMap;
+import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
@@ -15,11 +16,11 @@ import edu.wpi.first.wpilibj.Timer;
  * This could be one of the joysticks on an XBox-like controller, or it could be something
  * like an arcade flight stick.
  *
- * @author Christopher Medlin
+ * @author Christopher Medlin, Patrick Higgins
  */
 public class TankDriveWithTriggers extends SimpleCommand {
 
-	Joystick gamepad;
+	private Gamepad gamepad;
 
 	public TankDriveWithTriggers() {
 		super("Move With Triggers Using Tank Drive");
@@ -30,11 +31,11 @@ public class TankDriveWithTriggers extends SimpleCommand {
 	}
 	@Override
 	public void initialize () {
-		gamepad = Robot.oi.getJoystick();
+		gamepad = Robot.oi.getGamepad();
 	}
 	@Override
 	public void execute () {
-		driveTrain.updateGamepadInput(gamepad.getRawAxis(RobotMap.GamepadLeftTriggerAxisID), gamepad.getRawAxis(RobotMap.GamepadRightTriggerAxisID));
+		driveTrain.updateGamepadInput(gamepad.leftTrigger(), gamepad.rightTrigger());
 	}
 
 	/* There are no particular conditions in which we want the command to stop autonomously. */

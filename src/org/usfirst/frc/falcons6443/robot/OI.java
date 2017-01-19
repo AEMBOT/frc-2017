@@ -2,6 +2,8 @@ package org.usfirst.frc.falcons6443.robot;
 
 import java.util.HashMap;
 
+import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
+
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -15,24 +17,15 @@ import edu.wpi.first.wpilibj.GenericHID;
  * @author Christopher Medlin
  */
 public class OI {
-
-	private final int GAMEPAD_LEFT_STICK_AXIS_X_ID = 0;
-	private final int GAMEPAD_LEFT_STICK_AXIS_Y_ID = 1;
-	
-	private final int GAMEPAD_RIGHT_STICK_AXIS_X_ID = 4;
-	private final int GAMEPAD_RIGHT_STICK_AXIS_Y_ID = 5;
-	
-	private final int GAMEPAD_LEFT_TRIGGER_AXIS_ID = 2;
-	private final int GAMEPAD_RIGHT_TRIGGER_AXIS_ID = 3;
 	
 	private final int GAMEPAD_PORT_NUMBER = 0;
 
-	private Joystick joystick;
+	private Gamepad gamepad;
      	
 	private HashMap<String, Button> buttons; 
 	
 	public OI () {
-		joystick = new Joystick(GAMEPAD_PORT_NUMBER);
+		gamepad = new Gamepad(new Joystick(GAMEPAD_PORT_NUMBER));
 		buttons = new HashMap<String, Button>(4);
 	}	
 	
@@ -41,8 +34,8 @@ public class OI {
 	 *
 	 * @return the Joystick associated with this OI object.
 	 */
-	public Joystick getJoystick () {
-		return joystick;
+	public Gamepad getGamepad () {
+		return gamepad;
 	}
 	
 	/**

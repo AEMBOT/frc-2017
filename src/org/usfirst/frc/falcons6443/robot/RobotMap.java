@@ -25,11 +25,7 @@ public class RobotMap {
 	@SuppressWarnings("unused")
 	public static boolean isOK() {
 		
-		if (GamepadLeftStickAxisID < 0 || GamepadRightStickAxisID < 0 || GamepadLeftTriggerAxisID < 0 || GamepadRightTriggerAxisID < 0) {
-			return false;
-		}
-		
-			return true;
-			
+		//fix later
+		return true;
 	}
 }

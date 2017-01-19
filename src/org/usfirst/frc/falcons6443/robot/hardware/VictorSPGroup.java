@@ -19,7 +19,7 @@ public class VictorSPGroup implements SpeedController {
 	}
 
 	public VictorSPGroup(VictorSP front, VictorSP back) {
-		controllers = {front, back};
+		controllers = new VictorSP[]{front, back};
 	}
 	
 	@Override
