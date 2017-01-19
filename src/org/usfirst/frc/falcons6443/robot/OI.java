@@ -16,16 +16,16 @@ import edu.wpi.first.wpilibj.GenericHID;
  */
 public class OI {
 
-	private static final int GAMEPAD_LEFT_STICK_AXIS_X_ID = 0;
-	private static final int GAMEPAD_LEFT_STICK_AXIS_Y_ID = 1;
+	private final int GAMEPAD_LEFT_STICK_AXIS_X_ID = 0;
+	private final int GAMEPAD_LEFT_STICK_AXIS_Y_ID = 1;
 	
-	private static final int GAMEPAD_RIGHT_STICK_AXIS_X_ID = 4;
-	private static final int GAMEPAD_RIGHT_STICK_AXIS_Y_ID = 5;
+	private final int GAMEPAD_RIGHT_STICK_AXIS_X_ID = 4;
+	private final int GAMEPAD_RIGHT_STICK_AXIS_Y_ID = 5;
 	
-	private static final int GAMEPAD_LEFT_TRIGGER_AXIS_ID = 2;
-	private static final int GAMEPAD_RIGHT_TRIGGER_AXIS_ID = 3;
+	private final int GAMEPAD_LEFT_TRIGGER_AXIS_ID = 2;
+	private final int GAMEPAD_RIGHT_TRIGGER_AXIS_ID = 3;
 	
-	private static final int GAMEPAD_PORT_NUMBER = 0;
+	private final int GAMEPAD_PORT_NUMBER = 0;
 
 	private Joystick joystick;
      	
