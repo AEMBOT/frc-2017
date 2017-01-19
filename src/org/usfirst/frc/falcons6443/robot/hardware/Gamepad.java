@@ -23,26 +23,48 @@ public class Gamepad {
 		return this.gamepad;
 	}
 	
+	/**
+	 * @return The value of the X axis of the left stick.
+	 */
+	
 	public double leftStickX() {
 		return gamepad.getRawAxis(0);
 	}
+	
+	/**
+	 * @return The value of the Y axis of the left stick.
+	 */
 	
 	public double leftStickY() {
 		return gamepad.getRawAxis(1);
 	}
 	
+	/**
+	 * @return The value of the X axis of the right stick.
+	 */
+	
 	public double rightStickX() {
 		return gamepad.getRawAxis(4);
 	}
+	
+	/**
+	 * @return The value of the Y axis of the right stick.
+	 */
 	
 	public double rightStickY() {
 		return gamepad.getRawAxis(5);
 	}
 	
+	/**
+	 * @return The value of the axis for the left trigger.
+	 */
 	public double leftTrigger() {
 		return gamepad.getRawAxis(2);
 	}
 	
+	/**
+	 * @return The value of the axis for the right trigger.
+	 */
 	public double rightTrigger() {
 		return gamepad.getRawAxis(3);
 	}
