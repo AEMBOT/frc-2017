@@ -12,13 +12,16 @@ import edu.wpi.first.wpilibj.VictorSP;
  */
 public class RobotMap {
 	
-	public static final int GamepadLeftStickAxisID = -1;
-	public static final int GamepadRightStickAxisID = -1;
+	public static final int GamepadLeftStickAxisXID = 0;
+	public static final int GamepadLeftStickAxisYID = 1;
 	
-	public static final int GamepadLeftTriggerAxisID = -1;
-	public static final int GamepadRightTriggerAxisID = -1;
+	public static final int GamepadRightStickAxisXID = 4;
+	public static final int GamepadRightStickAxisYID = 5;
 	
-	public static final int GamepadPortNumber = 1;
+	public static final int GamepadLeftTriggerAxisID = 2;
+	public static final int GamepadRightTriggerAxisID = 3;
+	
+	public static final int GamepadPortNumber = 0;
 	
 	//NOTE: the 0th index is the rear motor for the side, the 1st index is the front motor for the side.
 	public static final VictorSP[] DrivetrainVictorsLeft = new VictorSP[] {
