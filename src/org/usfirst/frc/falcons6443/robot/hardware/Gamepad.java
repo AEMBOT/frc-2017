@@ -3,10 +3,9 @@ package org.usfirst.frc.falcons6443.robot.hardware;
 import edu.wpi.first.wpilibj.Joystick;
 
 /**
+ * Wrapper for an Xbox 360 Gamepad. Provides clearer interface with button and axis inputs.
  * 
  * @author Patrick Higgins
- *
- * Wrapper for an Xbox 360 Gamepad. Provides clearer interface with button and axis inputs.
  */
 
 public class Gamepad {
