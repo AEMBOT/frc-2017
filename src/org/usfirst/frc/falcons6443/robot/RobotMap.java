@@ -13,10 +13,10 @@ import edu.wpi.first.wpilibj.VictorSP;
 public class RobotMap {
 
 	public static final int FrontRightVictor = 0;
-	public static final int FrontLeftVictor = 0;
-	public static final int BackRightVictor = 0;
-	public static final int BackLeftVictor = 0;
-	
+	public static final int FrontLeftVictor = 3;
+	public static final int BackRightVictor = 1;
+	public static final int BackLeftVictor = 2;
+
 	/**
 	 * Checks RobotMap for out-of-bounds values.
 	 * 
