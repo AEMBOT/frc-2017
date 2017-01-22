@@ -12,6 +12,8 @@ public class DriveTrainSystem extends Subsystem {
 	private VictorSPGroup leftMotors;
 	private VictorSPGroup rightMotors;
 	
+	private boolean reversed;
+	
 	public DriveTrainSystem() {
 		VictorSP frontLeft = new VictorSP(RobotMap.FrontLeftVictor);
 		VictorSP backLeft = new VictorSP(RobotMap.BackLeftVictor);
@@ -21,6 +23,8 @@ public class DriveTrainSystem extends Subsystem {
 		leftMotors = new VictorSPGroup(frontLeft, backLeft);
 		
 		rightMotors = new VictorSPGroup(frontRight, backRight);
+		
+		reversed = false;
 	}
 	
 	@Override
@@ -47,5 +51,19 @@ public class DriveTrainSystem extends Subsystem {
 	public void tankDrive (double left, double right) {
 		leftMotors.set(left);
 		rightMotors.set(right);
+	}
+	
+	public void reverse() {
+		leftMotors.stopMotor();
+		rightMotors.stopMotor();
+		
+		leftMotors.toggleInverted();
+		rightMotors.toggleInverted();
+		
+		reversed = !reversed;
+	}
+	
+	public boolean isReversed() {
+		return reversed;
 	}
 }

@@ -79,5 +79,12 @@ public class VictorSPGroup implements SpeedController {
 		}
 
 	}
+	
+	public void toggleInverted() {
+		for (int i = 0; i < controllers.length; i++) {
+			VictorSP controller = controllers[i];
+			controller.setInverted(!controller.getInverted());
+		}
+	}
 
 }

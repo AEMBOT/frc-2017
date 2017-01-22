@@ -21,6 +21,8 @@ import edu.wpi.first.wpilibj.Timer;
 public class TankDriveWithTriggers extends SimpleCommand {
 
 	private Gamepad gamepad;
+	
+	private boolean canReverse;
 
 	public TankDriveWithTriggers() {
 		super("Move With Triggers Using Tank Drive");
@@ -32,9 +34,22 @@ public class TankDriveWithTriggers extends SimpleCommand {
 	@Override
 	public void initialize () {
 		gamepad = Robot.oi.getGamepad();
+		canReverse = true;
 	}
 	@Override
 	public void execute () {
+		
+		//if the reverse key is depressed and has been released since the last reverse
+		if (gamepad.rightBumper() && canReverse) {
+			driveTrain.reverse();
+			canReverse = false;
+		}
+		
+		//if the reverse key is released, re-enable the option to reverse
+		else if (!gamepad.rightBumper() && !canReverse) {
+			canReverse = true;
+		}
+		
 		driveTrain.updateGamepadInput(gamepad.leftTrigger(), gamepad.rightTrigger());
 	}
 
