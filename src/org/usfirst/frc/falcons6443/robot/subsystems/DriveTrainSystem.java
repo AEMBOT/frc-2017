@@ -9,11 +9,19 @@ import org.usfirst.frc.falcons6443.robot.commands.*;
 
 public class DriveTrainSystem extends Subsystem {
 
-	private VictorSPGroup leftMotors = new VictorSPGroup(new VictorSP(RobotMap.FrontLeftVictor),
-							     new VictorSP(RobotMap.BackLeftVictor));
-	private VictorSPGroup rightMotors = new VictorSPGroup(new VictorSP(RobotMap.FrontRightVictor),
-							      new VictorSP(RobotMap.BackRightVictor));
+	private VictorSPGroup leftMotors;
+	private VictorSPGroup rightMotors;
 	
+	public DriveTrainSystem() {
+		VictorSP frontLeft = new VictorSP(RobotMap.FrontLeftVictor);
+		VictorSP backLeft = new VictorSP(RobotMap.BackLeftVictor);
+		VictorSP frontRight = new VictorSP(RobotMap.FrontRightVictor);
+		VictorSP backRight = new VictorSP(RobotMap.BackRightVictor);
+		
+		leftMotors = new VictorSPGroup(frontLeft, backLeft);
+		
+		rightMotors = new VictorSPGroup(frontRight, backRight);
+	}
 	
 	@Override
 	public void initDefaultCommand () {
