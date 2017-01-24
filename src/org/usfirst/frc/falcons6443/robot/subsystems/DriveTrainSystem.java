@@ -8,7 +8,7 @@ import org.usfirst.frc.falcons6443.robot.hardware.VictorSPGroup;
 import org.usfirst.frc.falcons6443.robot.commands.*;
 
 public class DriveTrainSystem extends Subsystem {
-
+ 
 	private VictorSPGroup leftMotors;
 	private VictorSPGroup rightMotors;
 	
@@ -20,10 +20,13 @@ public class DriveTrainSystem extends Subsystem {
 		VictorSP frontRight = new VictorSP(RobotMap.FrontRightVictor);
 		VictorSP backRight = new VictorSP(RobotMap.BackRightVictor);
 		
+		//invert motors here
+		  
 		leftMotors = new VictorSPGroup(frontLeft, backLeft);
 		
 		rightMotors = new VictorSPGroup(frontRight, backRight);
 		
+		leftMotors.setInverted(true);
 		reversed = false;
 	}
 	
