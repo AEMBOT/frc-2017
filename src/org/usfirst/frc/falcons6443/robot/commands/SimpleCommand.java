@@ -25,4 +25,9 @@ public abstract class SimpleCommand extends Command {
 	public void execute(){}
 	public void interrupted(){}
 	
+	protected double adjustedInput(double input) {
+		// multiple input by absolute value of input to maintain sign when squaring, important for axes
+		return input * Math.abs(input);
+	}
+	
 }
