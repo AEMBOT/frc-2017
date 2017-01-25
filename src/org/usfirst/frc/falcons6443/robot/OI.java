@@ -6,7 +6,6 @@ import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.GenericHID;
 
 //TODO Currently the port for the joystick is a placeholder, so we should change that when we know what the port is.
 

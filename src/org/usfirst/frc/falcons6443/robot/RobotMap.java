@@ -1,7 +1,5 @@
 package org.usfirst.frc.falcons6443.robot;
 
-import edu.wpi.first.wpilibj.VictorSP;
-
 //TODO Currently the parameters for the Victor constructors are placeholders. We need the correct channel numbers for the Victors.
 
 /**

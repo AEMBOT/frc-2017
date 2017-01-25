@@ -1,11 +1,7 @@
 package org.usfirst.frc.falcons6443.robot.commands;
 
 import org.usfirst.frc.falcons6443.robot.Robot;
-import org.usfirst.frc.falcons6443.robot.RobotMap;
 import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
-
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Timer;
 
 /**
  * This command allows the driver to control the robot with two triggers (located on the back of a gamepad). Both
