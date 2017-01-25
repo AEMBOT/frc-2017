@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.Timer;
  *
  * @author Shivashriganesh Mahato, Patrick Higgins
  */
+@Deprecated
 public class TankDriveWithJoysticks extends SimpleCommand {
 
 	Gamepad gamepad;
