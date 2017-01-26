@@ -8,7 +8,9 @@ import org.usfirst.frc.falcons6443.robot.hardware.VictorSPGroup;
 import org.usfirst.frc.falcons6443.robot.commands.*;
 
 public class DriveTrainSystem extends Subsystem {
- 
+	
+	public static final double MotorPowerModifier = .75; //multiplier for max motor power
+	
 	private VictorSPGroup leftMotors;
 	private VictorSPGroup rightMotors;
 	
@@ -52,8 +54,8 @@ public class DriveTrainSystem extends Subsystem {
 	 * @param right the power for the right motors.
 	 */
 	public void tankDrive (double left, double right) {
-		leftMotors.set(left);
-		rightMotors.set(right);
+		leftMotors.set(left * MotorPowerModifier);
+		rightMotors.set(right * MotorPowerModifier);
 	}
 	
 	public void reverse() {
