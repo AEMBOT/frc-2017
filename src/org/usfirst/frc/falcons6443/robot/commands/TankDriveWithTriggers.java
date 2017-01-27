@@ -35,6 +35,13 @@ public class TankDriveWithTriggers extends SimpleCommand {
 	@Override
 	public void execute () {
 		
+		double leftInput = gamepad.leftTrigger();
+		double rightInput = gamepad.rightTrigger();
+		
+		if (gamepad.leftBumper()) {
+			rightInput = leftInput;
+		}
+		
 		//if the reverse key is depressed and has been released since the last reverse
 		if (gamepad.rightBumper() && canReverse) {
 			driveTrain.reverse();
@@ -45,10 +52,6 @@ public class TankDriveWithTriggers extends SimpleCommand {
 		else if (!gamepad.rightBumper() && !canReverse) {
 			canReverse = true;
 		}
-		
-		double leftInput = gamepad.leftTrigger();
-		double rightInput = gamepad.rightTrigger();
-		
 		
 		driveTrain.updateGamepadInput(adjustedInput(leftInput), adjustedInput(rightInput));
 	}
