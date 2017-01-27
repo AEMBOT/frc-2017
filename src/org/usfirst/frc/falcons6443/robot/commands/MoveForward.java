@@ -1,10 +1,5 @@
 package org.usfirst.frc.falcons6443.robot.commands;
 
-import org.usfirst.frc.falcons6443.robot.Robot;
-import org.usfirst.frc.falcons6443.robot.subsystems.DriveTrainSystem;
-
-import edu.wpi.first.wpilibj.command.Command;
-
 
 /**
  * Command that tells robot to move forward for 3 seconds.
@@ -28,7 +23,7 @@ public class MoveForward extends SimpleCommand {
 	@Override
 	public void initialize () {
 		//get the robot moving forward
-		driveTrain.drive(1, 1);
+		driveTrain.tankDrive(1, 1);
 		initTime = System.currentTimeMillis();
 	}
 	

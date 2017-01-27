@@ -2,9 +2,10 @@ package org.usfirst.frc.falcons6443.robot;
 
 import java.util.HashMap;
 
+import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
+
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.GenericHID;
 
 //TODO Currently the port for the joystick is a placeholder, so we should change that when we know what the port is.
 
@@ -15,12 +16,15 @@ import edu.wpi.first.wpilibj.GenericHID;
  * @author Christopher Medlin
  */
 public class OI {
-	private Joystick joystick;
+	
+	private final int GAMEPAD_PORT_NUMBER = 0;
+
+	private Gamepad gamepad;
      	
 	private HashMap<String, Button> buttons; 
 	
 	public OI () {
-		joystick = new Joystick(RobotMap.GamepadPortNumber);
+		gamepad = new Gamepad(new Joystick(GAMEPAD_PORT_NUMBER));
 		buttons = new HashMap<String, Button>(4);
 	}	
 	
@@ -29,8 +33,8 @@ public class OI {
 	 *
 	 * @return the Joystick associated with this OI object.
 	 */
-	public Joystick getJoystick () {
-		return joystick;
+	public Gamepad getGamepad () {
+		return gamepad;
 	}
 	
 	/**

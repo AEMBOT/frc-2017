@@ -9,10 +9,15 @@
 # Vim swap files
 *.swp
 
+tags
+
 # generated files
 dist/
 bin/
 gen/
+
+# documentation
+doc/
 
 # Local configuration file (sdk path, etc)
 local.properties
@@ -53,3 +58,4 @@ crashlytics-build.properties
 fabric.properties
 
 frc-team6443.iml
+.classpath

@@ -1,10 +1,7 @@
 package org.usfirst.frc.falcons6443.robot.commands;
 
 import org.usfirst.frc.falcons6443.robot.Robot;
-import org.usfirst.frc.falcons6443.robot.RobotMap;
-
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Timer;
+import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
 
 /**
  * This command allows the driver to control the robot with two triggers (located on the back of a gamepad). Both
@@ -15,11 +12,13 @@ import edu.wpi.first.wpilibj.Timer;
  * This could be one of the joysticks on an XBox-like controller, or it could be something
  * like an arcade flight stick.
  *
- * @author Christopher Medlin
+ * @author Christopher Medlin, Patrick Higgins
  */
 public class TankDriveWithTriggers extends SimpleCommand {
 
-	Joystick gamepad;
+	private Gamepad gamepad;
+	
+	private boolean canReverse;
 
 	public TankDriveWithTriggers() {
 		super("Move With Triggers Using Tank Drive");
@@ -30,11 +29,45 @@ public class TankDriveWithTriggers extends SimpleCommand {
 	}
 	@Override
 	public void initialize () {
-		gamepad = Robot.oi.getJoystick();
+		gamepad = Robot.oi.getGamepad();
+		canReverse = true;
 	}
 	@Override
 	public void execute () {
-		driveTrain.updateGamepadInput(gamepad.getRawAxis(RobotMap.GamepadLeftTriggerAxisID), gamepad.getRawAxis(RobotMap.GamepadRightTriggerAxisID));
+		
+		double leftInput = gamepad.leftTrigger();
+		double rightInput = gamepad.rightTrigger();
+		
+		if (gamepad.leftBumper()) {
+			rightInput /= 2;
+			leftInput /= 2;
+		}
+		
+		//if the reverse key is depressed and has been released since the last reverse
+		if (gamepad.rightBumper() && canReverse) {
+			driveTrain.reverse();
+			canReverse = false;
+		}
+		
+		//if the reverse key is released, re-enable the option to reverse
+		else if (!gamepad.rightBumper() && !canReverse) {
+			canReverse = true;
+		}
+		
+		if (gamepad.leftStickX() != 0) {
+			
+			if (gamepad.leftStickX() < 0) {
+				driveTrain.spinLeft(adjustedInput(Math.abs(gamepad.leftStickX())));
+			}
+			
+			else if (gamepad.leftStickX() > 0) {
+				driveTrain.spinRight(adjustedInput(Math.abs(gamepad.leftStickX())));
+			}
+		}
+		
+		else {
+			driveTrain.updateGamepadInput(adjustedInput(leftInput), adjustedInput(rightInput));
+		}
 	}
 
 	/* There are no particular conditions in which we want the command to stop autonomously. */

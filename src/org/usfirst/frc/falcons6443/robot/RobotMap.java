@@ -1,7 +1,5 @@
 package org.usfirst.frc.falcons6443.robot;
 
-import edu.wpi.first.wpilibj.Victor;
-
 //TODO Currently the parameters for the Victor constructors are placeholders. We need the correct channel numbers for the Victors.
 
 /**
@@ -11,37 +9,21 @@ import edu.wpi.first.wpilibj.Victor;
  * floating around.
  */
 public class RobotMap {
-	
-	public static final int GamepadLeftStickAxisID = -1;
-	public static final int GamepadRightStickAxisID = -1;
-	
-	public static final int GamepadLeftTriggerAxisID = -1;
-	public static final int GamepadRightTriggerAxisID = -1;
-	
-	public static final int GamepadPortNumber = 1;
-	
-	//NOTE: the 0th index is the rear motor for the side, the 1st index is the front motor for the side.
-	public static final Victor[] DrivetrainVictorsLeft = new Victor[] {
-		new Victor(0), new Victor(0)
-	};
-	public static final Victor[] DrivetrainVictorsRight = new Victor[] {
-		new Victor(0), new Victor(0)
-	};
-	
+
+	public static final int FrontRightVictor = 0;
+	public static final int FrontLeftVictor = 3;
+	public static final int BackRightVictor = 1;
+	public static final int BackLeftVictor = 2;
+
 	/**
 	 * Checks RobotMap for out-of-bounds values.
 	 * 
 	 * @return whether RobotMap contains only valid ( < 0 ) values
 	 */
-	
 	@SuppressWarnings("unused")
 	public static boolean isOK() {
 		
-		if (GamepadLeftStickAxisID < 0 || GamepadRightStickAxisID < 0 || GamepadLeftTriggerAxisID < 0 || GamepadRightTriggerAxisID < 0) {
-			return false;
-		}
-		
-			return true;
-			
+		//fix later
+		return true;
 	}
 }

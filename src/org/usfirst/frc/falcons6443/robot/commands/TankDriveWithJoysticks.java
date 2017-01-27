@@ -1,10 +1,7 @@
 package org.usfirst.frc.falcons6443.robot.commands;
 
 import org.usfirst.frc.falcons6443.robot.Robot;
-import org.usfirst.frc.falcons6443.robot.RobotMap;
-
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Timer;
+import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
 
 /**
  * This command allows the driver to control the robot with two joysticks. Both joysticks control the motors on the side
@@ -16,9 +13,10 @@ import edu.wpi.first.wpilibj.Timer;
  *
  * @author Shivashriganesh Mahato, Patrick Higgins
  */
+@Deprecated
 public class TankDriveWithJoysticks extends SimpleCommand {
 
-	Joystick gamepad;
+	Gamepad gamepad;
 
 	public TankDriveWithJoysticks() {
 		super("Move With Joystick Using Tank Drive");
@@ -29,11 +27,11 @@ public class TankDriveWithJoysticks extends SimpleCommand {
 	}
 	@Override
 	public void initialize () {
-		gamepad = Robot.oi.getJoystick();
+		gamepad = Robot.oi.getGamepad();
 	}
 	@Override
 	public void execute () {
-		driveTrain.updateGamepadInput(gamepad.getRawAxis(RobotMap.GamepadLeftStickAxisID), gamepad.getRawAxis(RobotMap.GamepadRightStickAxisID));
+		driveTrain.updateGamepadInput(gamepad.leftStickY(), gamepad.rightStickY());
 	}
 
 	/* There are no particular conditions in which we want the command to stop autonomously. */
