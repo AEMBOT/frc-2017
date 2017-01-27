@@ -53,7 +53,20 @@ public class TankDriveWithTriggers extends SimpleCommand {
 			canReverse = true;
 		}
 		
-		driveTrain.updateGamepadInput(adjustedInput(leftInput), adjustedInput(rightInput));
+		if (gamepad.leftStickX() != 0) {
+			
+			if (gamepad.leftStickX() < 0) {
+				driveTrain.spinLeft(adjustedInput(Math.abs(gamepad.leftStickX())));
+			}
+			
+			else if (gamepad.leftStickX() > 0) {
+				driveTrain.spinRight(adjustedInput(Math.abs(gamepad.leftStickX())));
+			}
+		}
+		
+		else {
+			driveTrain.updateGamepadInput(adjustedInput(leftInput), adjustedInput(rightInput));
+		}
 	}
 
 	/* There are no particular conditions in which we want the command to stop autonomously. */

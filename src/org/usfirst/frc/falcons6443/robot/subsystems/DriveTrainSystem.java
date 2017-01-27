@@ -14,6 +14,7 @@ public class DriveTrainSystem extends Subsystem {
 	private VictorSPGroup leftMotors;
 	private VictorSPGroup rightMotors;
 	
+	private boolean isSpinning;
 	private boolean reversed;
 	
 	public DriveTrainSystem() {
@@ -28,7 +29,7 @@ public class DriveTrainSystem extends Subsystem {
 		
 		rightMotors = new VictorSPGroup(frontRight, backRight);
 		
-		//leftMotors.setInverted(true);
+		isSpinning = false;
 		reversed = false;
 	}
 	
@@ -53,9 +54,40 @@ public class DriveTrainSystem extends Subsystem {
 	 * @param left the power for the left motors.
 	 * @param right the power for the right motors.
 	 */
-	public void tankDrive (double left, double right) {
-		leftMotors.set(left * MotorPowerModifier);
-		rightMotors.set(right * MotorPowerModifier);
+	public void tankDrive(double left, double right) {
+		if (isSpinning) {
+			if (reversed) {
+				leftMotors.setInverted(true);
+				rightMotors.setInverted(true);
+			}
+			
+			else {
+				leftMotors.setInverted(false);
+				rightMotors.setInverted(false);
+			}
+			
+			isSpinning = false;
+		}
+		
+		drive(left, right);
+	}
+	
+	public void spinLeft(double speed) {
+		isSpinning = true;
+		
+		leftMotors.setInverted(true);
+		rightMotors.setInverted(false);
+		
+		drive(speed);
+	}
+	
+	public void spinRight(double speed) {
+		isSpinning = true;
+		
+		leftMotors.setInverted(false);
+		rightMotors.setInverted(true);
+		
+		drive(speed);
 	}
 	
 	public void reverse() {
@@ -70,5 +102,15 @@ public class DriveTrainSystem extends Subsystem {
 	
 	public boolean isReversed() {
 		return reversed;
+	}
+	
+	private void drive(double speed) {
+		leftMotors.set(speed * MotorPowerModifier);
+		rightMotors.set(speed * MotorPowerModifier);
+	}
+	
+	private void drive(double left, double right) {
+		leftMotors.set(left * MotorPowerModifier);
+		rightMotors.set(right * MotorPowerModifier);
 	}
 }
