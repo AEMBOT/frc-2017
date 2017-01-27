@@ -39,7 +39,8 @@ public class TankDriveWithTriggers extends SimpleCommand {
 		double rightInput = gamepad.rightTrigger();
 		
 		if (gamepad.leftBumper()) {
-			rightInput = leftInput;
+			rightInput /= 2;
+			leftInput /= 2;
 		}
 		
 		//if the reverse key is depressed and has been released since the last reverse
