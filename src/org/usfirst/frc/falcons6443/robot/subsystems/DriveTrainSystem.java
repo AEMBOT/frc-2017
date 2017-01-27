@@ -28,7 +28,7 @@ public class DriveTrainSystem extends Subsystem {
 		
 		rightMotors = new VictorSPGroup(frontRight, backRight);
 		
-		leftMotors.setInverted(true);
+		//leftMotors.setInverted(true);
 		reversed = false;
 	}
 	
