@@ -3,8 +3,6 @@ package org.usfirst.frc.falcons6443.robot.commands;
 import org.usfirst.frc.falcons6443.robot.Robot;
 import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 /**
  * This command allows the driver to control the robot with two joysticks. Both joysticks control the motors on the side
  * of the robot respective to the joystick. So the right joystick controls the motors on the right side of the robot,
@@ -18,13 +16,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class TankDriveWithJoysticks extends SimpleCommand {
 
 	Gamepad gamepad;
-	double leftInput, rightInput, fullPower;
+	
+	boolean canShift = true;
 
 	public TankDriveWithJoysticks() {
 		super("Move With Joystick Using Tank Drive");
 		requires(driveTrain);
-		
-		fullPower = 0.75d;
 	}
 	@Override
 	public void initialize () {
@@ -32,17 +29,36 @@ public class TankDriveWithJoysticks extends SimpleCommand {
 	}
 	@Override
 	public void execute () {
-		leftInput = gamepad.leftStickY() * driveTrain.MotorPowerModifier * fullPower;
-		rightInput = gamepad.rightStickY() * driveTrain.MotorPowerModifier * fullPower;
 		
-		if (gamepad.rightTrigger() > 0) {
-			fullPower = 1.0d;
-		} else {
-			fullPower = 0.75d;
+		double leftInput = gamepad.leftStickY();
+		double rightInput = gamepad.rightStickY();
+		
+		if (gamepad.rightBumper() && canShift) {
+			driveTrain.upshift();
+			canShift = false;
 		}
 		
-		SmartDashboard.putNumber("Left Input", leftInput);
-		SmartDashboard.putNumber("Right Input", rightInput);
+		else if (gamepad.leftBumper() && canShift) {
+			driveTrain.downshift();
+			canShift = false;
+		}
+		
+		else if (!gamepad.leftBumper() && !gamepad.rightBumper()) {
+			canShift = true;
+		}
+		
+		if (gamepad.leftStickButton()) {
+			rightInput = leftInput;
+		}
+		
+		else if (gamepad.rightStickButton()) {
+			leftInput = rightInput;
+		}
+		
+		if (gamepad.leftTrigger() > 0) {
+			leftInput = rightInput = 1;
+			driveTrain.shiftTo(1);
+		}
 		
 		driveTrain.updateGamepadInput(adjustedInput(leftInput), adjustedInput(rightInput));
 	}

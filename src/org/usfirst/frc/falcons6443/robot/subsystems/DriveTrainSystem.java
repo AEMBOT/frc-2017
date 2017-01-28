@@ -2,6 +2,7 @@ package org.usfirst.frc.falcons6443.robot.subsystems;
 
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.falcons6443.robot.RobotMap;
 import org.usfirst.frc.falcons6443.robot.hardware.VictorSPGroup;
@@ -17,6 +18,8 @@ public class DriveTrainSystem extends Subsystem {
 	private boolean isSpinning;
 	private boolean reversed;
 	
+	private int speedLevel;
+	
 	public DriveTrainSystem() {
 		VictorSP frontLeft = new VictorSP(RobotMap.FrontLeftVictor);
 		VictorSP backLeft = new VictorSP(RobotMap.BackLeftVictor);
@@ -31,6 +34,8 @@ public class DriveTrainSystem extends Subsystem {
 		
 		isSpinning = false;
 		reversed = false;
+		
+		speedLevel = 3; //start in lowest speed mode
 	}
 	
 	@Override
@@ -45,6 +50,10 @@ public class DriveTrainSystem extends Subsystem {
 	 * @param right right axis value.
 	 */
 	public void updateGamepadInput(double left, double right) {
+		
+		SmartDashboard.putNumber("Left Input", left);
+		SmartDashboard.putNumber("Right Input", right);
+		
 		tankDrive(left, right);
 	}
 
@@ -100,17 +109,37 @@ public class DriveTrainSystem extends Subsystem {
 		reversed = !reversed;
 	}
 	
+	public void upshift() {
+		if (speedLevel == 2 || speedLevel == 3) {
+			speedLevel--;
+		}
+	}
+	
+	public void downshift() {
+		if (speedLevel == 1 || speedLevel == 2) {
+			speedLevel++;
+		}
+	}
+	
+	public void shiftTo(int gear) {
+		speedLevel = gear;
+	}
+	
 	public boolean isReversed() {
 		return reversed;
 	}
 	
+	public int getSpeedLevel() {
+		return speedLevel;
+	}
+	
 	private void drive(double speed) {
-		leftMotors.set(speed * MotorPowerModifier);
-		rightMotors.set(speed * MotorPowerModifier);
+		leftMotors.set(speed * MotorPowerModifier / speedLevel);
+		rightMotors.set(speed * MotorPowerModifier / speedLevel);
 	}
 	
 	private void drive(double left, double right) {
-		leftMotors.set(left * MotorPowerModifier);
-		rightMotors.set(right * MotorPowerModifier);
+		leftMotors.set(left * MotorPowerModifier / speedLevel);
+		rightMotors.set(right * MotorPowerModifier / speedLevel);
 	}
 }
