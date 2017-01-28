@@ -9,11 +9,13 @@ import edu.wpi.first.wpilibj.SPI;
  *
  * @author Shivashriganesh Mahato
  */
-public class NavigationSystem {
+public class NavX {
+	
+	public static NavX instance;
     // Attitude and Heading Reference System of the NavX
     private AHRS ahrs;
 
-    public NavigationSystem() {
+    private NavX() {
         try {
             // Communicate with NavX via the MXP SPI Bus
             ahrs = new AHRS(SPI.Port.kMXP);
@@ -21,7 +23,15 @@ public class NavigationSystem {
             // TODO Implementing means of handling and displaying exceptions for this
         }
     }
-
+    public static NavX get() {
+    	
+    	if (instance == null) {
+    		instance = new NavX();
+    	}
+    	
+    	return instance;
+    }
+    
     public float[] getRawRotation() {
         return new float[] {
                 ahrs.getRawGyroX(),
