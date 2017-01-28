@@ -35,6 +35,14 @@ public class TankDriveWithTriggers extends SimpleCommand {
 	@Override
 	public void execute () {
 		
+		double leftInput = gamepad.leftTrigger();
+		double rightInput = gamepad.rightTrigger();
+		
+		if (gamepad.leftBumper()) {
+			rightInput /= 2;
+			leftInput /= 2;
+		}
+		
 		//if the reverse key is depressed and has been released since the last reverse
 		if (gamepad.rightBumper() && canReverse) {
 			driveTrain.reverse();
@@ -46,11 +54,20 @@ public class TankDriveWithTriggers extends SimpleCommand {
 			canReverse = true;
 		}
 		
-		double leftInput = gamepad.leftTrigger();
-		double rightInput = gamepad.rightTrigger();
+		if (gamepad.leftStickX() != 0) {
+			
+			if (gamepad.leftStickX() < 0) {
+				driveTrain.spinLeft(adjustedInput(Math.abs(gamepad.leftStickX())));
+			}
+			
+			else if (gamepad.leftStickX() > 0) {
+				driveTrain.spinRight(adjustedInput(Math.abs(gamepad.leftStickX())));
+			}
+		}
 		
-		
-		driveTrain.updateGamepadInput(adjustedInput(leftInput), adjustedInput(rightInput));
+		else {
+			driveTrain.updateGamepadInput(adjustedInput(leftInput), adjustedInput(rightInput));
+		}
 	}
 
 	/* There are no particular conditions in which we want the command to stop autonomously. */

@@ -9,6 +9,8 @@
 # Vim swap files
 *.swp
 
+tags
+
 # generated files
 dist/
 bin/
