@@ -21,4 +21,28 @@ public class NavigationSystem {
             // TODO Implementing means of handling and displaying exceptions for this
         }
     }
+
+    public float[] getRawRotation() {
+        return new float[] {
+                ahrs.getRawGyroX(),
+                ahrs.getRawGyroY(),
+                ahrs.getRawGyroZ()
+        };
+    }
+
+    public float[] getRawAccel() {
+        return new float[] {
+                ahrs.getRawAccelX(),
+                ahrs.getRawAccelY(),
+                ahrs.getRawAccelZ()
+        };
+    }
+
+    public float[] getRawMagnetism() {
+        return new float[] {
+                ahrs.getRawMagX(),
+                ahrs.getRawMagY(),
+                ahrs.getRawMagZ()
+        };
+    }
 }
