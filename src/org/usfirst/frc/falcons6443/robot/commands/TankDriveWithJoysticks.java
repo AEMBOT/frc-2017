@@ -13,7 +13,6 @@ import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
  *
  * @author Shivashriganesh Mahato, Patrick Higgins
  */
-@Deprecated
 public class TankDriveWithJoysticks extends SimpleCommand {
 
 	Gamepad gamepad;
