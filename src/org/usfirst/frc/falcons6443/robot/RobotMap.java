@@ -9,10 +9,10 @@ package org.usfirst.frc.falcons6443.robot;
 public class RobotMap {
 	
 	//any null constants have yet to be defined and should be defined in the future
-	public static final int FrontRightVictor = 0;
-	public static final int FrontLeftVictor = 3;
-	public static final int BackRightVictor = 1;
-	public static final int BackLeftVictor = 2;
+	public static final int FrontRightVictor = 2;
+	public static final int FrontLeftVictor = 1;
+	public static final int BackRightVictor = 3;
+	public static final int BackLeftVictor = 0;
 	
 	public static final int GearHolderSolenoid = -1;
 
