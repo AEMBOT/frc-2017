@@ -22,8 +22,7 @@ public class TankDriveWithTriggers extends SimpleCommand {
 
 	public TankDriveWithTriggers() {
 		super("Move With Triggers Using Tank Drive");
-		requires(driveTrain);
-		
+		requires(driveTrain);		
 
 		
 	}

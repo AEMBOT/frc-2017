@@ -20,7 +20,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 
 	private Command autonomy;
-	private SendableChooser chooser;
+	private SendableChooser<Command> chooser;
 	
 	/*
 	 * Called when the robot first starts.
@@ -28,7 +28,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit () {
 		oi = new OI();
-		chooser = new SendableChooser();
+		chooser = new SendableChooser<Command>();
 		chooser.addDefault("Move Forward", new MoveForward());
 		SmartDashboard.putData("Auto", chooser);
 		

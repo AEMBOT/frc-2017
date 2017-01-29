@@ -76,6 +76,14 @@ public class Gamepad {
 		return gamepad.getRawButton(6);
 	}
 	
+	public boolean leftStickButton() {
+		return gamepad.getRawButton(9);
+	}
+	
+	public boolean rightStickButton() {
+		return gamepad.getRawButton(10);
+	}
+	
 	public boolean A() {
 		return gamepad.getRawButton(1);
 	}
