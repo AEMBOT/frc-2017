@@ -50,10 +50,6 @@ public class DriveTrainSystem extends Subsystem {
 	 * @param right right axis value.
 	 */
 	public void updateGamepadInput(double left, double right) {
-		
-		SmartDashboard.putNumber("Left Input", left);
-		SmartDashboard.putNumber("Right Input", right);
-		
 		tankDrive(left, right);
 	}
 
@@ -141,5 +137,10 @@ public class DriveTrainSystem extends Subsystem {
 	private void drive(double left, double right) {
 		leftMotors.set(left * MotorPowerModifier / speedLevel);
 		rightMotors.set(right * MotorPowerModifier / speedLevel);
+		
+		SmartDashboard.putNumber("Speed Level", speedLevel);
+		SmartDashboard.putNumber("Left Input", left * MotorPowerModifier / speedLevel);
+		SmartDashboard.putNumber("Right Input", right * MotorPowerModifier / speedLevel);
 	}
+	
 }

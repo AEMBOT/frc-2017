@@ -3,6 +3,8 @@ package org.usfirst.frc.falcons6443.robot.commands;
 import org.usfirst.frc.falcons6443.robot.Robot;
 import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * This command allows the driver to control the robot with two joysticks. Both joysticks control the motors on the side
  * of the robot respective to the joystick. So the right joystick controls the motors on the right side of the robot,
@@ -56,8 +58,9 @@ public class TankDriveWithJoysticks extends SimpleCommand {
 		}
 		
 		if (gamepad.leftTrigger() > 0) {
-			leftInput = rightInput = 1;
-			driveTrain.shiftTo(1);
+			double average = (leftInput + rightInput) / 2;
+			leftInput = average;
+			rightInput = average;
 		}
 		
 		driveTrain.updateGamepadInput(adjustedInput(leftInput), adjustedInput(rightInput));
