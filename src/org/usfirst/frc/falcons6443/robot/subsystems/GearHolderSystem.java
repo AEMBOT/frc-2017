@@ -15,7 +15,7 @@ public class GearHolderSystem extends Subsystem {
 	}
 
 	public void initDefaultCommand () {
-		setDefaultCommand(new ReleaseGearCommand);
+		// setDefaultCommand(new ReleaseGearCommand);
 	}
 	
 	public boolean isOpen () {

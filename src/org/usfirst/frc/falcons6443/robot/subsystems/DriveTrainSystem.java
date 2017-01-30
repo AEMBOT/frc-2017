@@ -2,6 +2,7 @@ package org.usfirst.frc.falcons6443.robot.subsystems;
 
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.falcons6443.robot.RobotMap;
 import org.usfirst.frc.falcons6443.robot.hardware.VictorSPGroup;
@@ -14,7 +15,10 @@ public class DriveTrainSystem extends Subsystem {
 	private VictorSPGroup leftMotors;
 	private VictorSPGroup rightMotors;
 	
+	private boolean isSpinning;
 	private boolean reversed;
+	
+	private int speedLevel;
 	
 	public DriveTrainSystem() {
 		VictorSP frontLeft = new VictorSP(RobotMap.FrontLeftVictor);
@@ -28,13 +32,15 @@ public class DriveTrainSystem extends Subsystem {
 		
 		rightMotors = new VictorSPGroup(frontRight, backRight);
 		
-		leftMotors.setInverted(true);
+		isSpinning = false;
 		reversed = false;
+		
+		speedLevel = 3; //start in lowest speed mode
 	}
 	
 	@Override
 	public void initDefaultCommand () {
-		setDefaultCommand(new TankDriveWithTriggers());
+		setDefaultCommand(new TankDriveWithJoysticks());
 	}
 
 	/**
@@ -53,9 +59,40 @@ public class DriveTrainSystem extends Subsystem {
 	 * @param left the power for the left motors.
 	 * @param right the power for the right motors.
 	 */
-	public void tankDrive (double left, double right) {
-		leftMotors.set(left * MotorPowerModifier);
-		rightMotors.set(right * MotorPowerModifier);
+	public void tankDrive(double left, double right) {
+		if (isSpinning) {
+			if (reversed) {
+				leftMotors.setInverted(true);
+				rightMotors.setInverted(true);
+			}
+			
+			else {
+				leftMotors.setInverted(false);
+				rightMotors.setInverted(false);
+			}
+			
+			isSpinning = false;
+		}
+		
+		drive(left, right);
+	}
+	
+	public void spinLeft(double speed) {
+		isSpinning = true;
+		
+		leftMotors.setInverted(true);
+		rightMotors.setInverted(false);
+		
+		drive(speed);
+	}
+	
+	public void spinRight(double speed) {
+		isSpinning = true;
+		
+		leftMotors.setInverted(false);
+		rightMotors.setInverted(true);
+		
+		drive(speed);
 	}
 	
 	public void reverse() {
@@ -68,7 +105,42 @@ public class DriveTrainSystem extends Subsystem {
 		reversed = !reversed;
 	}
 	
+	public void upshift() {
+		if (speedLevel == 2 || speedLevel == 3) {
+			speedLevel--;
+		}
+	}
+	
+	public void downshift() {
+		if (speedLevel == 1 || speedLevel == 2) {
+			speedLevel++;
+		}
+	}
+	
+	public void shiftTo(int gear) {
+		speedLevel = gear;
+	}
+	
 	public boolean isReversed() {
 		return reversed;
 	}
+	
+	public int getSpeedLevel() {
+		return speedLevel;
+	}
+	
+	private void drive(double speed) {
+		leftMotors.set(speed * MotorPowerModifier / speedLevel);
+		rightMotors.set(speed * MotorPowerModifier / speedLevel);
+	}
+	
+	private void drive(double left, double right) {
+		leftMotors.set(left * MotorPowerModifier / speedLevel);
+		rightMotors.set(right * MotorPowerModifier / speedLevel);
+		
+		SmartDashboard.putNumber("Speed Level", speedLevel);
+		SmartDashboard.putNumber("Left Input", left * MotorPowerModifier / speedLevel);
+		SmartDashboard.putNumber("Right Input", right * MotorPowerModifier / speedLevel);
+	}
+	
 }
