@@ -2,6 +2,9 @@ package org.usfirst.frc.falcons6443.robot.subsystems;
 
 import org.usfirst.frc.falcons6443.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.command.Subsystem;
+
 public class GearHolderSystem extends Subsystem {
 	
 	private Solenoid solenoid;
