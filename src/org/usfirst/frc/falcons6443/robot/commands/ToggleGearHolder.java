@@ -27,7 +27,7 @@ public class ToggleGearHolder extends SimpleCommand {
 	 */
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return true;
 	}
 
 }
