@@ -1,6 +1,7 @@
 package org.usfirst.frc.falcons6443.robot.subsystems;
 
 import org.usfirst.frc.falcons6443.robot.RobotMap;
+import org.usfirst.frc.falcons6443.robot.commands.ToggleGearHolder;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -15,20 +16,15 @@ public class GearHolderSystem extends Subsystem {
 	}
 
 	public void initDefaultCommand () {
-		// setDefaultCommand(new ReleaseGearCommand);
+		setDefaultCommand(new ToggleGearHolder());
 	}
 	
 	public boolean isOpen () {
 		return open;
 	}
 
-	public void open () {
-		solenoid.set(true);
-		open = true;
-	}
-
-	public void close () {
-		solenoid.set(false);
-		open = false;
+	public void set (boolean set) {
+		solenoid.set(set);
+		open = set;
 	}
 }

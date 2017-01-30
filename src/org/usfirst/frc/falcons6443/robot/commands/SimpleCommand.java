@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public abstract class SimpleCommand extends Command {
 	public DriveTrainSystem driveTrain = Robot.Drivetrain;
+	public GearHolderSystem gearHolder = Robot.GearHolder;
 
 	public SimpleCommand(String name) {super(name);}
 
