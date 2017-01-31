@@ -2,10 +2,12 @@ package org.usfirst.frc.falcons6443.robot;
 
 import java.util.HashMap;
 
+import org.usfirst.frc.falcons6443.robot.commands.ToggleGearHolder;
 import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
 
-import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 //TODO Currently the port for the joystick is a placeholder, so we should change that when we know what the port is.
 
@@ -26,6 +28,8 @@ public class OI {
 	public OI () {
 		gamepad = new Gamepad(new Joystick(GAMEPAD_PORT_NUMBER));
 		buttons = new HashMap<String, Button>(4);
+		buttons.put("A", new JoystickButton(gamepad.getJoystick(), 1)).whenPressed(new ToggleGearHolder());
+		
 	}	
 	
 	/**
