@@ -16,6 +16,7 @@ public class ToggleGearHolder extends SimpleCommand {
 	public ToggleGearHolder () {
 		super("Toggle Gear Holder");
 		requires(gearHolder);
+		System.out.println("Fired Command: ToggleGearHolder");
 	}
 	
 	public void initialize() {

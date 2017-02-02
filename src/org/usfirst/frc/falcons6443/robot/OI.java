@@ -2,6 +2,7 @@ package org.usfirst.frc.falcons6443.robot;
 
 import java.util.HashMap;
 
+import org.usfirst.frc.falcons6443.robot.commands.MoveForward;
 import org.usfirst.frc.falcons6443.robot.commands.ToggleGearHolder;
 import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
 
@@ -25,15 +26,10 @@ public class OI {
      	
 	private HashMap<String, Button> buttons; 
 	
-	private JoystickButton aButton;
 	
 	public OI () {
 		gamepad = new Gamepad(new Joystick(GAMEPAD_PORT_NUMBER));
 		buttons = new HashMap<String, Button>(4);
-		
-		aButton = new JoystickButton(gamepad.getJoystick(), 1);
-		
-		aButton.whenPressed(new ToggleGearHolder());
 	}	
 	
 	/**

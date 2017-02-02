@@ -24,6 +24,9 @@ public class TankDriveWithJoysticks extends SimpleCommand {
 	public TankDriveWithJoysticks() {
 		super("Move With Joystick Using Tank Drive");
 		requires(driveTrain);
+		requires(gearHolder);
+		
+		System.out.println("Drive active");
 	}
 	@Override
 	public void initialize () {
@@ -61,6 +64,14 @@ public class TankDriveWithJoysticks extends SimpleCommand {
 			double average = (leftInput + rightInput) / 2;
 			leftInput = average;
 			rightInput = average;
+		}
+		
+		if (gamepad.A()) {
+			gearHolder.open();
+		}
+		
+		else {
+			gearHolder.close();
 		}
 		
 		driveTrain.updateGamepadInput(adjustedInput(leftInput), adjustedInput(rightInput));
