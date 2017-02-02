@@ -11,15 +11,24 @@ import org.usfirst.frc.falcons6443.robot.Robot;
  * @author Christopher Medlin
  */
 public class ToggleGearHolder extends SimpleCommand {
-	private boolean finished;
+	private boolean startState;
 	
 	public ToggleGearHolder () {
 		super("Toggle Gear Holder");
 		requires(gearHolder);
 	}
 	
+	public void initialize() {
+		startState = gearHolder.isOpen();
+	}
 	public void execute () {
-		gearHolder.set(!gearHolder.isOpen());
+		if (startState == false) {
+			gearHolder.open();
+		}
+		
+		else {
+			gearHolder.close();
+		}
 	}
 	
 	/* (non-Javadoc)
@@ -27,7 +36,7 @@ public class ToggleGearHolder extends SimpleCommand {
 	 */
 	@Override
 	protected boolean isFinished() {
-		return true;
+		return (gearHolder.isOpen() != startState);
 	}
 
 }

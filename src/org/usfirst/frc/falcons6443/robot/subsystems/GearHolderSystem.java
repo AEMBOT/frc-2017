@@ -8,11 +8,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class GearHolderSystem extends Subsystem {
 	
-	private Solenoid solenoid;
+	private Solenoid openSolenoid, closeSolenoid;
 	private boolean open;
 
 	public GearHolderSystem() {
-		solenoid = new Solenoid(RobotMap.GearHolderSolenoid);
+		openSolenoid = new Solenoid(RobotMap.GearHolderSolenoidOpen);
+		closeSolenoid = new Solenoid(RobotMap.GearHolderSolenoidClose);
 	}
 
 	public void initDefaultCommand () {
@@ -23,8 +24,17 @@ public class GearHolderSystem extends Subsystem {
 		return open;
 	}
 
-	public void set (boolean set) {
-		solenoid.set(set);
-		open = set;
+	public void open() {
+		openSolenoid.set(true);
+		closeSolenoid.set(false);
+		
+		open = true;
+	}
+	
+	public void close() {
+		closeSolenoid.set(true);
+		openSolenoid.set(false);
+		
+		open = false;
 	}
 }
