@@ -75,6 +75,15 @@ public class Point3D {
     public Point3D add(float dx, float dy, float dz) {
         return this.set(this.x + dx, this.y + dy, this.z + dz);
     }
+    
+    /**
+     * Move this point along a vector
+     * @param vector Vector to move along with
+     * @return This point after adding values
+     */
+    public Point3D move(Vector3D vector) {
+        return this.set(this.x + vector.x, this.y + vector.y, this.z + vector.z);
+    }
 
     /**
      * Subtract from this point raw x, y, and z parameters
