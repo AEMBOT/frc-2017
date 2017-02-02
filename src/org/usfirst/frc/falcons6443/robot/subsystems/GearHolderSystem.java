@@ -1,5 +1,6 @@
 package org.usfirst.frc.falcons6443.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import org.usfirst.frc.falcons6443.robot.RobotMap;
 import org.usfirst.frc.falcons6443.robot.commands.ToggleGearHolder;
 
@@ -8,12 +9,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class GearHolderSystem extends Subsystem {
 	
-	private Solenoid openSolenoid, closeSolenoid;
+	private DoubleSolenoid solenoid;
 	private boolean open;
 
 	public GearHolderSystem() {
-		openSolenoid = new Solenoid(RobotMap.GearHolderSolenoidOpen);
-		closeSolenoid = new Solenoid(RobotMap.GearHolderSolenoidClose);
+		solenoid = new DoubleSolenoid(RobotMap.GearHolderSolenoidOpen,
+				                     RobotMap.GearHolderSolenoidClose);
 	}
 
 	public void initDefaultCommand () {
@@ -25,15 +26,13 @@ public class GearHolderSystem extends Subsystem {
 	}
 
 	public void open() {
-		openSolenoid.set(true);
-		closeSolenoid.set(false);
+		solenoid.set(DoubleSolenoid.Value.kForward);
 		
 		open = true;
 	}
 	
 	public void close() {
-		closeSolenoid.set(true);
-		openSolenoid.set(false);
+		solenoid.set(DoubleSolenoid.Value.kReverse);
 		
 		open = false;
 	}

@@ -21,6 +21,7 @@ public class ToggleGearHolder extends SimpleCommand {
 	public void initialize() {
 		startState = gearHolder.isOpen();
 	}
+
 	public void execute () {
 		if (startState == false) {
 			gearHolder.open();
