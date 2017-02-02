@@ -25,11 +25,15 @@ public class OI {
      	
 	private HashMap<String, Button> buttons; 
 	
+	private JoystickButton aButton;
+	
 	public OI () {
 		gamepad = new Gamepad(new Joystick(GAMEPAD_PORT_NUMBER));
 		buttons = new HashMap<String, Button>(4);
-		buttons.put("A", new JoystickButton(gamepad.getJoystick(), 1)).whenPressed(new ToggleGearHolder());
 		
+		aButton = new JoystickButton(gamepad.getJoystick(), 1);
+		
+		aButton.whenPressed(new ToggleGearHolder());
 	}	
 	
 	/**
