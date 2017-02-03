@@ -30,10 +30,12 @@ public class TankDriveWithTriggers extends SimpleCommand {
 	public void initialize () {
 		gamepad = Robot.oi.getGamepad();
 		canReverse = true;
+
+		smashBoard.init("Smashboard", 640, 480);
+		smashBoard.run();
 	}
 	@Override
 	public void execute () {
-		
 		double leftInput = gamepad.leftTrigger();
 		double rightInput = gamepad.rightTrigger();
 		
@@ -54,7 +56,6 @@ public class TankDriveWithTriggers extends SimpleCommand {
 		}
 		
 		if (gamepad.leftStickX() != 0) {
-			
 			if (gamepad.leftStickX() < 0) {
 				driveTrain.spinLeft(adjustedInput(Math.abs(gamepad.leftStickX())));
 			}
@@ -67,6 +68,10 @@ public class TankDriveWithTriggers extends SimpleCommand {
 		else {
 			driveTrain.updateGamepadInput(adjustedInput(leftInput), adjustedInput(rightInput));
 		}
+
+		smashBoard.putData("Left Input", (int) (leftInput * 100.0));
+		smashBoard.putData("Right Input", (int) (rightInput * 100.0));
+		smashBoard.runLoop();
 	}
 
 	/* There are no particular conditions in which we want the command to stop autonomously. */
