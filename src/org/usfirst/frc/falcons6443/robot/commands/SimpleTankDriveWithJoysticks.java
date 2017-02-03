@@ -15,24 +15,20 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  * @author Shivashriganesh Mahato, Patrick Higgins
  */
-
-@Deprecated
-public class TankDriveWithJoysticks extends SimpleCommand {
+public class SimpleTankDriveWithJoysticks extends SimpleCommand {
 
 	Gamepad gamepad;
 	
 	boolean canShift = true;
 
-	public TankDriveWithJoysticks() {
+	public SimpleTankDriveWithJoysticks() {
 		super("Move With Joystick Using Tank Drive");
 		requires(driveTrain);
-		requires(gearHolder);
-		
-		System.out.println("Drive active");
 	}
 	@Override
 	public void initialize () {
 		gamepad = Robot.oi.getGamepad();
+		driveTrain.shiftTo(1);
 	}
 	@Override
 	public void execute () {
@@ -40,19 +36,6 @@ public class TankDriveWithJoysticks extends SimpleCommand {
 		double leftInput = gamepad.leftStickY();
 		double rightInput = gamepad.rightStickY();
 		
-		if (gamepad.rightBumper() && canShift) {
-			driveTrain.upshift();
-			canShift = false;
-		}
-		
-		else if (gamepad.leftBumper() && canShift) {
-			driveTrain.downshift();
-			canShift = false;
-		}
-		
-		else if (!gamepad.leftBumper() && !gamepad.rightBumper()) {
-			canShift = true;
-		}
 		
 		if (gamepad.leftStickButton()) {
 			rightInput = leftInput;
@@ -60,20 +43,6 @@ public class TankDriveWithJoysticks extends SimpleCommand {
 		
 		else if (gamepad.rightStickButton()) {
 			leftInput = rightInput;
-		}
-		
-		if (gamepad.leftTrigger() > 0) {
-			double average = (leftInput + rightInput) / 2;
-			leftInput = average;
-			rightInput = average;
-		}
-		
-		if (gamepad.A()) {
-			gearHolder.open();
-		}
-		
-		else {
-			gearHolder.close();
 		}
 		
 		driveTrain.updateGamepadInput(adjustedInput(leftInput), adjustedInput(rightInput));
