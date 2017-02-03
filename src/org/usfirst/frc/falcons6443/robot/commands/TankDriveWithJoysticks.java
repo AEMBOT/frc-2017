@@ -15,6 +15,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  * @author Shivashriganesh Mahato, Patrick Higgins
  */
+
+@Deprecated
 public class TankDriveWithJoysticks extends SimpleCommand {
 
 	Gamepad gamepad;
