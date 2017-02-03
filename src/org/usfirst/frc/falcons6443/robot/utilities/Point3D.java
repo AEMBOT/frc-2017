@@ -1,6 +1,7 @@
 package org.usfirst.frc.falcons6443.robot.utilities;
 
 /**
+ * TODO: Rename as simply Point? (Although there is already a class named Point in java API...)
  * Expresses the features of a point in 3 dimensions. Contains data to represent x, y, and z coordinates of an object
  * @author Shivashriganesh Mahato, Ivan Kenevich
  */
@@ -92,7 +93,7 @@ public class Point3D {
      * @param dz Change in Z to subtract
      * @return This point after subtracting values
      */
-    public Point3D sub(float dx, float dy, float dz) {
+    public Point3D subtract(float dx, float dy, float dz) {
         return this.set(this.x - dx, this.y - dy, this.z - dz);
     }
 
@@ -114,5 +115,14 @@ public class Point3D {
      */
     public Point3D scale(float scalar) {
         return this.scale(scalar, scalar, scalar);
+    }
+    
+    /**
+     * Compute distance between two points
+     * @param point The point to which the distance is computed
+     * @return Distance between this and parameter
+     */
+    public float dist(Point3D point) {
+    	return (float)Math.sqrt(Math.pow(this.x - point.x, 2) + Math.pow(this.y - point.y, 2) + Math.pow(this.z - point.z, 2));
     }
 }
