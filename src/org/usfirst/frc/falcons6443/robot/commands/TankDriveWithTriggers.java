@@ -64,8 +64,17 @@ public class TankDriveWithTriggers extends SimpleCommand {
 			}
 		}
 		
+		
 		else {
 			driveTrain.updateGamepadInput(adjustedInput(leftInput), adjustedInput(rightInput));
+		}
+		
+		if (gamepad.A()) {
+			gearHolder.open();
+		}
+		
+		else {
+			gearHolder.close();
 		}
 	}
 
