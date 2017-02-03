@@ -32,6 +32,8 @@ public class DriveTrainSystem extends Subsystem {
 		
 		rightMotors = new VictorSPGroup(frontRight, backRight);
 		
+		rightMotors.setInverted(true);
+		
 		isSpinning = false;
 		reversed = false;
 		
@@ -40,7 +42,7 @@ public class DriveTrainSystem extends Subsystem {
 	
 	@Override
 	public void initDefaultCommand () {
-		setDefaultCommand(new TankDriveWithJoysticks());
+		setDefaultCommand(new TankDriveWithTriggers());
 	}
 
 	/**
