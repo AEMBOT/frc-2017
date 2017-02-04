@@ -79,6 +79,11 @@ public class DriveTrainSystem extends Subsystem {
 		drive(left, right);
 	}
 	
+	/**
+	 * spins the robot counterclockwise
+	 * @param speed
+	 */
+	
 	public void spinLeft(double speed) {
 		isSpinning = true;
 		
@@ -87,6 +92,11 @@ public class DriveTrainSystem extends Subsystem {
 		
 		drive(speed);
 	}
+	
+	/**
+	 * spins the robot clockwise
+	 * @param speed
+	 */
 	
 	public void spinRight(double speed) {
 		isSpinning = true;
@@ -97,6 +107,10 @@ public class DriveTrainSystem extends Subsystem {
 		drive(speed);
 	}
 	
+	/**
+	 * toggles the motors to go in reverse.
+	 */
+
 	public void reverse() {
 		leftMotors.stopMotor();
 		rightMotors.stopMotor();
@@ -107,11 +121,20 @@ public class DriveTrainSystem extends Subsystem {
 		reversed = !reversed;
 	}
 	
+
+	/**
+	 * locking the speed 1/2 max to 1/3 max(of default)
+	 */
+	
 	public void upshift() {
 		if (speedLevel == 2 || speedLevel == 3) {
 			speedLevel--;
 		}
 	}
+	
+	/**
+	 * locking the speed from default to 1/2 max of default
+	 */
 	
 	public void downshift() {
 		if (speedLevel == 1 || speedLevel == 2) {
@@ -119,22 +142,39 @@ public class DriveTrainSystem extends Subsystem {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param gear
+	 */
+	
 	public void shiftTo(int gear) {
 		speedLevel = gear;
 	}
+	
+	/**
+	 * when it's reversed it will return reverse
+	 * @return
+	 */
 	
 	public boolean isReversed() {
 		return reversed;
 	}
 	
+	/**
+	 * getting speedlevel information
+	 * @return
+	 */
+	
 	public int getSpeedLevel() {
 		return speedLevel;
 	}
+	
 	
 	private void drive(double speed) {
 		leftMotors.set(speed * MotorPowerModifier / speedLevel);
 		rightMotors.set(speed * MotorPowerModifier / speedLevel);
 	}
+	
 	
 	private void drive(double left, double right) {
 		leftMotors.set(left * MotorPowerModifier / speedLevel);
