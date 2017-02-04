@@ -123,7 +123,7 @@ public class DriveTrainSystem extends Subsystem {
 	
 
 	/**
-	 * locking the speed 1/2 max to 1/3 max(of default)
+	 * increase the max speed level
 	 */
 	
 	public void upshift() {
@@ -133,7 +133,7 @@ public class DriveTrainSystem extends Subsystem {
 	}
 	
 	/**
-	 * locking the speed from default to 1/2 max of default
+	 * decrease the max speed level
 	 */
 	
 	public void downshift() {
@@ -143,7 +143,7 @@ public class DriveTrainSystem extends Subsystem {
 	}
 	
 	/**
-	 * 
+	 * Shift to desired speed level
 	 * @param gear
 	 */
 	
@@ -152,8 +152,8 @@ public class DriveTrainSystem extends Subsystem {
 	}
 	
 	/**
-	 * when it's reversed it will return reverse
-	 * @return
+	 * 
+	 * @return whether the robot is reversed
 	 */
 	
 	public boolean isReversed() {
@@ -162,7 +162,7 @@ public class DriveTrainSystem extends Subsystem {
 	
 	/**
 	 * getting speedlevel information
-	 * @return
+	 * @return the current speed level of the robot
 	 */
 	
 	public int getSpeedLevel() {
