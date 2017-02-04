@@ -2,6 +2,7 @@ package org.usfirst.frc.falcons6443.robot.subsystems;
 
 import java.util.HashMap;
 
+import org.usfirst.frc.falcons6443.robot.commands.PrintYaw;
 import org.usfirst.frc.falcons6443.robot.hardware.NavX;
 import org.usfirst.frc.falcons6443.robot.hardware.UltrasonicSensor;
 
@@ -20,8 +21,12 @@ public class NavigationSystem extends Subsystem {
     }
 
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+
+        setDefaultCommand(new PrintYaw());
+    }
+
+    public float getYaw() {
+        return navx.getYaw();
     }
 }
 
