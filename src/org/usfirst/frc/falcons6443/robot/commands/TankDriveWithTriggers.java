@@ -4,13 +4,9 @@ import org.usfirst.frc.falcons6443.robot.Robot;
 import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
 
 /**
- * This command allows the driver to control the robot with two triggers (located on the back of a gamepad). Both
- * triggers control the motors on the side of the robot respective to the trigger. So the right trigger controls the
- * motors on the right side of the robot, and the left trigger controls the left motors. The power is determined by the
- *
+ * This command allows the driver to control the robot with two triggers (located on the back of a gamepad).
  * <p>
- * This could be one of the joysticks on an XBox-like controller, or it could be something
- * like an arcade flight stick.
+ * The right trigger controls the right motors, the left trigger controls the left motors.
  *
  * @author Christopher Medlin, Patrick Higgins
  */
@@ -20,13 +16,14 @@ public class TankDriveWithTriggers extends SimpleCommand {
 	
 	private boolean canReverse;
 
+	/**
+	 * Constructor for TankDriveWithTriggers.
+	 */
 	public TankDriveWithTriggers() {
 		super("Move With Triggers Using Tank Drive");
 		requires(driveTrain);
-		
-
-		
 	}
+
 	@Override
 	public void initialize () {
 		gamepad = Robot.oi.getGamepad();
@@ -65,8 +62,17 @@ public class TankDriveWithTriggers extends SimpleCommand {
 			}
 		}
 		
+		
 		else {
 			driveTrain.updateGamepadInput(adjustedInput(leftInput), adjustedInput(rightInput));
+		}
+		
+		if (gamepad.A()) {
+			gearHolder.open();
+		}
+		
+		else {
+			gearHolder.close();
 		}
 	}
 

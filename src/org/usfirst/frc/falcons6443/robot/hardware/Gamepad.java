@@ -7,17 +7,24 @@ import edu.wpi.first.wpilibj.Joystick;
  * 
  * @author Patrick Higgins
  */
-
 public class Gamepad {
 	
 	private Joystick gamepad;
-	
+
+	/**
+	 * Constructor for Gamepad.
+	 *
+	 * @param gamepad the gamepad's joystick.
+	 */
 	public Gamepad(Joystick gamepad) {
 		assert gamepad.getIsXbox();
 		this.gamepad = gamepad;
 		//ideally, make it rumble
 	}
-	
+
+	/**
+	 * @return the Gamepad's joystick in the form of a Joystick object.
+	 */
 	public Joystick getJoystick() {
 		return this.gamepad;
 	}
@@ -25,7 +32,6 @@ public class Gamepad {
 	/**
 	 * @return The value of the X axis of the left stick.
 	 */
-	
 	public double leftStickX() {
 		return gamepad.getRawAxis(0);
 	}
@@ -33,7 +39,6 @@ public class Gamepad {
 	/**
 	 * @return The value of the Y axis of the left stick.
 	 */
-	
 	public double leftStickY() {
 		return gamepad.getRawAxis(1);
 	}
@@ -41,7 +46,6 @@ public class Gamepad {
 	/**
 	 * @return The value of the X axis of the right stick.
 	 */
-	
 	public double rightStickX() {
 		return gamepad.getRawAxis(4);
 	}
@@ -49,7 +53,6 @@ public class Gamepad {
 	/**
 	 * @return The value of the Y axis of the right stick.
 	 */
-	
 	public double rightStickY() {
 		return gamepad.getRawAxis(5);
 	}
@@ -67,27 +70,59 @@ public class Gamepad {
 	public double rightTrigger() {
 		return gamepad.getRawAxis(3);
 	}
-	
+
+	/**
+	 * @return the value of the left bumper.
+	 */
 	public boolean leftBumper() {
 		return gamepad.getRawButton(5);
 	}
-	
+
+	/**
+	 * @return the value of the right bumper.
+	 */
 	public boolean rightBumper() {
 		return gamepad.getRawButton(6);
 	}
-	
+
+	/**
+	 * @return the value of the left joystick button.
+	 */
+	public boolean leftStickButton() {
+		return gamepad.getRawButton(9);
+	}
+
+	/**
+	 * @return the value of the right joystick button.
+	 */
+	public boolean rightStickButton() {
+		return gamepad.getRawButton(10);
+	}
+
+	/**
+	 * @return the value of the A button.
+	 */
 	public boolean A() {
 		return gamepad.getRawButton(1);
 	}
-	
+
+	/**
+	 * @return the value of the B button.
+	 */
 	public boolean B() {
 		return gamepad.getRawButton(2);
 	}
-	
+
+	/**
+	 * @return the value of the X button.
+	 */
 	public boolean X() {
 		return gamepad.getRawButton(3);
 	}
-	
+
+	/**
+	 * @return the value of the Y button.
+	 */
 	public boolean Y() {
 		return gamepad.getRawButton(4);
 	}

@@ -1,10 +1,9 @@
 package org.usfirst.frc.falcons6443.robot.hardware;
 
 import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.SpeedController;
 
 /**
- * SpeedControllerGroup serves as a wrapper to an array SpeedController objects, enabling 
+ * SpeedControllerGroup serves as a wrapper to an array SpeedController objects, enabling
  * easy passing of methods to a group of SpeedControllers.
  * 
  * @author Patrick Higgins
@@ -13,11 +12,22 @@ import edu.wpi.first.wpilibj.SpeedController;
 public class SpeedControllerGroup implements SpeedController {
 	
 	private SpeedController[] controllers;
-	
+
+    /**
+     * Constructor for SpeedControllerGroup.
+     *
+     * @param controllers the speed controllers in the form of an array.
+     */
 	public SpeedControllerGroup(SpeedController[] controllers) {
 		this.controllers = controllers;
 	}
 
+    /**
+     * Overloaded constructor for SpeedControllerGroup
+     *
+     * @param front the front speed controller.
+     * @param back the back speed controller.
+     */
 	public SpeedControllerGroup(SpeedController front, SpeedController back) {
 		controllers = new SpeedController[]{front, back};
 	}
@@ -79,7 +89,10 @@ public class SpeedControllerGroup implements SpeedController {
 		}
 
 	}
-	
+
+	/**
+	 * Toggles whether the speed controllers in this group are inverted.
+	 */
 	public void toggleInverted() {
 		for (int i = 0; i < controllers.length; i++) {
 			SpeedController controller = controllers[i];
