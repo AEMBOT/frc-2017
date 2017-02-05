@@ -2,7 +2,6 @@ package org.usfirst.frc.falcons6443.robot.hardware;
 
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
-import org.usfirst.frc.falcons6443.robot.utilities.Vector3;
 import org.usfirst.frc.falcons6443.robot.utilities.Vector3D;
 
 /**
