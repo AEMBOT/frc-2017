@@ -16,7 +16,7 @@ public class NavX {
     // Attitude and Heading Reference System of the NavX
     private AHRS ahrs;
 
-    private NavX() {
+    private NavX () {
         try {
             // Communicate with NavX via the MXP SPI Bus
             ahrs = new AHRS(SPI.Port.kMXP);
@@ -24,12 +24,16 @@ public class NavX {
             // TODO Implementing means of handling and displaying exceptions for this
         }
     }
-    public static NavX get() {
+    public static NavX get () {
     	if (instance == null) {
     		instance = new NavX();
     	}
     	
     	return instance;
+    }
+
+    public AHRS ahrs () {
+        return ahrs;
     }
 
     public float getYaw() {

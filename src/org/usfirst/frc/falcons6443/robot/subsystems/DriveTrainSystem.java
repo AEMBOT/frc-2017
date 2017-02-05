@@ -17,7 +17,12 @@ import org.usfirst.frc.falcons6443.robot.commands.*;
  * @author Christopher Medlin, Patrick Higgins, Shivashriganesh Mahato
  */
 public class DriveTrainSystem extends Subsystem {
-	
+
+	public static final double KP = 0.03;
+	public static final double KI = 0.00;
+	public static final double KD = 0.00;
+	public static final double KF = 0.00;
+
 	public static final double MotorPowerModifier = .75; //multiplier for max motor power
 	
 	private SpeedControllerGroup leftMotors;
