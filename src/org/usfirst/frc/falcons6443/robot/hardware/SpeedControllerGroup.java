@@ -1,31 +1,31 @@
 package org.usfirst.frc.falcons6443.robot.hardware;
 
 import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.SpeedController;
 
 /**
- * VictorSPGroup serves as a wrapper to an array VictorSP objects, enabling 
- * easy passing of methods to a group of VictorSPs.
+ * SpeedControllerGroup serves as a wrapper to an array SpeedController objects, enabling 
+ * easy passing of methods to a group of SpeedControllers.
  * 
  * @author Patrick Higgins
  */
 
-public class VictorSPGroup implements SpeedController {
+public class SpeedControllerGroup implements SpeedController {
 	
-	private VictorSP[] controllers;
+	private SpeedController[] controllers;
 	
-	public VictorSPGroup(VictorSP[] controllers) {
+	public SpeedControllerGroup(SpeedController[] controllers) {
 		this.controllers = controllers;
 	}
 
-	public VictorSPGroup(VictorSP front, VictorSP back) {
-		controllers = new VictorSP[]{front, back};
+	public SpeedControllerGroup(SpeedController front, SpeedController back) {
+		controllers = new SpeedController[]{front, back};
 	}
 	
 	@Override
 	public void pidWrite(double arg0) {
 		
-		for (VictorSP controller : controllers) {
+		for (SpeedController controller : controllers) {
 			controller.pidWrite(arg0);
 		}
 
@@ -34,7 +34,7 @@ public class VictorSPGroup implements SpeedController {
 	@Override
 	public void disable() {
 		
-		for (VictorSP controller : controllers) {
+		for (SpeedController controller : controllers) {
 			controller.disable();
 		}
 
@@ -56,7 +56,7 @@ public class VictorSPGroup implements SpeedController {
 	@Override
 	public void set(double arg0) {
 		
-		for (VictorSP controller : controllers) {
+		for (SpeedController controller : controllers) {
 			controller.set(arg0);
 		}
 
@@ -65,7 +65,7 @@ public class VictorSPGroup implements SpeedController {
 	@Override
 	public void setInverted(boolean arg0) {
 		
-		for (VictorSP controller : controllers) {
+		for (SpeedController controller : controllers) {
 			controller.setInverted(arg0);
 		}
 
@@ -74,7 +74,7 @@ public class VictorSPGroup implements SpeedController {
 	@Override
 	public void stopMotor() {
 
-		for (VictorSP controller : controllers) {
+		for (SpeedController controller : controllers) {
 			controller.stopMotor();
 		}
 
@@ -82,7 +82,7 @@ public class VictorSPGroup implements SpeedController {
 	
 	public void toggleInverted() {
 		for (int i = 0; i < controllers.length; i++) {
-			VictorSP controller = controllers[i];
+			SpeedController controller = controllers[i];
 			controller.setInverted(!controller.getInverted());
 		}
 	}

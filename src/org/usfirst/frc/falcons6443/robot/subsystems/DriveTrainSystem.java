@@ -4,15 +4,15 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 import org.usfirst.frc.falcons6443.robot.RobotMap;
-import org.usfirst.frc.falcons6443.robot.hardware.VictorSPGroup;
+import org.usfirst.frc.falcons6443.robot.hardware.SpeedControllerGroup;
 import org.usfirst.frc.falcons6443.robot.commands.*;
 
 public class DriveTrainSystem extends Subsystem {
 	
 	public static final double MotorPowerModifier = .75; //multiplier for max motor power
 	
-	private VictorSPGroup leftMotors;
-	private VictorSPGroup rightMotors;
+	private SpeedControllerGroup leftMotors;
+	private SpeedControllerGroup rightMotors;
 	
 	private boolean isSpinning;
 	private boolean reversed;
@@ -25,9 +25,9 @@ public class DriveTrainSystem extends Subsystem {
 		
 		//invert motors here
 		  
-		leftMotors = new VictorSPGroup(frontLeft, backLeft);
+		leftMotors = new SpeedControllerGroup(frontLeft, backLeft);
 		
-		rightMotors = new VictorSPGroup(frontRight, backRight);
+		rightMotors = new SpeedControllerGroup(frontRight, backRight);
 		
 		isSpinning = false;
 		reversed = false;
