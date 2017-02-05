@@ -19,15 +19,27 @@ public abstract class SimpleCommand extends Command {
 	public DriveTrainSystem driveTrain = Robot.DriveTrain;
 	public GearHolderSystem gearHolder = Robot.GearHolder;
 
+	/**
+	 * Constructor for SimpleCommand.
+	 *
+	 * @param name name of the command.
+	 */
 	public SimpleCommand(String name) {super(name);}
 
 	public void initialize(){}
 	public void end(){}
 	public void execute(){}
 	public void interrupted(){}
-	
+
+	/**
+	 * Multipies input by the absolute value of input to maintain sign when squaring.
+	 * <p>
+	 * This is important for axes.
+	 *
+	 * @param input the unadjusted input.
+	 * @return the adjusted input.
+	 */
 	protected double adjustedInput(double input) {
-		// multiple input by absolute value of input to maintain sign when squaring, important for axes
 		return input * Math.abs(input);
 	}
 	
