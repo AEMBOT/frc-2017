@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * @author Christopher Medlin, Patrick Higgins, Shivashriganesh Mahato
  */
 public class GearHolderSystem extends Subsystem {
-	
+
 	private DoubleSolenoid solenoid;
 	private boolean open;
 
@@ -25,28 +25,30 @@ public class GearHolderSystem extends Subsystem {
 	 */
 	public GearHolderSystem() {
 		solenoid = new DoubleSolenoid(RobotMap.GearHolderSolenoidOpen,
-				                     RobotMap.GearHolderSolenoidClose);
-		
+				RobotMap.GearHolderSolenoidClose);
+
 		open = false;
 	}
 
 	@Override
-	public void initDefaultCommand () {
+	public void initDefaultCommand() {
 		setDefaultCommand(new ToggleGearHolder());
 	}
 
-	
-	public boolean isOpen () {
+
+	public boolean isOpen() {
 		return open;
 	}
 
 	public void open() {
 		solenoid.set(DoubleSolenoid.Value.kForward);
-		
+
 		open = true;
 	}
-	
+
 	public void close() {
 		solenoid.set(DoubleSolenoid.Value.kReverse);
-		
+
 		open = false;
+	}
+}
