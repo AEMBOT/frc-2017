@@ -27,4 +27,9 @@
   
   <import file="${wpilib.ant.dir}/build.xml"/>
 
+  <target name="javadoc">
+    <mkdir dir="doc"/>
+    <javadoc sourcepath="src/" destdir="doc/"/>
+  </target>
+
 </project> 
