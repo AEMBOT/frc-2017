@@ -13,6 +13,9 @@ public class MoveForward extends SimpleCommand {
 	
 	long initTime;
 
+	/**
+	 * Constructor for MoveForward.
+	 */
 	public MoveForward () {
 		super("Move Forward");
 		initTime = 0;
