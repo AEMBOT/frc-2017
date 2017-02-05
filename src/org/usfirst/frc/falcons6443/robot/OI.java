@@ -21,8 +21,11 @@ public class OI {
 
 	private Gamepad gamepad;
      	
-	private HashMap<String, Button> buttons; 
-	
+	private HashMap<String, Button> buttons;
+
+	/**
+	 * Constructor for OI.
+	 */
 	public OI () {
 		gamepad = new Gamepad(new Joystick(GAMEPAD_PORT_NUMBER));
 		buttons = new HashMap<String, Button>(4);

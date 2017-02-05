@@ -13,31 +13,38 @@ import edu.wpi.first.wpilibj.VictorSP;
 public class VictorSPGroup implements SpeedController {
 	
 	private VictorSP[] controllers;
-	
+
+	/**
+	 * Constructor for VictorSPGroup.
+	 *
+	 * @param controllers the Victor speed controllers in the form of an array.
+	 */
 	public VictorSPGroup(VictorSP[] controllers) {
 		this.controllers = controllers;
 	}
 
+	/**
+	 * Overloaded constructor for VictorSPGroup.
+	 *
+	 * @param front the front Victor speed controller.
+	 * @param back the back Victor speed controller.
+	 */
 	public VictorSPGroup(VictorSP front, VictorSP back) {
 		controllers = new VictorSP[]{front, back};
 	}
 	
 	@Override
 	public void pidWrite(double arg0) {
-		
 		for (VictorSP controller : controllers) {
 			controller.pidWrite(arg0);
 		}
-
 	}
 
 	@Override
 	public void disable() {
-		
 		for (VictorSP controller : controllers) {
 			controller.disable();
 		}
-
 	}
 
 	@Override
@@ -55,31 +62,28 @@ public class VictorSPGroup implements SpeedController {
 
 	@Override
 	public void set(double arg0) {
-		
 		for (VictorSP controller : controllers) {
 			controller.set(arg0);
 		}
-
 	}
 
 	@Override
 	public void setInverted(boolean arg0) {
-		
 		for (VictorSP controller : controllers) {
 			controller.setInverted(arg0);
 		}
-
 	}
 
 	@Override
 	public void stopMotor() {
-
 		for (VictorSP controller : controllers) {
 			controller.stopMotor();
 		}
-
 	}
-	
+
+	/**
+	 * Toggles whether the speed controllers in this group are inverted.
+	 */
 	public void toggleInverted() {
 		for (int i = 0; i < controllers.length; i++) {
 			VictorSP controller = controllers[i];
