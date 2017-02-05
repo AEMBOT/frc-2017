@@ -1,7 +1,6 @@
 package org.usfirst.frc.falcons6443.robot.utilities;
 
 /**
- * TODO: Rename as simply Point? (Although there is already a class named Point in java API...)
  * Expresses the features of a point in 3 dimensions. Contains data to represent x, y, and z coordinates of an object
  *
  * @author Shivashriganesh Mahato, Ivan Kenevich

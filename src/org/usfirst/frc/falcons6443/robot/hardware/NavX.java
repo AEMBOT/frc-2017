@@ -5,8 +5,7 @@ import edu.wpi.first.wpilibj.SPI;
 import org.usfirst.frc.falcons6443.robot.utilities.Vector3D;
 
 /**
- * Navigation system of the robot. Uses NavX's AHRS to read data of location and rotation of the robot relative to the
- * field.
+ * Singleton wrapper class for the robot's NavX sensor.
  *
  * @author Shivashriganesh Mahato
  */
@@ -24,6 +23,10 @@ public class NavX {
             // TODO Implementing means of handling and displaying exceptions for this
         }
     }
+
+    /**
+     * @return the one instance of this class.
+     */
     public static NavX get () {
     	if (instance == null) {
     		instance = new NavX();
@@ -32,10 +35,16 @@ public class NavX {
     	return instance;
     }
 
+    /**
+     * @return the AHRS object contained by this class.
+     */
     public AHRS ahrs () {
         return ahrs;
     }
 
+    /**
+     * @return the yaw read from the NavX.
+     */
     public float getYaw() {
         return ahrs.getYaw();
     }

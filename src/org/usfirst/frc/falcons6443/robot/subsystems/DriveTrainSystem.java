@@ -1,9 +1,11 @@
 package org.usfirst.frc.falcons6443.robot.subsystems;
 
+import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.falcons6443.robot.Robot;
 import org.usfirst.frc.falcons6443.robot.RobotMap;
 import org.usfirst.frc.falcons6443.robot.hardware.SpeedControllerGroup;
 import org.usfirst.frc.falcons6443.robot.commands.*;
@@ -33,6 +35,8 @@ public class DriveTrainSystem extends Subsystem {
 	
 	private int speedLevel;
 
+	private RobotDrive drive;
+
 	/**
 	 * Constructor for DriveTrainSystem.
 	 */
@@ -54,6 +58,8 @@ public class DriveTrainSystem extends Subsystem {
 		reversed = false;
 		
 		speedLevel = 3; //start in lowest speed mode
+
+		drive = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
 	}
 	
 	@Override
@@ -93,6 +99,13 @@ public class DriveTrainSystem extends Subsystem {
 		}
 		
 		drive(left, right);
+	}
+
+	/**
+	 *
+	 */
+	public void tankDriveWithRobotDrive (double left, double right) {
+		drive.tankDrive(left, right);
 	}
 	
 	/**
