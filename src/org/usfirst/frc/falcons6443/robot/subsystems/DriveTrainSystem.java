@@ -8,6 +8,14 @@ import org.usfirst.frc.falcons6443.robot.RobotMap;
 import org.usfirst.frc.falcons6443.robot.hardware.VictorSPGroup;
 import org.usfirst.frc.falcons6443.robot.commands.*;
 
+/**
+ * Subsystem for the robot's drive train.
+ * <p>
+ * Contains 2 VictorSPGroups for the left and right motors and several boolean values pertaining
+ * to the drive train.
+ *
+ * @author Christopher Medlin, Patrick Higgins, Shivashriganesh Mahato
+ */
 public class DriveTrainSystem extends Subsystem {
 	
 	public static final double MotorPowerModifier = .75; //multiplier for max motor power
@@ -19,7 +27,10 @@ public class DriveTrainSystem extends Subsystem {
 	private boolean reversed;
 	
 	private int speedLevel;
-	
+
+	/**
+	 * Constructor for DriveTrainSystem.
+	 */
 	public DriveTrainSystem() {
 		VictorSP frontLeft = new VictorSP(RobotMap.FrontLeftVictor);
 		VictorSP backLeft = new VictorSP(RobotMap.BackLeftVictor);
@@ -80,10 +91,10 @@ public class DriveTrainSystem extends Subsystem {
 	}
 	
 	/**
-	 * spins the robot counterclockwise
-	 * @param speed
+	 * Spins the robot counterclockwise.
+	 *
+	 * @param speed the speed at which the robot spins.
 	 */
-	
 	public void spinLeft(double speed) {
 		isSpinning = true;
 		
@@ -94,10 +105,10 @@ public class DriveTrainSystem extends Subsystem {
 	}
 	
 	/**
-	 * spins the robot clockwise
-	 * @param speed
+	 * Spins the robot clockwise.
+	 *
+	 * @param speed the speed at which the robot spins.
 	 */
-	
 	public void spinRight(double speed) {
 		isSpinning = true;
 		
@@ -108,9 +119,8 @@ public class DriveTrainSystem extends Subsystem {
 	}
 	
 	/**
-	 * toggles the motors to go in reverse.
+	 * Toggles the motors to go in reverse.
 	 */
-
 	public void reverse() {
 		leftMotors.stopMotor();
 		rightMotors.stopMotor();
@@ -123,9 +133,8 @@ public class DriveTrainSystem extends Subsystem {
 	
 
 	/**
-	 * increase the max speed level
+	 * Increases the maximum speed level.
 	 */
-	
 	public void upshift() {
 		if (speedLevel == 2 || speedLevel == 3) {
 			speedLevel--;
@@ -133,9 +142,8 @@ public class DriveTrainSystem extends Subsystem {
 	}
 	
 	/**
-	 * decrease the max speed level
+	 * Decreases the max speed level.
 	 */
-	
 	public void downshift() {
 		if (speedLevel == 1 || speedLevel == 2) {
 			speedLevel++;
@@ -143,39 +151,48 @@ public class DriveTrainSystem extends Subsystem {
 	}
 	
 	/**
-	 * Shift to desired speed level
-	 * @param gear
+	 * Shift to the desired speed level.
+	 *
+	 * @param gear the desired speed level.
 	 */
-	
 	public void shiftTo(int gear) {
 		speedLevel = gear;
 	}
 	
 	/**
-	 * 
 	 * @return whether the robot is reversed
 	 */
-	
 	public boolean isReversed() {
 		return reversed;
 	}
 	
 	/**
-	 * getting speedlevel information
-	 * @return the current speed level of the robot
+	 * Gets the current maximum speed level.
+	 *
+	 * @return the current speed level of the robot.
 	 */
-	
 	public int getSpeedLevel() {
 		return speedLevel;
 	}
-	
-	
+
+	/**
+	 * Sets all motors to a desired speed.
+	 *
+	 * @param speed the desired speed.
+	 */
 	private void drive(double speed) {
 		leftMotors.set(speed * MotorPowerModifier / speedLevel);
 		rightMotors.set(speed * MotorPowerModifier / speedLevel);
 	}
-	
-	
+
+	/**
+	 * Sets each pair of motors individually to a desired speed.
+	 * <p>
+	 * Also puts data on the smart dashboard pertaining to the drive train.
+	 *
+	 * @param left the desired speed for the left motor.
+	 * @param right the desired speed for the right motor.
+	 */
 	private void drive(double left, double right) {
 		leftMotors.set(left * MotorPowerModifier / speedLevel);
 		rightMotors.set(right * MotorPowerModifier / speedLevel);
@@ -184,5 +201,4 @@ public class DriveTrainSystem extends Subsystem {
 		SmartDashboard.putNumber("Left Input", left * MotorPowerModifier / speedLevel);
 		SmartDashboard.putNumber("Right Input", right * MotorPowerModifier / speedLevel);
 	}
-	
 }
