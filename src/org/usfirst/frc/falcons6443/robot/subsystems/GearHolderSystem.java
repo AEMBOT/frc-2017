@@ -1,6 +1,8 @@
 package org.usfirst.frc.falcons6443.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import org.usfirst.frc.falcons6443.robot.RobotMap;
+import org.usfirst.frc.falcons6443.robot.commands.ToggleGearHolder;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -15,31 +17,36 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class GearHolderSystem extends Subsystem {
 	
-	private Solenoid solenoid;
+	private DoubleSolenoid solenoid;
+	private boolean open;
 
 	/**
 	 * Constructor for GearHolderSystem.
 	 */
 	public GearHolderSystem() {
-		solenoid = new Solenoid(RobotMap.GearHolderSolenoid);
+		solenoid = new DoubleSolenoid(RobotMap.GearHolderSolenoidOpen,
+				                     RobotMap.GearHolderSolenoidClose);
+		
+		open = false;
 	}
 
 	@Override
 	public void initDefaultCommand () {
-		// setDefaultCommand(new ReleaseGearCommand);
+		setDefaultCommand(new ToggleGearHolder());
 	}
 
-	/**
-	 * Sets the state of the GearHolderSystem to open.
-	 */
-	public void open () {
-		solenoid.set(true);
+	
+	public boolean isOpen () {
+		return open;
 	}
 
-	/**
-	 * Sets the state of the GearHolderSystem to close.
-	 */
-	public void close () {
-		solenoid.set(false);
+	public void open() {
+		solenoid.set(DoubleSolenoid.Value.kForward);
+		
+		open = true;
 	}
-}
+	
+	public void close() {
+		solenoid.set(DoubleSolenoid.Value.kReverse);
+		
+		open = false;

@@ -26,7 +26,7 @@ public class MoveForward extends SimpleCommand {
 	@Override
 	public void initialize () {
 		//get the robot moving forward
-		driveTrain.tankDrive(1, 1);
+		driveTrain.tankDrive(.1, .1);
 		initTime = System.currentTimeMillis();
 	}
 	
