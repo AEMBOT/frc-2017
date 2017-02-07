@@ -1,6 +1,8 @@
 package org.usfirst.frc.falcons6443.robot.commands;
 
 import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc.falcons6443.robot.Robot;
 import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
 
@@ -30,7 +32,9 @@ public class RestrictedPIDDrive extends SimpleCommand implements PIDOutput {
 
     @Override
     public void execute () {
-        if (gamepad.A()) {
+    	SmartDashboard.putNumber("Get Yaw", navigation.getYaw());
+    	SmartDashboard.putNumber("PID Output", pidOutput);
+    	if (gamepad.A()) {
             navigation.pidSetPoint(179.9f);
         }
         else if (gamepad.B()) {
@@ -42,8 +46,11 @@ public class RestrictedPIDDrive extends SimpleCommand implements PIDOutput {
         else if (gamepad.Y()) {
             navigation.pidSetPoint(0.0f);
         }
+        else if (gamepad.rightBumper()) {
+        	navigation.reset();
+        }
         else {}
-
+        
         driveTrain.tankDriveWithRobotDrive(pidOutput, -pidOutput);
     }
 

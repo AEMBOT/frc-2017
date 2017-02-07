@@ -33,6 +33,10 @@ public class NavigationSystem extends Subsystem {
     public void initDefaultCommand() {
         setDefaultCommand(new PrintYaw());
     }
+    
+    public void reset () {
+    	navx.ahrs().reset();
+    }
 
     /**
      * @return the yaw of the robot.
@@ -54,8 +58,8 @@ public class NavigationSystem extends Subsystem {
                                 DriveTrainSystem.KF,
                                 navx.ahrs(), output);
         pid.setInputRange(-180.0f, 180.0f);
-        pid.setOutputRange(-1.0, 1.0);
-        pid.setAbsoluteTolerance(2.0f);
+        pid.setOutputRange(-0.5, 0.5);
+        pid.setAbsoluteTolerance(5.0f);
         pid.setContinuous(true);
         pid.enable();
     }
