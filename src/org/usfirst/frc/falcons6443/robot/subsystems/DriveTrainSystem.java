@@ -43,8 +43,6 @@ public class DriveTrainSystem extends Subsystem {
 		
 		rightMotors = new VictorSPGroup(frontRight, backRight);
 		
-		rightMotors.setInverted(true);
-		
 		isSpinning = false;
 		reversed = false;
 		
