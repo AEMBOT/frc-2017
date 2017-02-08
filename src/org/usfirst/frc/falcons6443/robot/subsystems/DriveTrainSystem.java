@@ -48,7 +48,7 @@ public class DriveTrainSystem extends Subsystem {
 		isSpinning = false;
 		reversed = false;
 		
-		speedLevel = 3; //start in lowest speed mode
+		speedLevel = 1; //start in highest speed mode
 	}
 	
 	@Override
