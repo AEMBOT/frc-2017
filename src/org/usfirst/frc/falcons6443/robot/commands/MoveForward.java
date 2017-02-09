@@ -30,6 +30,11 @@ public class MoveForward extends SimpleCommand {
 		initTime = System.currentTimeMillis();
 	}
 	
+	@Override
+	public void execute () {
+		
+	}
+	
 	/* This method is constantly being checked. If it returns true, the command ends.
 	 * Here we check if 3000 milliseconds, or 3 seconds, have passed, and return
 	 * that boolean value. So, if 3 seconds have passed, the command will end.

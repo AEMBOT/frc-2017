@@ -37,6 +37,27 @@ public class NavigationSystem extends Subsystem {
     public void reset () {
     	navx.ahrs().reset();
     }
+    
+    /**
+     * @return the x displacement of the NavX.
+     */
+    public float getDisplacementX () {
+    	return navx.ahrs().getDisplacementX();
+    }
+    
+    /**
+     * @return the y displacement of the NavX.
+     */
+    public float getDisplacementY () {
+    	return navx.ahrs().getDisplacementY();
+    }
+    
+    /**
+     * Resets the displacement of the NavX.
+     */
+    public void resetDisplacement () {
+    	navx.ahrs().resetDisplacement();
+    }
 
     /**
      * @return the yaw of the robot.
@@ -59,7 +80,7 @@ public class NavigationSystem extends Subsystem {
                                 navx.ahrs(), output);
         pid.setInputRange(-180.0f, 180.0f);
         pid.setOutputRange(-0.5, 0.5);
-        pid.setAbsoluteTolerance(5.0f);
+        pid.setAbsoluteTolerance(2.0f);
         pid.setContinuous(true);
         pid.enable();
     }

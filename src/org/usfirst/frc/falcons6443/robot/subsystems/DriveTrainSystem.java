@@ -20,9 +20,9 @@ import org.usfirst.frc.falcons6443.robot.commands.*;
  */
 public class DriveTrainSystem extends Subsystem {
 
-	public static final double KP = 0.01;
-	public static final double KI = 0.005;
-	public static final double KD = 0.005;
+	public static final double KP = 0.04;  //.04
+	public static final double KI = 0.001; //.001
+	public static final double KD = 0.00;  //.00   
 	public static final double KF = 0.00;
 
 	public static final double MotorPowerModifier = .75; //multiplier for max motor power
@@ -66,7 +66,7 @@ public class DriveTrainSystem extends Subsystem {
 	
 	@Override
 	public void initDefaultCommand () {
-		setDefaultCommand(new RestrictedPIDDrive());
+		setDefaultCommand(new TankDriveWithTriggers());
 	}
 
 	/**
