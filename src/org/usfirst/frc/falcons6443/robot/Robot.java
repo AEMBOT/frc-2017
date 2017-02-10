@@ -33,7 +33,9 @@ public class Robot extends IterativeRobot {
 	public void robotInit () {
 		oi = new OI();
 		chooser = new SendableChooser<Command>();
-		chooser.addDefault("Move Forward", new MoveForward());
+		chooser.addDefault("Displacement Test", new DisplacementTest());
+		chooser.addObject("Move Forward", new MoveForward());
+		chooser.addObject("Restrcted PID Drive", new RestrictedPIDDrive());
 		SmartDashboard.putData("Auto", chooser);
 		
 		assert RobotMap.isOK();
@@ -79,6 +81,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopInit () {
 		if (autonomy != null) autonomy.cancel();
+		new RestrictedPIDDrive().start();
 	}
 
 	/*

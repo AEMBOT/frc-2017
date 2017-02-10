@@ -1,6 +1,7 @@
 package org.usfirst.frc.falcons6443.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  * Command to test the margin of error in the NavX's calculation of displacement.
@@ -8,10 +9,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @author Christopher Medlin
  */
 public class DisplacementTest extends SimpleCommand {
-	
-	public long initTime;
-	public boolean finished;
-	public boolean movingForward;
 	
 	public DisplacementTest () {
 		super("Displacement Test");
@@ -21,25 +18,17 @@ public class DisplacementTest extends SimpleCommand {
 	
 	@Override
 	public void initialize() {
-		initTime = System.currentTimeMillis();
-		finished = false;
-		movingForward = true;
-		driveTrain.tankDrive(.1, .1);
+		navigation.reset();
+
+		driveTrain.tankDriveWithRobotDrive(0.5, 0.5);
+		Timer.delay(2.0);
 	}
 	
 	@Override
 	public void execute () {
-		long time = System.currentTimeMillis() - initTime;
-		
-		if (time > 2000) {
-			movingForward = false;
-			driveTrain.tankDrive(-.1, -.1);
-		}
-		
-		else if (!movingForward && time > 4000) {
-			driveTrain.tankDrive(0, 0);
-			finished = true;
-		}
+		driveTrain.tankDriveWithRobotDrive(-0.5, -0.5);
+		Timer.delay(2.0);
+		driveTrain.tankDriveWithRobotDrive(0, 0);
 		
 		SmartDashboard.putNumber("Displacement X", navigation.getDisplacementX());
 		SmartDashboard.putNumber("Displacement Y", navigation.getDisplacementY());
@@ -48,6 +37,6 @@ public class DisplacementTest extends SimpleCommand {
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return finished;
+		return true;
 	}
 }

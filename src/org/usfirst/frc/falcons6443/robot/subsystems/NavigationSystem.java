@@ -36,6 +36,7 @@ public class NavigationSystem extends Subsystem {
     
     public void reset () {
     	navx.ahrs().reset();
+    	navx.ahrs().resetDisplacement();
     }
     
     /**

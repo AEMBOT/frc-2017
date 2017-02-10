@@ -66,7 +66,7 @@ public class DriveTrainSystem extends Subsystem {
 	
 	@Override
 	public void initDefaultCommand () {
-		setDefaultCommand(new TankDriveWithTriggers());
+		//setDefaultCommand(new DisplacementTest());
 	}
 
 	/**
