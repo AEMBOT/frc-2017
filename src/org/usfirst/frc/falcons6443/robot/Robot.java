@@ -24,7 +24,9 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 
 	private Command autonomy;
-	private SendableChooser<Command> chooser;
+	private Command teleop;
+	private SendableChooser<Command> teleOpChooser;
+	private SendableChooser<Command> autonomyChooser;
 	
 	/*
 	 * Called when the robot first starts.
@@ -32,11 +34,16 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit () {
 		oi = new OI();
-		chooser = new SendableChooser<Command>();
-		chooser.addDefault("Displacement Test", new DisplacementTest());
-		chooser.addObject("Move Forward", new MoveForward());
-		chooser.addObject("Restrcted PID Drive", new RestrictedPIDDrive());
-		SmartDashboard.putData("Auto", chooser);
+		
+		teleOpChooser = new SendableChooser<Command>();
+		teleOpChooser.addDefault("Tank Drive With Triggers", new TankDriveWithTriggers());
+		teleOpChooser.addObject("Simple Tank Drive With Joystiscks", new SimpleTankDriveWithJoysticks());
+		SmartDashboard.putData("TeleOp", teleOpChooser);
+		
+		autonomyChooser = new SendableChooser<Command>();
+		autonomyChooser.addDefault("Displacement Test", new DisplacementTest());
+		autonomyChooser.addObject("Restricted PID Drive", new RestrictedPIDDrive());
+		SmartDashboard.putData("Autonomy", autonomyChooser);
 		
 		assert RobotMap.isOK();
 	}
@@ -62,7 +69,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit () {
-		autonomy =  (Command) chooser.getSelected();
+		autonomy = (Command) autonomyChooser.getSelected();
 
 		if (autonomy != null) autonomy.start();
 	}
@@ -72,6 +79,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic () {
+		
 		Scheduler.getInstance().run();
 	}
 
@@ -81,7 +89,10 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopInit () {
 		if (autonomy != null) autonomy.cancel();
-		new RestrictedPIDDrive().start();
+		
+		teleop = (Command) teleOpChooser.getSelected();
+		
+		if (teleop !=  null) teleop.start();
 	}
 
 	/*

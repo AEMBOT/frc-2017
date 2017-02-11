@@ -22,6 +22,8 @@ public class DisplacementTest extends SimpleCommand {
 
 		driveTrain.tankDriveWithRobotDrive(0.5, 0.5);
 		Timer.delay(2.0);
+		driveTrain.tankDriveWithRobotDrive(0, 0);
+		Timer.delay(0.5);
 	}
 	
 	@Override
