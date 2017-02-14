@@ -50,3 +50,5 @@ public class GearHolderSystem extends Subsystem {
 		solenoid.set(DoubleSolenoid.Value.kReverse);
 		
 		open = false;
+	}
+}
