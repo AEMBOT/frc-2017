@@ -19,12 +19,14 @@ public class TankDriveWithTriggers extends SimpleCommand {
 	private Gamepad gamepad;
 	
 	private boolean canReverse;
+	
+	private NetworkTable table;
 
 	public TankDriveWithTriggers() {
 		super("Move With Triggers Using Tank Drive");
 		requires(driveTrain);		
-
 		
+		table = NetworkTable.getTable("smashboard");		
 	}
 	@Override
 	public void initialize () {
@@ -69,9 +71,8 @@ public class TankDriveWithTriggers extends SimpleCommand {
 			driveTrain.updateGamepadInput(adjustedInput(leftInput), adjustedInput(rightInput));
 		}
 
-		smashBoard.putData("Left Input", (int) (leftInput * 100.0));
-		smashBoard.putData("Right Input", (int) (rightInput * 100.0));
-		smashBoard.runLoop();
+		table.putData("left", (int) (leftInput * 100.0));
+		table.putData("right", (int) (rightInput * 100.0));
 	}
 
 	/* There are no particular conditions in which we want the command to stop autonomously. */
