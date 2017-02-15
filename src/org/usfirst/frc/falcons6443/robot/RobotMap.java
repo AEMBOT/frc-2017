@@ -14,7 +14,8 @@ public class RobotMap {
 	public static final int BackRightVictor = 3;
 	public static final int BackLeftVictor = 0;
 	
-	public static final int GearHolderSolenoid = -1;
+	public static final int GearHolderSolenoidOpen = 0;
+	public static final int GearHolderSolenoidClose = 1;
 
 	/**
 	 * Checks RobotMap for out-of-bounds values.

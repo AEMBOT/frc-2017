@@ -6,29 +6,37 @@ import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * This command allows the driver to control the robot with two joysticks. Both joysticks control the motors on the side
- * of the robot respective to the joystick. So the right joystick controls the motors on the right side of the robot,
- * and the left joystick controls the left motors.
+ * This command allows the driver to control the robot with two joysticks.
  * <p>
- * This could be one of the joysticks on an XBox-like controller, or it could be something
- * like an arcade flight stick.
+ * The Y axis of the right joystick controls tne right motors, the Y axis of the
+ * left joystick controls the left motors.
  *
  * @author Shivashriganesh Mahato, Patrick Higgins
  */
+
+@Deprecated
 public class TankDriveWithJoysticks extends SimpleCommand {
 
 	Gamepad gamepad;
 	
 	boolean canShift = true;
 
+	/**
+	 * Constructor for TankDriveWithJoysticks.
+	 */
 	public TankDriveWithJoysticks() {
 		super("Move With Joystick Using Tank Drive");
 		requires(driveTrain);
+		requires(gearHolder);
+		
+		System.out.println("Drive active");
 	}
+
 	@Override
 	public void initialize () {
 		gamepad = Robot.oi.getGamepad();
 	}
+
 	@Override
 	public void execute () {
 		
@@ -63,10 +71,17 @@ public class TankDriveWithJoysticks extends SimpleCommand {
 			rightInput = average;
 		}
 		
+		if (gamepad.A()) {
+			gearHolder.open();
+		}
+		
+		else {
+			gearHolder.close();
+		}
+		
 		driveTrain.updateGamepadInput(adjustedInput(leftInput), adjustedInput(rightInput));
 	}
 
-	/* There are no particular conditions in which we want the command to stop autonomously. */
 	@Override
 	public boolean isFinished () {
 		return false;

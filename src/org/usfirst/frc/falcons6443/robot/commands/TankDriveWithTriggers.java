@@ -6,13 +6,9 @@ import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 /**
- * This command allows the driver to control the robot with two triggers (located on the back of a gamepad). Both
- * triggers control the motors on the side of the robot respective to the trigger. So the right trigger controls the
- * motors on the right side of the robot, and the left trigger controls the left motors. The power is determined by the
- *
+ * This command allows the driver to control the robot with two triggers (located on the back of a gamepad).
  * <p>
- * This could be one of the joysticks on an XBox-like controller, or it could be something
- * like an arcade flight stick.
+ * The right trigger controls the right motors, the left trigger controls the left motors.
  *
  * @author Christopher Medlin, Patrick Higgins
  */
@@ -24,17 +20,25 @@ public class TankDriveWithTriggers extends SimpleCommand {
 	
 	private NetworkTable table;
 
+	/**
+	 * Constructor for TankDriveWithTriggers.
+	 */
+	
 	public TankDriveWithTriggers() {
 		super("Move With Triggers Using Tank Drive");
+
 		requires(driveTrain);		
 		
 		table = NetworkTable.getTable("smashboard");		
+
 	}
+
 	@Override
 	public void initialize () {
 		gamepad = Robot.oi.getGamepad();
 		canReverse = true;
 	}
+	
 	@Override
 	public void execute () {
 		double leftInput = gamepad.leftTrigger();
@@ -66,12 +70,23 @@ public class TankDriveWithTriggers extends SimpleCommand {
 			}
 		}
 		
+		
 		else {
 			driveTrain.updateGamepadInput(adjustedInput(leftInput), adjustedInput(rightInput));
 		}
+		
+		if (gamepad.A()) {
+			gearHolder.open();
+		}
+		
+		else {
+			gearHolder.close();
+		}
+		
 
 		table.putNumber("left", (int) (leftInput * 100.0));
 		table.putNumber("right", (int) (rightInput * 100.0));
+
 	}
 
 	/* There are no particular conditions in which we want the command to stop autonomously. */

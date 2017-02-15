@@ -16,7 +16,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @author Christopher Medlin
  */
 public class Robot extends IterativeRobot {
-	public static final DriveTrainSystem Drivetrain = new DriveTrainSystem();
+   
+	public static final DriveTrainSystem DriveTrain = new DriveTrainSystem();
+	public static final GearHolderSystem GearHolder = new GearHolderSystem();
+  
 	public static OI oi;
 
 	private Command autonomy;
@@ -62,7 +65,7 @@ public class Robot extends IterativeRobot {
 	}
 
 	/*
-	 * Called periodcally when the robot is in autonomous mode.
+	 * Called periodically when the robot is in autonomous mode.
 	 */
 	@Override
 	public void autonomousPeriodic () {
