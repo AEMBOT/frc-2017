@@ -7,50 +7,37 @@ import org.usfirst.frc.falcons6443.robot.Robot;
 import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
 
 /**
- * Created by Christopher Medlin on 2/5/2017.
+ * Command to rotate the robot to an angle specified in a constructor parameter.
+ *
+ * @author Christopher Medlin, Ivan Kenevich
  */
-public class RestrictedPIDDrive extends SimpleCommand implements PIDOutput {
+public class RotateToAngle extends SimpleCommand implements PIDOutput {
 
     private double pidOutput;
 
     private Gamepad gamepad;
 
     /**
-     * Constructor for RestrictedPIDDrive.
+     * Constructor for RotateToAngle.
+	 * 
+	 * @param angle the angle at which to rotate.
      */
-    public RestrictedPIDDrive () {
+    public RotateToAngle (float angle) {
         super("Restricted PID Drive");
         requires(navigation);
         requires(driveTrain);
     }
 
     @Override
-    public void initialize () {
+    public void initialize (float angle) {
         gamepad = Robot.oi.getGamepad();
+		navigation.reset();
         navigation.initPIDController(this);
+		navigation.pidSetPoint(angle);
     }
 
     @Override
     public void execute () {
-    	SmartDashboard.putNumber("Get Yaw", navigation.getYaw());
-    	SmartDashboard.putNumber("PID Output", pidOutput);
-    	if (gamepad.A()) {
-            navigation.pidSetPoint(179.9f);
-        }
-        else if (gamepad.B()) {
-            navigation.pidSetPoint(90.0f);
-        }
-        else if (gamepad.X()) {
-            navigation.pidSetPoint(-90.0f);
-        }
-        else if (gamepad.Y()) {
-            navigation.pidSetPoint(0.0f);
-        }
-        else if (gamepad.rightBumper()) {
-        	navigation.reset();
-        }
-        else {}
-        
         driveTrain.tankDriveWithRobotDrive(pidOutput, -pidOutput);
     }
 
