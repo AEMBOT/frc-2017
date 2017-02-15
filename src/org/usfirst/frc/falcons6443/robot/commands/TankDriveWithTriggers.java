@@ -3,6 +3,8 @@ package org.usfirst.frc.falcons6443.robot.commands;
 import org.usfirst.frc.falcons6443.robot.Robot;
 import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
 
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
+
 /**
  * This command allows the driver to control the robot with two triggers (located on the back of a gamepad). Both
  * triggers control the motors on the side of the robot respective to the trigger. So the right trigger controls the
@@ -32,9 +34,6 @@ public class TankDriveWithTriggers extends SimpleCommand {
 	public void initialize () {
 		gamepad = Robot.oi.getGamepad();
 		canReverse = true;
-
-		smashBoard.init("Smashboard", 640, 480);
-		smashBoard.run();
 	}
 	@Override
 	public void execute () {
@@ -71,8 +70,8 @@ public class TankDriveWithTriggers extends SimpleCommand {
 			driveTrain.updateGamepadInput(adjustedInput(leftInput), adjustedInput(rightInput));
 		}
 
-		table.putData("left", (int) (leftInput * 100.0));
-		table.putData("right", (int) (rightInput * 100.0));
+		table.putNumber("left", (int) (leftInput * 100.0));
+		table.putNumber("right", (int) (rightInput * 100.0));
 	}
 
 	/* There are no particular conditions in which we want the command to stop autonomously. */

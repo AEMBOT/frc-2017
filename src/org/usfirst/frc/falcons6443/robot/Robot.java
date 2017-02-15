@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.falcons6443.smashboard.SmashBoard;
 
 /**
  * The Robot class is FRC team 6443's implementation of WPIlib's IterativeRobot class. 
@@ -18,7 +17,6 @@ import org.usfirst.frc.falcons6443.smashboard.SmashBoard;
  */
 public class Robot extends IterativeRobot {
 	public static final DriveTrainSystem Drivetrain = new DriveTrainSystem();
-	public static final SmashBoard Smashboard = SmashBoard.getInstance();
 	public static OI oi;
 
 	private Command autonomy;

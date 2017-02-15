@@ -4,7 +4,6 @@ import org.usfirst.frc.falcons6443.robot.Robot;
 import org.usfirst.frc.falcons6443.robot.subsystems.*;
 
 import edu.wpi.first.wpilibj.command.Command;
-import org.usfirst.frc.falcons6443.smashboard.SmashBoard;
 
 /**
  * Serves as a class to build commands off of.
@@ -18,7 +17,6 @@ import org.usfirst.frc.falcons6443.smashboard.SmashBoard;
  */
 public abstract class SimpleCommand extends Command {
 	public DriveTrainSystem driveTrain = Robot.Drivetrain;
-	public SmashBoard smashBoard = Robot.Smashboard;
 
 	public SimpleCommand(String name) {super(name);}
 
