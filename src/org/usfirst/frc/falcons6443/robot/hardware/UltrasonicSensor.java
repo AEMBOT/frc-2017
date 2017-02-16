@@ -6,18 +6,18 @@ public class UltrasonicSensor extends I2C {
 
 	int deviceAddress; //deviceAddress = write register, deviceAddress + 1 = read register
 	
-	public UltrasonicSensor(int deviceAddress) {
+	public UltrasonicSensor (int deviceAddress) {
 		super(Port.kOnboard, deviceAddress);
 		
 		this.deviceAddress = deviceAddress;
 	}
 	
-	public void check() {
+	public void ping () {
 		//command the sensor to measure range
 		write(deviceAddress, 81);
 	}
 	
-	public int readLow() {
+	public int readLow () {
 		byte[] buffer = new byte[1]; 
 		
 		//read the first byte from the sensor, range-low
@@ -25,7 +25,7 @@ public class UltrasonicSensor extends I2C {
 		return buffer[0];
 	}
 	
-	public double read() {
+	public double read () {
 		byte[] buffer = new byte[2];
 		
 		//read the two bytes from the sensor, range-low and range-high
@@ -33,7 +33,7 @@ public class UltrasonicSensor extends I2C {
 		return averagedRange(buffer);
 	}
 	
-	private double averagedRange(byte[] values) {
+	private double averagedRange (byte[] values) {
 		double average;
 		
 		if (values.length < 2) {

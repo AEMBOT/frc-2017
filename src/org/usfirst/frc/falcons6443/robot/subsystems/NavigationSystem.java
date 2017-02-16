@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.Ultrasonic;
+import org.usfirst.frc.falcons6443.robot.RobotMap;
 import org.usfirst.frc.falcons6443.robot.commands.PrintYaw;
 import org.usfirst.frc.falcons6443.robot.hardware.NavX;
 import org.usfirst.frc.falcons6443.robot.hardware.UltrasonicSensor;
@@ -27,6 +29,13 @@ public class NavigationSystem extends Subsystem {
      */
     public NavigationSystem() {
     	navx = NavX.get();
+
+    	sensors = new HashMap<String, UltrasonicSensor>(4) {{
+    	    put("Left", new UltrasonicSensor(RobotMap.LeftUltrasonic));
+    	    put("Front", new UltrasonicSensor(RobotMap.FrontUltrasonic));
+    	    put("Back", new UltrasonicSensor(RobotMap.BackUltrasonic));
+    	    put("Right", new UltrasonicSensor(RobotMap.RightUltrasonic));
+        }};
     }
 
     @Override
@@ -103,6 +112,26 @@ public class NavigationSystem extends Subsystem {
         if (isPIDInitialized) {
             pid.setSetpoint(setpoint);
         }
+    }
+
+    /**
+     * Commands one of four ultrasonic sensors to measure range.
+     *
+     * @param key one of four possible ultrasonic sensors.
+     */
+    public void ping (String key) {
+        sensors.get(key).ping();
+    }
+
+    /**
+     * Read from one of the 4 ultrasonic sensors on the robot.
+     *
+     * The 4 keys that this method takes are Left, Back, Front, and Right.
+     *
+     * @param key one of four possible ultrasonic sensors.
+     */
+    public double read (String key) {
+        return sensors.get(key).read();
     }
 }
 
