@@ -19,7 +19,7 @@ public class UltrasonicSensor extends I2C {
 	
 	public int readLow () {
 		byte[] buffer = new byte[1]; 
-		
+
 		//read the first byte from the sensor, range-low
 		read(deviceAddress + 1, 1, buffer);
 		return buffer[0];
@@ -27,7 +27,7 @@ public class UltrasonicSensor extends I2C {
 	
 	public double read () {
 		byte[] buffer = new byte[2];
-		
+
 		//read the two bytes from the sensor, range-low and range-high
 		read(deviceAddress + 1, 2, buffer);
 		return averagedRange(buffer);

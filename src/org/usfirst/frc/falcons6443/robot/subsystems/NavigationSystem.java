@@ -11,6 +11,7 @@ import org.usfirst.frc.falcons6443.robot.hardware.NavX;
 import org.usfirst.frc.falcons6443.robot.hardware.UltrasonicSensor;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  * Subsystem containing the NavX sensor as well as ultrasonic sensors.
@@ -18,6 +19,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * @author Shivashriganesh Mahato, Christopher Medlin, Ivan Kenevich, Patrick Higgins
  */
 public class NavigationSystem extends Subsystem {
+
+    public final double PingTimeDelay = 0.05;
 
     private NavX navx;
     PIDController pid;
@@ -115,15 +118,6 @@ public class NavigationSystem extends Subsystem {
     }
 
     /**
-     * Commands one of four ultrasonic sensors to measure range.
-     *
-     * @param key one of four possible ultrasonic sensors.
-     */
-    public void ping (String key) {
-        sensors.get(key).ping();
-    }
-
-    /**
      * Read from one of the 4 ultrasonic sensors on the robot.
      *
      * The 4 keys that this method takes are Left, Back, Front, and Right.
@@ -131,6 +125,8 @@ public class NavigationSystem extends Subsystem {
      * @param key one of four possible ultrasonic sensors.
      */
     public double read (String key) {
+        sensors.get(key).ping();
+        Timer.delay(PingTimeDelay);
         return sensors.get(key).read();
     }
 }

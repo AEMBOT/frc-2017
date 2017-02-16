@@ -26,11 +26,6 @@ public class MoveDistance extends SimpleCommand {
     }
 
     @Override
-    public void execute () {
-        navigation.ping("Back");
-    }
-
-    @Override
     public boolean isFinished () {
         return (navigation.read("Back") <= initUltrasonicReading + distance);
     }
