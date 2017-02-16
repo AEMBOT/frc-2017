@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Timer;
  * 
  * @author Christopher Medlin
  */
+@Deprecated
 public class DisplacementTest extends SimpleCommand {
 	
 	public DisplacementTest () {

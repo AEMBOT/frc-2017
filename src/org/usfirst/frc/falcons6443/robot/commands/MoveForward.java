@@ -9,6 +9,7 @@ package org.usfirst.frc.falcons6443.robot.commands;
  *
  * @author Christopher Medlin
  */
+@Deprecated
 public class MoveForward extends SimpleCommand {
 	
 	long initTime;

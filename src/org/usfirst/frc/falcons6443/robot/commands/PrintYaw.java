@@ -6,6 +6,7 @@ import org.usfirst.frc.falcons6443.robot.subsystems.NavigationSystem;
 /**
  * Created by Ivan on 2/4/2017.
  */
+@Deprecated
 public class PrintYaw extends SimpleCommand {
 
     public PrintYaw () {
