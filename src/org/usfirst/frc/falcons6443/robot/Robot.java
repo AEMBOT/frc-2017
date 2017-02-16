@@ -42,7 +42,6 @@ public class Robot extends IterativeRobot {
 		
 		autonomyChooser = new SendableChooser<Command>();
 		autonomyChooser.addDefault("Displacement Test", new DisplacementTest());
-		autonomyChooser.addObject("Restricted PID Drive", new RestrictedPIDDrive());
 		SmartDashboard.putData("Autonomy", autonomyChooser);
 		
 		assert RobotMap.isOK();

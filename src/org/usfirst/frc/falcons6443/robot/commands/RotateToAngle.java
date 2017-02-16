@@ -14,6 +14,7 @@ import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
 public class RotateToAngle extends SimpleCommand implements PIDOutput {
 
     private double pidOutput;
+    private float angle;
 
     private Gamepad gamepad;
 
@@ -26,10 +27,12 @@ public class RotateToAngle extends SimpleCommand implements PIDOutput {
         super("Restricted PID Drive");
         requires(navigation);
         requires(driveTrain);
+        
+        this.angle = angle;
     }
-
+    
     @Override
-    public void initialize (float angle) {
+    public void initialize () {
         gamepad = Robot.oi.getGamepad();
 		navigation.reset();
         navigation.initPIDController(this);
