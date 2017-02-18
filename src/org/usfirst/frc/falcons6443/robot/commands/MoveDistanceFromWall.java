@@ -21,6 +21,8 @@ public class MoveDistanceFromWall extends SimpleCommand {
      */
     public MoveDistanceFromWall (double coord, String ultra) {
         super("Move Distance From Wall");
+        requires(driveTrain);
+        requires(navigation);
         this.coord = coord;
         this.ultra = ultra;
     }

@@ -22,6 +22,8 @@ public class MoveUntilLineIntersection extends SimpleCommand {
 
     public MoveUntilLineIntersection(Line2D line, String yUltra, String xUltra) {
         super("Move Until Line Intersection.");
+        requires(driveTrain);
+        requires(navigation);
         this.yUltra = yUltra;
         yVal = line.calcY(navigation.read(xUltra));
     }
