@@ -50,13 +50,13 @@ public class TankDriveWithTriggers extends SimpleCommand {
 		}
 		
 		//if the reverse key is depressed and has been released since the last reverse
-		if (gamepad.rightBumper() && canReverse) {
+		if (gamepad.leftBumper() && canReverse) {
 			driveTrain.reverse();
 			canReverse = false;
 		}
 		
 		//if the reverse key is released, re-enable the option to reverse
-		else if (!gamepad.rightBumper() && !canReverse) {
+		else if (!gamepad.leftBumper() && !canReverse) {
 			canReverse = true;
 		}
 		
@@ -75,7 +75,7 @@ public class TankDriveWithTriggers extends SimpleCommand {
 			driveTrain.updateGamepadInput(adjustedInput(leftInput), adjustedInput(rightInput));
 		}
 		
-		if (gamepad.A()) {
+		if (gamepad.rightBumper()) {
 			gearHolder.open();
 		}
 		
