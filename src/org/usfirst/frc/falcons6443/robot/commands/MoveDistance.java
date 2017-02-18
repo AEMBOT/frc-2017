@@ -5,6 +5,7 @@ package org.usfirst.frc.falcons6443.robot.commands;
  *
  * @author Christopher Medlin
  */
+@Deprecated
 public class MoveDistance extends SimpleCommand {
 
     double distance;
