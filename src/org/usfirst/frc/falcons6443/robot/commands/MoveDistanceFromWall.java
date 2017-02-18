@@ -27,7 +27,19 @@ public class MoveDistanceFromWall extends SimpleCommand {
         this.ultra = ultra;
     }
 
+    @Override
+    public void initialize () {
+        driveTrain.tankDrive(1, 1);
+    }
+
+    @Override
     public boolean isFinished () {
-        return (navigation.read(ultra) >= coord);
+        if (navigation.read(ultra) >= coord) {
+            driveTrain.tankDrive(0, 0);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }
