@@ -33,11 +33,11 @@ public class NavigationSystem extends Subsystem {
     public NavigationSystem() {
     	navx = NavX.get();
 
-    	sensors = new HashMap<String, UltrasonicSensor>(4) {{
+    	sensors = new HashMap<String, UltrasonicSensor>(1) {{
     	    put("Left", new UltrasonicSensor(RobotMap.LeftUltrasonic));
-    	    put("Front", new UltrasonicSensor(RobotMap.FrontUltrasonic));
-    	    put("Back", new UltrasonicSensor(RobotMap.BackUltrasonic));
-    	    put("Right", new UltrasonicSensor(RobotMap.RightUltrasonic));
+    	    //put("Front", new UltrasonicSensor(RobotMap.FrontUltrasonic));
+    	    //put("Back", new UltrasonicSensor(RobotMap.BackUltrasonic));
+    	   //put("Right", new UltrasonicSensor(RobotMap.RightUltrasonic));
         }};
     }
 
