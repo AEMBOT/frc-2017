@@ -18,7 +18,7 @@ public class RobotMap {
 	public static final int GearHolderSolenoidClose = 1;
 
 	public static final int FrontUltrasonic = -1;
-	public static final int LeftUltrasonic = -1;
+	public static final int LeftUltrasonic = 224;
 	public static final int RightUltrasonic = -1;
 	public static final int BackUltrasonic = -1;
 
