@@ -4,6 +4,7 @@ import org.usfirst.frc.falcons6443.robot.Robot;
 import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
 
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import org.usfirst.frc.falcons6443.robot.utilities.Smashboard;
 
 /**
  * This command allows the driver to control the robot with two triggers (located on the back of a gamepad).
@@ -17,8 +18,6 @@ public class TankDriveWithTriggers extends SimpleCommand {
 	private Gamepad gamepad;
 	
 	private boolean canReverse;
-	
-	private NetworkTable table;
 
 	/**
 	 * Constructor for TankDriveWithTriggers.
@@ -27,9 +26,7 @@ public class TankDriveWithTriggers extends SimpleCommand {
 	public TankDriveWithTriggers() {
 		super("Move With Triggers Using Tank Drive");
 
-		requires(driveTrain);		
-		
-		table = NetworkTable.getTable("smashboard");		
+		requires(driveTrain);
 
 	}
 
@@ -82,10 +79,10 @@ public class TankDriveWithTriggers extends SimpleCommand {
 		else {
 			gearHolder.close();
 		}
-		
 
-		table.putNumber("left", (int) (leftInput * 100.0));
-		table.putNumber("right", (int) (rightInput * 100.0));
+
+		Smashboard.putNumber("leftTriggerVal", (int) (leftInput * 100.0));
+		Smashboard.putNumber("rightTriggerVal", (int) (rightInput * 100.0));
 
 	}
 
