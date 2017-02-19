@@ -52,16 +52,16 @@ public class DriveTrainSystem extends Subsystem {
 		
 		rightMotors = new SpeedControllerGroup(frontRight, backRight);
 		
-		rightMotors.setInverted(true);
-		
 		isSpinning = false;
 		reversed = false;
 		
-		speedLevel = 3; //start in lowest speed mode
 
 		drive = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
 		
 		drive.setSafetyEnabled(false);
+
+		speedLevel = 1; //start in highest speed mode
+
 	}
 	
 	@Override
