@@ -31,7 +31,8 @@ public class NavigationSystem extends Subsystem {
     /**
      * Constructor for NavigationSystem.
      */
-    public NavigationSystem() {
+    @SuppressWarnings("serial")
+	public NavigationSystem() {
     	navx = NavX.get();
 
     	sensors = new HashMap<String, UltrasonicSensor>(1) {{
