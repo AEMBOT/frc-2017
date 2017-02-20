@@ -9,8 +9,8 @@ public class TestSensor extends SimpleCommand {
 	
 	private Gamepad gamepad;
 
-	public TestSensor(String name) {
-		super(name);
+	public TestSensor() {
+		super("Test the sensor");
 		requires(navigation);
 
 	}
@@ -21,7 +21,7 @@ public class TestSensor extends SimpleCommand {
 	
 	public void execute() {
 		if (gamepad.A()) {
-			Smashboard.putNumber("Sensor Reading", navigation.read("Left"));
+			SmartDashboard.putNumber("Sensor Reading", navigation.readSensor("Left"));
 		}
 	}
 	

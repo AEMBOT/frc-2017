@@ -25,7 +25,7 @@ public class MoveUntilLineIntersection extends SimpleCommand {
         requires(driveTrain);
         requires(navigation);
         this.yUltra = yUltra;
-        yVal = line.calcY(navigation.read(xUltra));
+        yVal = line.calcY(navigation.readSensor(xUltra));
     }
 
     public void initialize () {
@@ -33,7 +33,7 @@ public class MoveUntilLineIntersection extends SimpleCommand {
     }
 
     public boolean isFinished () {
-        if (navigation.read(yUltra) >= yVal) {
+        if (navigation.readSensor(yUltra) >= yVal) {
             driveTrain.tankDrive(0, 0);
             return true;
         }

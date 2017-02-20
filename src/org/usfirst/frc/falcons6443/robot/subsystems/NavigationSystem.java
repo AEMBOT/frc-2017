@@ -117,7 +117,11 @@ public class NavigationSystem extends Subsystem {
             pid.setSetpoint(setpoint);
         }
     }
-
+    
+    public void pingSensor (String key) {
+        sensors.get(key).ping();
+    }
+    
     /**
      * Read from one of the 4 ultrasonic sensors on the robot.
      *
@@ -125,8 +129,7 @@ public class NavigationSystem extends Subsystem {
      *
      * @param key one of four possible ultrasonic sensors.
      */
-    public double read (String key) {
-        sensors.get(key).ping();
+    public double readSensor (String key) {
         Timer.delay(PingTimeDelay);
         return sensors.get(key).read();
     }

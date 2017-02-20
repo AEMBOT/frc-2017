@@ -23,13 +23,13 @@ public class MovePastAngledWall extends SimpleCommand {
     @Override
     public void initialize () {
         driveTrain.tankDrive(1,1);
-        distanceToWall = navigation.read(ultra);
+        distanceToWall = navigation.readSensor(ultra);
     }
 
     @Override
     public void execute () {
         temp = distanceToWall;
-        distanceToWall = navigation.read(ultra);
+        distanceToWall = navigation.readSensor(ultra);
         delta = distanceToWall - temp;
     }
 
