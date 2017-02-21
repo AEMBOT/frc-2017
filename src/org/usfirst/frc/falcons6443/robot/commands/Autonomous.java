@@ -17,7 +17,7 @@ public class Autonomous {
     public static class PositionOne extends CommandGroup {
         public PositionOne () {
             addSequential(new MovePastAngledWall("Right"));
-            addSequential(new MoveUntilLineIntersection(new Line2D(-0.577, 242.66), ));
+           // addSequential(new MoveUntilLineIntersection(new Line2D(-0.577, 242.66) ));
             addSequential(new RotateToAngle(60f));
         }
 

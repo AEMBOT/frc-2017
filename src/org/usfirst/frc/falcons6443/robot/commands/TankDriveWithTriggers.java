@@ -90,7 +90,7 @@ public class TankDriveWithTriggers extends SimpleCommand {
 
 		else {
 			if (ropeClimber.isClimbing() || ropeClimber.isDescending()) {
-				ropeClimber.stopClimbing();
+				ropeClimber.stop();
 			}
 		}
 	}
