@@ -15,11 +15,14 @@ import org.usfirst.frc.falcons6443.robot.hardware.UltrasonicSensor;
 public class RopeClimberSystem extends Subsystem {
 
     private Victor motor;
+
     private boolean climbing;
+    private boolean descending;
 
     public RopeClimberSystem () {
-        motor = new Victor (RobotMap.RopeClimberVictor);
+        motor = new Victor(RobotMap.BackRightVictor);
         climbing = false;
+        descending = false;
     }
 
     @Override
@@ -31,16 +34,34 @@ public class RopeClimberSystem extends Subsystem {
      * Turns on the rope climber motor.
      */
     public void climb () {
-        motor.set(1);
+        motor.set(0.3);
         climbing = true;
+        descending = false;
     }
 
     /**
      * Turns off the rope climber motor.
      */
-    public void stopClimbing () {
+    public void stop () {
         motor.set(0);
         climbing = false;
+        descending = false;
+    }
+
+    /**
+     * Sets the rope climber motor to reverse.
+     */
+    public void descend () {
+        motor.set(-0.3);
+        climbing = false;
+        descending = true;
+    }
+
+    /**
+     * @return Whether or not the rope climber mechanism is in reverse.
+     */
+    public boolean isDescending () {
+        return descending;
     }
 
     /**

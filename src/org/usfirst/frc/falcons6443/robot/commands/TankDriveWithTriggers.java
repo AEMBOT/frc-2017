@@ -82,8 +82,14 @@ public class TankDriveWithTriggers extends SimpleCommand {
 			}
 		}
 
+		else if (gamepad.Y()) {
+			if (!ropeClimber.isDescending()) {
+				ropeClimber.descend();
+			}
+		}
+
 		else {
-			if (!ropeClimber.isClimbing()) {
+			if (ropeClimber.isClimbing() || ropeClimber.isDescending()) {
 				ropeClimber.stopClimbing();
 			}
 		}
