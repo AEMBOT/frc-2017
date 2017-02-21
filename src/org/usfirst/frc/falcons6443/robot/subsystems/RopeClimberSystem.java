@@ -2,7 +2,9 @@ package org.usfirst.frc.falcons6443.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.falcons6443.robot.RobotMap;
+import org.usfirst.frc.falcons6443.robot.commands.TankDriveWithTriggers;
 import org.usfirst.frc.falcons6443.robot.hardware.UltrasonicSensor;
 
 /**
@@ -10,7 +12,7 @@ import org.usfirst.frc.falcons6443.robot.hardware.UltrasonicSensor;
  *
  * @author Christopher Medlin
  */
-public class RopeClimberSystem {
+public class RopeClimberSystem extends Subsystem {
 
     private Victor motor;
     private boolean climbing;
@@ -18,6 +20,11 @@ public class RopeClimberSystem {
     public RopeClimberSystem () {
         motor = new Victor (RobotMap.RopeClimberVictor);
         climbing = false;
+    }
+
+    @Override
+    public void initDefaultCommand () {
+        new TankDriveWithTriggers().start();
     }
 
     /**

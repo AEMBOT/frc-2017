@@ -1,14 +1,17 @@
 package org.usfirst.frc.falcons6443.robot.hardware;
 
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 
 public class UltrasonicSensor extends I2C {
 
-	int deviceAddress; //deviceAddress = write register, deviceAddress + 1 = read register
-	
+	private int deviceAddress; //deviceAddress = write register, deviceAddress + 1 = read register
+	private PIDSourceType pidSourceType;
+
 	public UltrasonicSensor (int deviceAddress) {
 		super(Port.kOnboard, deviceAddress);
-		
+		pidSourceType = PIDSourceType.kDisplacement;
 		this.deviceAddress = deviceAddress;
 	}
 	
