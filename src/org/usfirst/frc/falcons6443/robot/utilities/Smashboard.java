@@ -41,6 +41,30 @@ public class Smashboard {
     }
 
     /**
+     * Put a boolean in the table.
+     *
+     * @param key   the key to be assigned to
+     * @param value the value that will be assigned
+     * @return False if the table key already exists with a different type
+     */
+    public static boolean putBoolean(String key, boolean value) {
+        return table.putBoolean(key, value);
+    }
+
+    /**
+     * Returns the boolean the key maps to. If the key does not exist or is of
+     * different type, it will return the default value.
+     *
+     * @param key          the key to look up
+     * @param defaultValue the value to be returned if no value is found
+     * @return the value associated with the given key or the given default value
+     * if there is no value associated with the key
+     */
+    public static boolean getBoolean(String key, boolean defaultValue) {
+        return table.getBoolean(key, defaultValue);
+    }
+
+    /**
      * Put a point in the table. This is done by putting 2 individual numbers with the same key as the prefix and
      * suffixing a X or Y to the end of it, depending on the value.
      *
