@@ -52,16 +52,10 @@ public class DriveTrainSystem extends Subsystem {
 		
 		rightMotors = new SpeedControllerGroup(frontRight, backRight);
 		
-		rightMotors.setInverted(true);
-		
 		isSpinning = false;
 		reversed = false;
-		
-		speedLevel = 3; //start in lowest speed mode
 
-		drive = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
-		
-		drive.setSafetyEnabled(false);
+		speedLevel = 1; //start in highest speed mode
 	}
 	
 	@Override
@@ -77,6 +71,11 @@ public class DriveTrainSystem extends Subsystem {
 	 */
 	public void updateGamepadInput(double left, double right) {
 		tankDrive(left, right);
+		
+		SmartDashboard.putNumber("Speed Level", (leftMotors.get() + rightMotors.get()) / 2);
+		SmartDashboard.putNumber("Left Input", left * MotorPowerModifier / speedLevel);
+		SmartDashboard.putNumber("Right Input", right * MotorPowerModifier / speedLevel);
+		
 	}
 
 	/**
@@ -216,9 +215,5 @@ public class DriveTrainSystem extends Subsystem {
 	private void drive(double left, double right) {
 		leftMotors.set(left * MotorPowerModifier / speedLevel);
 		rightMotors.set(right * MotorPowerModifier / speedLevel);
-		
-		SmartDashboard.putNumber("Speed Level", speedLevel);
-		SmartDashboard.putNumber("Left Input", left * MotorPowerModifier / speedLevel);
-		SmartDashboard.putNumber("Right Input", right * MotorPowerModifier / speedLevel);
 	}
 }
