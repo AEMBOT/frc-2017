@@ -49,12 +49,6 @@ public class TeleopMode extends SimpleCommand {
 
         if (gamepad.Y()) {
             driveTrain.reverse();
-            driveTrain.tankDrive(0.3, 0.3);
-        }
-        else {
-            if (driveTrain.isReversed()) {
-                driveTrain.reverse();
-            }
         }
 
         if (power == 0) {
