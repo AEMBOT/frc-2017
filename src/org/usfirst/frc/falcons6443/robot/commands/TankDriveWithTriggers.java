@@ -13,6 +13,7 @@ import org.usfirst.frc.falcons6443.robot.utilities.Smashboard;
  *
  * @author Christopher Medlin, Patrick Higgins
  */
+@Deprecated
 public class TankDriveWithTriggers extends SimpleCommand {
 
 	private Gamepad gamepad;
@@ -60,17 +61,17 @@ public class TankDriveWithTriggers extends SimpleCommand {
 		
 		if (gamepad.leftStickX() != 0) {
 			if (gamepad.leftStickX() < 0) {
-				driveTrain.spinLeft(adjustedInput(Math.abs(gamepad.leftStickX())));
+				//driveTrain.spinLeft(adjustedInput(Math.abs(gamepad.leftStickX())));
 			}
 			
 			else if (gamepad.leftStickX() > 0) {
-				driveTrain.spinRight(adjustedInput(Math.abs(gamepad.leftStickX())));
+				//driveTrain.spinRight(adjustedInput(Math.abs(gamepad.leftStickX())));
 			}
 		}
 		
 		
 		else {
-			driveTrain.updateGamepadInput(adjustedInput(leftInput), adjustedInput(rightInput));
+			//driveTrain.updateGamepadInput(adjustedInput(leftInput), adjustedInput(rightInput));
 		}
 		
 		if (gamepad.rightBumper()) {

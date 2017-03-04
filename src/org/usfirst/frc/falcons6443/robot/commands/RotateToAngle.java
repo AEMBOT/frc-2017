@@ -35,7 +35,7 @@ public class RotateToAngle extends SimpleCommand implements PIDOutput {
 
     @Override
     public void execute () {
-        driveTrain.tankDriveWithRobotDrive(pidOutput, -pidOutput);
+        driveTrain.tankDrive(pidOutput, -pidOutput);
     }
 
     @Override
