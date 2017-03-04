@@ -1,11 +1,13 @@
 package org.usfirst.frc.falcons6443.robot.subsystems;
 
+import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.falcons6443.robot.Robot;
 import org.usfirst.frc.falcons6443.robot.RobotMap;
-import org.usfirst.frc.falcons6443.robot.hardware.VictorSPGroup;
+import org.usfirst.frc.falcons6443.robot.hardware.SpeedControllerGroup;
 import org.usfirst.frc.falcons6443.robot.commands.*;
 
 /**
@@ -17,16 +19,23 @@ import org.usfirst.frc.falcons6443.robot.commands.*;
  * @author Christopher Medlin, Patrick Higgins, Shivashriganesh Mahato
  */
 public class DriveTrainSystem extends Subsystem {
-	
+
+	public static final double KP = 0.04;  //.04
+	public static final double KI = 0.001; //.001
+	public static final double KD = 0.00;  //.00   
+	public static final double KF = 0.00;
+
 	public static final double MotorPowerModifier = .75; //multiplier for max motor power
 	
-	private VictorSPGroup leftMotors;
-	private VictorSPGroup rightMotors;
+	private SpeedControllerGroup leftMotors;
+	private SpeedControllerGroup rightMotors;
 	
 	private boolean isSpinning;
 	private boolean reversed;
 	
 	private int speedLevel;
+
+	private RobotDrive drive;
 
 	/**
 	 * Constructor for DriveTrainSystem.
@@ -39,13 +48,13 @@ public class DriveTrainSystem extends Subsystem {
 		
 		//invert motors here
 		  
-		leftMotors = new VictorSPGroup(frontLeft, backLeft);
+		leftMotors = new SpeedControllerGroup(frontLeft, backLeft);
 		
-		rightMotors = new VictorSPGroup(frontRight, backRight);
+		rightMotors = new SpeedControllerGroup(frontRight, backRight);
 		
 		isSpinning = false;
 		reversed = false;
-		
+
 		speedLevel = 1; //start in highest speed mode
 	}
 	
@@ -91,6 +100,13 @@ public class DriveTrainSystem extends Subsystem {
 		}
 		
 		drive(left, right);
+	}
+
+	/**
+	 *
+	 */
+	public void tankDriveWithRobotDrive (double left, double right) {
+		drive.tankDrive(left, right);
 	}
 	
 	/**

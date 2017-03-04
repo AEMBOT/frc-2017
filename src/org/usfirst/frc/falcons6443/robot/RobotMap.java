@@ -17,6 +17,13 @@ public class RobotMap {
 	public static final int GearHolderSolenoidOpen = 0;
 	public static final int GearHolderSolenoidClose = 1;
 
+	public static final int FrontUltrasonic = -1;
+	public static final int LeftUltrasonic = -1;
+	public static final int RightUltrasonic = -1;
+	public static final int BackUltrasonic = -1;
+
+	public static final int RopeClimberVictor = 13;
+
 	/**
 	 * Checks RobotMap for out-of-bounds values.
 	 * 

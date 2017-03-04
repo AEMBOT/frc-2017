@@ -28,6 +28,7 @@ public class TankDriveWithTriggers extends SimpleCommand {
 
 		requires(driveTrain);
 
+		//requires(ropeClimber);
 	}
 
 	@Override
@@ -78,12 +79,10 @@ public class TankDriveWithTriggers extends SimpleCommand {
 		
 		else {
 			gearHolder.close();
-		}
-
-
-		Smashboard.putNumber("leftTriggerVal", (int) (leftInput * 100.0));
-		Smashboard.putNumber("rightTriggerVal", (int) (rightInput * 100.0));
-
+    }
+    
+	  Smashboard.putNumber("leftTriggerVal", (int) (leftInput * 100.0));
+  	Smashboard.putNumber("rightTriggerVal", (int) (rightInput * 100.0));
 	}
 
 	/* There are no particular conditions in which we want the command to stop autonomously. */
