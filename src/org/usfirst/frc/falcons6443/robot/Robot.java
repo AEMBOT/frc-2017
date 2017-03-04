@@ -35,7 +35,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit () {
 		oi = new OI();
-		
+		/*
 		teleOpChooser = new SendableChooser<Command>();
 		teleOpChooser.addDefault("Tank Drive With Triggers", new TankDriveWithTriggers());
 		teleOpChooser.addObject("Simple Tank Drive With Joystiscks", new SimpleTankDriveWithJoysticks());
@@ -44,6 +44,7 @@ public class Robot extends IterativeRobot {
 		autonomyChooser = new SendableChooser<Command>();
 		autonomyChooser.addDefault("Displacement Test", new DisplacementTest());
 		SmartDashboard.putData("Autonomy", autonomyChooser);
+		*/
 		
 		assert RobotMap.isOK();
 	}
@@ -69,9 +70,11 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit () {
+		/*
 		autonomy = (Command) autonomyChooser.getSelected();
 
 		if (autonomy != null) autonomy.start();
+		*/
 	}
 
 	/*
@@ -88,11 +91,13 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopInit () {
+		/*
 		if (autonomy != null) autonomy.cancel();
 		
 		teleop = (Command) teleOpChooser.getSelected();
 		
 		if (teleop !=  null) teleop.start();
+		*/
 	}
 
 	/*
