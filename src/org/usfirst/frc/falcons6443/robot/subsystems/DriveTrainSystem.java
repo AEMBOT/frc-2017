@@ -18,6 +18,7 @@ import org.usfirst.frc.falcons6443.robot.commands.*;
  *
  * @author Christopher Medlin, Patrick Higgins, Shivashriganesh Mahato
  */
+@Deprecated
 public class DriveTrainSystem extends Subsystem {
 
 	public static final double KP = 0.04;  //.04
