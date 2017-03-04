@@ -93,7 +93,12 @@ public class SimpleDriveTrainSystem extends Subsystem {
 	 * Toggles the motors to go in reverse.
 	 */
 	public void reverse() {
-		reversed = true;
+		if (!reversed) {
+			reversed = true;
+		}
+		else  {
+			reversed = false;
+		}
 	}
 	
 
