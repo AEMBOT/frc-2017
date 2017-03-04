@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public abstract class SimpleCommand extends Command {
 
-	public RopeClimberSystem ropeClimber = Robot.RopeClimber;
+	//public RopeClimberSystem ropeClimber = Robot.RopeClimber;
 	public DriveTrainSystem driveTrain = Robot.DriveTrain;
 	public GearHolderSystem gearHolder = Robot.GearHolder;
 	public NavigationSystem navigation = Robot.Navigation;

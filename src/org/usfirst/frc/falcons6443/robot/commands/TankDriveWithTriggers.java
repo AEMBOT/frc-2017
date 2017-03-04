@@ -22,7 +22,7 @@ public class TankDriveWithTriggers extends SimpleCommand {
 	public TankDriveWithTriggers() {
 		super("Move With Triggers Using Tank Drive");
 		requires(driveTrain);
-		requires(ropeClimber);
+		//requires(ropeClimber);
 	}
 
 	@Override
@@ -76,7 +76,7 @@ public class TankDriveWithTriggers extends SimpleCommand {
 			gearHolder.close();
 		}
 
-		if (gamepad.B()) {
+		/*if (gamepad.B()) {
 			if (!ropeClimber.isClimbing()) {
 				ropeClimber.climb();
 			}
@@ -92,7 +92,7 @@ public class TankDriveWithTriggers extends SimpleCommand {
 			if (ropeClimber.isClimbing() || ropeClimber.isDescending()) {
 				ropeClimber.stop();
 			}
-		}
+		}*/ 
 	}
 
 	/* There are no particular conditions in which we want the command to stop autonomously. */
