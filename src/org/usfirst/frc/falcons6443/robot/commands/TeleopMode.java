@@ -66,7 +66,7 @@ public class TeleopMode extends SimpleCommand {
             driveTrain.drive(power, turn);
         }
 
-        ropeClimber.set(ropeClimberPower);
+        ropeClimber.set(-ropeClimberPower);
     }
 
     public boolean isFinished () {

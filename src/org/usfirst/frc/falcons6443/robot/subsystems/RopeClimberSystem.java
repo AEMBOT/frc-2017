@@ -21,7 +21,7 @@ public class RopeClimberSystem extends Subsystem {
     private boolean descending;
 
     public RopeClimberSystem () {
-        motor = new Spark(RobotMap.BackRightVictor);
+        motor = new Spark(RobotMap.RopeClimberSpark);
         climbing = false;
         descending = false;
     }
