@@ -22,7 +22,7 @@ public class RobotMap {
 	public static final int RightUltrasonic = -1;
 	public static final int BackUltrasonic = -1;
 
-	public static final int RopeClimberVictor = 13;
+	public static final int RopeClimberSpark = 4;
 
 	/**
 	 * Checks RobotMap for out-of-bounds values.
