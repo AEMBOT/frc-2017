@@ -21,7 +21,7 @@ public class Robot extends IterativeRobot {
 	// All the subsystems that the robot possesses
 	// If a new subsystem is added, it must also be added to SimpleCommand.
 	// From there the subsystem can be referred to from any command that inherits SimpleCommand.
-	public static final SimpleDriveTrainSystem DriveTrain = new SimpleDriveTrainSystem();
+	public static final DriveTrainSystem DriveTrain = new DriveTrainSystem();
 	public static final GearHolderSystem GearHolder = new GearHolderSystem();
 	public static final NavigationSystem Navigation = new NavigationSystem();
 	public static final RopeClimberSystem RopeClimber = new RopeClimberSystem();
