@@ -9,36 +9,46 @@ import org.usfirst.frc.falcons6443.robot.commands.TankDriveWithTriggers;
 /**
  * Subsystem containing the motor for the rope climber as well as the sensor.
  *
- * @author Christopher Medlin
+ * @author Christopher Medlin, Ivan Kenevich
  */
 public class RopeClimberSystem extends Subsystem {
 
+    // Just like a Victor
     private Spark motor;
 
-    private boolean climbing;
-    private boolean descending;
-
+    // This value extends the range of the pulse interval.
+    // You probably don't need to worry about this, just a magic number.
     private final double PULSE_INTERVAL_MODIFIER = 4;
 
     public RopeClimberSystem () {
         motor = new Spark(RobotMap.RopeClimberSpark);
-        climbing = false;
-        descending = false;
     }
 
     @Override
     public void initDefaultCommand () {
-        new TankDriveWithTriggers().start();
     }
 
+    /**
+     * Used for directly setting the power of the rope climber motor.
+     *
+     * @param power the desired power.
+     */
     public void set (double power) {
         motor.set(power);
     }
-    
+
+    /**
+     * Pulsates the motor.
+     *
+     * The motor will run at full power for a certain amount of time and then stop the thread
+     * for the same amount of time. This method is meant to be called repeatedly.
+     *
+     * @param pulseInterval the interval between pulses. 0 < pulseInterval <= 1
+     */
     public void pulse (double pulseInterval) {
         set(1);
-        Timer.delay(1/pulseInterval*PULSE_INTERVAL_MODIFIER);
+        Timer.delay(1/(pulseInterval*PULSE_INTERVAL_MODIFIER));
         set(0);
-        Timer.delay(1/pulseInterval*PULSE_INTERVAL_MODIFIER);
+        Timer.delay(1/(pulseInterval*PULSE_INTERVAL_MODIFIER));
     }
 }

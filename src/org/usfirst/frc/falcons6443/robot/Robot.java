@@ -11,12 +11,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * The Robot class is FRC team 6443's implementation of WPIlib's IterativeRobot class. 
+ * ROBOTS DON'T QUIT!
+ * The Robot class is FRC team 6443's implementation of WPIlib's IterativeRobot class.
  *
  * @author Christopher Medlin
  */
 public class Robot extends IterativeRobot {
-   
+
+	// All the subsystems that the robot possesses
+	// If a new subsystem is added, it must also be added to SimpleCommand.
+	// From there the subsystem can be referred to from any command that inherits SimpleCommand.
 	public static final SimpleDriveTrainSystem DriveTrain = new SimpleDriveTrainSystem();
 	public static final GearHolderSystem GearHolder = new GearHolderSystem();
 	public static final NavigationSystem Navigation = new NavigationSystem();
@@ -24,29 +28,12 @@ public class Robot extends IterativeRobot {
   
 	public static OI oi;
 
-	private Command autonomy;
-	private Command teleop;
-	private SendableChooser<Command> teleOpChooser;
-	private SendableChooser<Command> autonomyChooser;
-	
 	/*
 	 * Called when the robot first starts.
 	 */
 	@Override
 	public void robotInit () {
 		oi = new OI();
-		/*
-		teleOpChooser = new SendableChooser<Command>();
-		teleOpChooser.addDefault("Tank Drive With Triggers", new TankDriveWithTriggers());
-		teleOpChooser.addObject("Simple Tank Drive With Joystiscks", new SimpleTankDriveWithJoysticks());
-		SmartDashboard.putData("TeleOp", teleOpChooser);
-		
-		autonomyChooser = new SendableChooser<Command>();
-		autonomyChooser.addDefault("Displacement Test", new DisplacementTest());
-		SmartDashboard.putData("Autonomy", autonomyChooser);
-		*/
-		
-		assert RobotMap.isOK();
 	}
 	
 	/*
@@ -91,13 +78,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopInit () {
-		/*
-		if (autonomy != null) autonomy.cancel();
-		
-		teleop = (Command) teleOpChooser.getSelected();
-		
-		if (teleop !=  null) teleop.start();
-		*/
 	}
 
 	/*

@@ -1,14 +1,15 @@
 package org.usfirst.frc.falcons6443.robot;
 
 /**
- * The RobotMap is a mapping from the ports sensors and actuators are wired into
- * to a variable name. This provides flexibility changing wiring, makes checking
- * the wiring easier and significantly reduces the number of magic numbers
- * floating around.
+ * RobotMap contains a multitude [Billions and Billions] of constants that define port numbers
+ * of various hardware components.
  */
 public class RobotMap {
 	
-	//any null constants have yet to be defined and should be defined in the future
+	//any -1s are not being used and are yet to be specified
+
+	/* Ok, here's the deal. You're gonna forget to change them back to their appropriate values.
+	 * You will, trust me. So DON'T FORGET TO SET YOUR PORTS PROPERLY. */
 	public static final int FrontRightVictor = 2;
 	public static final int FrontLeftVictor = 1;
 	public static final int BackRightVictor = 3;
@@ -23,16 +24,4 @@ public class RobotMap {
 	public static final int BackUltrasonic = -1;
 
 	public static final int RopeClimberSpark = 4;
-
-	/**
-	 * Checks RobotMap for out-of-bounds values.
-	 * 
-	 * @return whether RobotMap contains only valid ( < 0 ) values
-	 */
-	@SuppressWarnings("unused")
-	public static boolean isOK() {
-		
-		//fix later
-		return true;
-	}
 }

@@ -4,7 +4,10 @@ import org.usfirst.frc.falcons6443.robot.Robot;
 import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
 
 /**
- * Created by medlc645 on 3/4/2017.
+ * Teleoperated mode for the robot.
+ * The execute method of this class handles all possible inputs from the driver during the game.
+ *
+ * @author Ivan Kenevich, Christopher Medlin
  */
 public class TeleopMode extends SimpleCommand {
 
