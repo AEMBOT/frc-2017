@@ -48,7 +48,14 @@ public class TeleopMode extends SimpleCommand {
         }
 
         if (gamepad.Y()) {
-            driveTrain.reverse();
+            // safeguard for if the drive holds down the Y button.
+            if (!reversed) {
+                driveTrain.reverse();
+                reversed = true;
+            }
+        }
+        else {
+            reversed = false;
         }
 
         if (power == 0) {
