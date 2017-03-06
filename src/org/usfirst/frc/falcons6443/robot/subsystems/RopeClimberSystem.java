@@ -1,12 +1,10 @@
 package org.usfirst.frc.falcons6443.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Spark;
-import edu.wpi.first.wpilibj.Ultrasonic;
-import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.falcons6443.robot.RobotMap;
 import org.usfirst.frc.falcons6443.robot.commands.TankDriveWithTriggers;
-import org.usfirst.frc.falcons6443.robot.hardware.UltrasonicSensor;
 
 /**
  * Subsystem containing the motor for the rope climber as well as the sensor.
@@ -19,6 +17,8 @@ public class RopeClimberSystem extends Subsystem {
 
     private boolean climbing;
     private boolean descending;
+
+    private final double PULSE_INTERVAL_MODIFIER = 4;
 
     public RopeClimberSystem () {
         motor = new Spark(RobotMap.RopeClimberSpark);
@@ -33,5 +33,12 @@ public class RopeClimberSystem extends Subsystem {
 
     public void set (double power) {
         motor.set(power);
+    }
+    
+    public void pulse (double pulseInterval) {
+        set(1);
+        Timer.delay(1/pulseInterval*PULSE_INTERVAL_MODIFIER);
+        set(0);
+        Timer.delay(1/pulseInterval*PULSE_INTERVAL_MODIFIER);
     }
 }

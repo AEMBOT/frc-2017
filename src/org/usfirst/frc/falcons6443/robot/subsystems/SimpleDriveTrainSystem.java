@@ -57,7 +57,7 @@ public class SimpleDriveTrainSystem extends Subsystem {
 		reversed = false;
 
 		drive = new RobotDrive(leftMotors, rightMotors);
-		
+
 		drive.setSafetyEnabled(false);
 
 		speedLevel = 1; //start in lowest speed mode

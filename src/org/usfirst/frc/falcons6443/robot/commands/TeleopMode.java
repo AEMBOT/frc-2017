@@ -28,9 +28,9 @@ public class TeleopMode extends SimpleCommand {
 
     @Override
     public void execute () {
-        double power = gamepad.rightTrigger();
+        double throttle = gamepad.rightTrigger();
         double turn = gamepad.leftStickX();
-        double ropeClimberPower = gamepad.leftTrigger();
+        double ropeClimberThrottle = gamepad.leftTrigger();
 
         if (gamepad.leftBumper()) {
             driveTrain.downshift();
@@ -59,14 +59,16 @@ public class TeleopMode extends SimpleCommand {
             }
         }
 
-        if (power == 0) {
+        if (throttle == 0) {
             driveTrain.spin(turn);
         }
         else {
-            driveTrain.drive(power, turn);
+            driveTrain.drive(throttle, turn);
         }
 
-        ropeClimber.set(-ropeClimberPower);
+        if (ropeClimberThrottle != 0) {
+            ropeClimber.pulse(ropeClimberThrottle);
+        }
     }
 
     public boolean isFinished () {
