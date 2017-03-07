@@ -53,7 +53,7 @@ public class DriveTrainSystem extends Subsystem {
 	public DriveTrainSystem() {
 	    leftMotors = new SpeedControllerGroup(new VictorSP(RobotMap.FrontLeftVictor),
 											  new VictorSP(RobotMap.BackLeftVictor));
-		
+
 		rightMotors = new SpeedControllerGroup(new VictorSP(RobotMap.FrontRightVictor),
 				 							   new VictorSP(RobotMap.BackRightVictor));
 

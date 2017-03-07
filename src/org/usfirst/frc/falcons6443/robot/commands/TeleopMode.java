@@ -69,7 +69,7 @@ public class TeleopMode extends SimpleCommand {
             driveTrain.drive(throttle, turn);
         }
 
-        if (ropeClimberThrottle != 0) {
+        if (ropeClimberThrottle > 0.25) {
             ropeClimber.pulse(ropeClimberThrottle);
         }
     }

@@ -17,14 +17,14 @@ public class RopeClimberSystem extends Subsystem {
 
     // This value extends the range of the pulse interval.
     // You probably don't need to worry about this, just a magic number.
-    private final double PULSE_INTERVAL_MODIFIER = 4;
+    private final double PULSE_INTERVAL_MODIFIER = 30;
 
-    public RopeClimberSystem () {
+    public RopeClimberSystem() {
         motor = new Spark(RobotMap.RopeClimberSpark);
     }
 
     @Override
-    public void initDefaultCommand () {
+    public void initDefaultCommand() {
     }
 
     /**
@@ -32,22 +32,22 @@ public class RopeClimberSystem extends Subsystem {
      *
      * @param power the desired power.
      */
-    public void set (double power) {
-        motor.set(power);
+    public void set(double power) {
+        motor.set(-power);
     }
 
     /**
      * Pulsates the motor.
-     *
+     * <p>
      * The motor will run at full power for a certain amount of time and then stop the thread
      * for the same amount of time. This method is meant to be called repeatedly.
      *
      * @param pulseInterval the interval between pulses. 0 < pulseInterval <= 1
      */
-    public void pulse (double pulseInterval) {
-        set(1);
-        Timer.delay(1/(pulseInterval*PULSE_INTERVAL_MODIFIER));
-        set(0);
-        Timer.delay(1/(pulseInterval*PULSE_INTERVAL_MODIFIER));
+    public void pulse(double pulseInterval) {
+        set(pulseInterval);
+        //Timer.delay(0.2);
+        //set(0);
+        //Timer.delay(1 / (pulseInterval * PULSE_INTERVAL_MODIFIER));
     }
 }
