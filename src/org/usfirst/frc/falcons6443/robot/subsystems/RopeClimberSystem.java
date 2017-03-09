@@ -33,7 +33,7 @@ public class RopeClimberSystem extends Subsystem {
      * @param power the desired power.
      */
     public void set(double power) {
-        motor.set(-power);
+        motor.set(power);
     }
 
     /**
