@@ -44,11 +44,12 @@ public class TeleopMode extends SimpleCommand {
         if (gamepad.A()) {
             // safeguard for if the driver holds the A button
             if (!gearToggled)  {
-                new ToggleGearHolder().start();
+                gearHolder.open();
                 gearToggled = true;
             }
         }
         else {
+            gearHolder.close();
             gearToggled = false;
         }
 
@@ -66,7 +67,7 @@ public class TeleopMode extends SimpleCommand {
 
         // set the driveTrain power.
         if (power == 0) {
-            driveTrain.spin(turn);
+            driveTrain.spin(turn/2);
         }
         else {
             driveTrain.drive(power, turn);
