@@ -49,6 +49,10 @@ public class NavigationSystem extends Subsystem {
     	navx.ahrs().reset();
     	navx.ahrs().resetDisplacement();
     }
+
+    public boolean isMoving () {
+        return navx.ahrs().isMoving();
+    }
     
     /**
      * @return the x displacement of the NavX.

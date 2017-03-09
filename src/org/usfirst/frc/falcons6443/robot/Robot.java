@@ -35,6 +35,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit () {
 		oi = new OI();
+		autonomy = new MoveByTime(4, 0.5);
 		/*
 		teleOpChooser = new SendableChooser<Command>();
 		teleOpChooser.addDefault("Tank Drive With Triggers", new TankDriveWithTriggers());
@@ -75,6 +76,7 @@ public class Robot extends IterativeRobot {
 
 		if (autonomy != null) autonomy.start();
 		*/
+		if (autonomy != null) autonomy.start();
 	}
 
 	/*
