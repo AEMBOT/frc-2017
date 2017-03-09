@@ -28,12 +28,18 @@ public class Robot extends IterativeRobot {
   
 	public static OI oi;
 
+	private Command autonomy;
+	private Command teleop;
+	private SendableChooser<Command> teleOpChooser;
+	private SendableChooser<Command> autonomyChooser;
+
 	/*
 	 * Called when the robot first starts.
 	 */
 	@Override
 	public void robotInit () {
 		oi = new OI();
+		autonomy = new MoveByTime(4, 0.5);
 	}
 	
 	/*
@@ -57,11 +63,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit () {
-		/*
-		autonomy = (Command) autonomyChooser.getSelected();
-
 		if (autonomy != null) autonomy.start();
-		*/
 	}
 
 	/*

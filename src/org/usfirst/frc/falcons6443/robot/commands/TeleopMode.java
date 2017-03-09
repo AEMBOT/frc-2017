@@ -35,6 +35,7 @@ public class TeleopMode extends SimpleCommand {
         double turn = gamepad.leftStickX();
         double ropeClimberThrottle = gamepad.leftTrigger();
 
+        // left bumper downshifts, right bumper upshifts.
         if (gamepad.leftBumper()) {
             driveTrain.downshift();
         }
@@ -42,26 +43,32 @@ public class TeleopMode extends SimpleCommand {
             driveTrain.upshift();
         }
 
+        // the A button will toggle the gear holder
         if (gamepad.A()) {
-            if (!gearToggled) {
-                new ToggleGearHolder().start();
+            // safeguard for if the driver holds the A button
+            if (!gearToggled)  {
+                gearHolder.open();
                 gearToggled = true;
             }
         }
         else {
+            gearHolder.close();
             gearToggled = false;
         }
 
+        // the Y button will toggle the drive train to reverse mode
         if (gamepad.Y()) {
-            driveTrain.reverse();
-            driveTrain.tankDrive(0.3, 0.3);
-        }
-        else {
-            if (driveTrain.isReversed()) {
+            // safeguard for if the driver holds down the Y button.
+            if (!reversed) {
                 driveTrain.reverse();
+                reversed = true;
             }
         }
+        else {
+            reversed = false;
+        }
 
+        // set the driveTrain power.
         if (throttle == 0) {
             driveTrain.spin(turn);
         }
