@@ -4,7 +4,9 @@ import org.usfirst.frc.falcons6443.robot.Robot;
 import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
 
 /**
- * Created by medlc645 on 3/4/2017.
+ * The new default teleoperated mode command, replacing TankDriveWithTriggers.
+ *
+ * @author Christopher Medlin, Ivan Kenevich
  */
 public class TeleopMode extends SimpleCommand {
 
@@ -30,6 +32,7 @@ public class TeleopMode extends SimpleCommand {
         double power = gamepad.rightTrigger();
         double turn = gamepad.leftStickX();
 
+        // left bumper downshifts, right bumper upshifts.
         if (gamepad.leftBumper()) {
             driveTrain.downshift();
         }
@@ -37,8 +40,10 @@ public class TeleopMode extends SimpleCommand {
             driveTrain.upshift();
         }
 
+        // the A button will toggle the gear holder
         if (gamepad.A()) {
-            if (!gearToggled) {
+            // safeguard for if the driver holds the A button
+            if (!gearToggled)  {
                 new ToggleGearHolder().start();
                 gearToggled = true;
             }
@@ -47,16 +52,19 @@ public class TeleopMode extends SimpleCommand {
             gearToggled = false;
         }
 
+        // the Y button will toggle the drive train to reverse mode
         if (gamepad.Y()) {
-            driveTrain.reverse();
-            driveTrain.tankDrive(0.3, 0.3);
-        }
-        else {
-            if (driveTrain.isReversed()) {
+            // safeguard for if the drive holds down the Y button.
+            if (!reversed) {
                 driveTrain.reverse();
+                reversed = true;
             }
         }
+        else {
+            reversed = false;
+        }
 
+        // set the driveTrain power.
         if (power == 0) {
             driveTrain.spin(turn);
         }

@@ -1,10 +1,8 @@
 package org.usfirst.frc.falcons6443.robot;
 
 /**
- * The RobotMap is a mapping from the ports sensors and actuators are wired into
- * to a variable name. This provides flexibility changing wiring, makes checking
- * the wiring easier and significantly reduces the number of magic numbers
- * floating around.
+ * RobotMap is class containing several constants that define the port numbers
+ * of hardware components.
  */
 public class RobotMap {
 	

@@ -86,7 +86,12 @@ public class SimpleDriveTrainSystem extends Subsystem {
 	 * @param speed the speed at which the robot spins.
 	 */
 	public void spin(double speed) {
-		drive.tankDrive(speed, -speed);
+		if (!reversed) {
+			drive.tankDrive(speed, -speed);
+		}
+		else {
+			drive.tankDrive(-speed, speed);
+		}
 	}
 	
 	/**
@@ -144,7 +149,12 @@ public class SimpleDriveTrainSystem extends Subsystem {
 	 * @param speed the desired speed.
 	 */
 	public void drive (double speed, double curve) {
-		drive.drive(speed, curve * MAXIMUM_CURVE);
+		if (!reversed) {
+			drive.drive(speed, curve * MAXIMUM_CURVE);
+		}
+		else {
+			drive.drive(-speed, -(curve * MAXIMUM_CURVE));
+		}
 	}
 
 	private void updateMaxOutput () {
