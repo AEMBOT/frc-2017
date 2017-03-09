@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.falcons6443.robot.Robot;
 import org.usfirst.frc.falcons6443.robot.RobotMap;
 import org.usfirst.frc.falcons6443.robot.commands.TankDriveWithTriggers;
+import org.usfirst.frc.falcons6443.robot.commands.TeleopMode;
 import org.usfirst.frc.falcons6443.robot.hardware.SpeedControllerGroup;
 
 /**
@@ -56,13 +57,14 @@ public class SimpleDriveTrainSystem extends Subsystem {
 		reversed = false;
 
 		drive = new RobotDrive(leftMotors, rightMotors);
+		drive.setSafetyEnabled(false);
 
 		speedLevel = 1; //start in lowest speed mode
 	}
 	
 	@Override
 	public void initDefaultCommand () {
-		setDefaultCommand(new TankDriveWithTriggers());
+		setDefaultCommand(new TeleopMode());
 	}
 
 	/**
