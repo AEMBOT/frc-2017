@@ -2,6 +2,7 @@ package org.usfirst.frc.falcons6443.robot.commands;
 
 import org.usfirst.frc.falcons6443.robot.Robot;
 import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
+import org.usfirst.frc.falcons6443.robot.utilities.Smashboard;
 
 /**
  * The new default teleoperated mode command, replacing TankDriveWithTriggers.
@@ -18,6 +19,7 @@ public class TeleopMode extends SimpleCommand {
 
         requires(driveTrain);
         requires(gearHolder);
+        requires(ropeClimber);
     }
 
     @Override
@@ -30,6 +32,7 @@ public class TeleopMode extends SimpleCommand {
     @Override
     public void execute () {
         double power = gamepad.rightTrigger();
+        double ropeClimberPower = gamepad.leftTrigger();
         double turn = gamepad.leftStickX();
 
         // left bumper downshifts, right bumper upshifts.
@@ -42,14 +45,13 @@ public class TeleopMode extends SimpleCommand {
 
         // the A button will toggle the gear holder
         if (gamepad.A()) {
-            // safeguard for if the driver holds the A button
-            if (!gearToggled)  {
-                gearHolder.open();
+            if (!gearToggled) {
+                // safeguard for if the driver holds the A button
+                gearHolder.toggle();
                 gearToggled = true;
             }
         }
         else {
-            gearHolder.close();
             gearToggled = false;
         }
 
@@ -65,6 +67,9 @@ public class TeleopMode extends SimpleCommand {
             reversed = false;
         }
 
+        // set ropeClimber power.
+        ropeClimber.set(ropeClimberPower);
+
         // set the driveTrain power.
         if (power == 0) {
             driveTrain.spin(turn/2);
@@ -72,6 +77,10 @@ public class TeleopMode extends SimpleCommand {
         else {
             driveTrain.drive(power, turn);
         }
+
+        Smashboard.putNumber("Speed", power * 100);
+        Smashboard.putNumber("RopeClimber", ropeClimberPower * 100);
+        Smashboard.putBoolean("GearHolder", gearHolder.isOpen());
     }
 
     public boolean isFinished () {

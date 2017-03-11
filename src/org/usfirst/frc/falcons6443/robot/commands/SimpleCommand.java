@@ -21,6 +21,7 @@ public abstract class SimpleCommand extends Command {
 	public SimpleDriveTrainSystem driveTrain = Robot.DriveTrain;
 	public GearHolderSystem gearHolder = Robot.GearHolder;
 	public NavigationSystem navigation = Robot.Navigation;
+	public RopeClimberSystem ropeClimber = Robot.RopeClimber;
 
 	/**
 	 * Constructor for SimpleCommand.

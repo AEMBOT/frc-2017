@@ -20,7 +20,8 @@ public class Robot extends IterativeRobot {
 	public static final SimpleDriveTrainSystem DriveTrain = new SimpleDriveTrainSystem();
 	public static final GearHolderSystem GearHolder = new GearHolderSystem();
 	public static final NavigationSystem Navigation = new NavigationSystem();
-	//public static final RopeClimberSystem RopeClimber = new RopeClimberSystem();
+	//public static final RopeClimberSystem RopeClimmber = new RopeClimberSystem();
+	public static final RopeClimberSystem RopeClimber = new RopeClimberSystem();
   
 	public static OI oi;
 
@@ -35,7 +36,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit () {
 		oi = new OI();
-		autonomy = new MoveByTime(4, 0.5);
+		autonomy = new MoveByTime(6, 0.5);
 		/*
 		teleOpChooser = new SendableChooser<Command>();
 		teleOpChooser.addDefault("Tank Drive With Triggers", new TankDriveWithTriggers());

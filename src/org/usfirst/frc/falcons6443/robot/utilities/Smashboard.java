@@ -13,6 +13,10 @@ public class Smashboard {
         table.putNumber(key, value);
     }
 
+    public static void putBoolean(String key, boolean value) {
+        table.putBoolean(key, value);
+    }
+
     public static double getNumber(String key, double defaultValue) {
         return table.getNumber(key, defaultValue);
     }

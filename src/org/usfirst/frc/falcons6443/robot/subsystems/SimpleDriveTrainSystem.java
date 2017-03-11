@@ -88,26 +88,22 @@ public class SimpleDriveTrainSystem extends Subsystem {
 	 * @param speed the speed at which the robot spins.
 	 */
 	public void spin(double speed) {
+		//drive.setMaxOutput(speed);
 		if (!reversed) {
 			drive.tankDrive(speed, -speed);
 		}
 		else {
 			drive.tankDrive(-speed, speed);
 		}
+		//updateMaxOutput();
 	}
-	
+	;
 	/**
 	 * Toggles the motors to go in reverse.
 	 */
 	public void reverse() {
-		if (!reversed) {
-			reversed = true;
-		}
-		else  {
-			reversed = false;
-		}
+		reversed = !reversed;
 	}
-	
 
 	/**
 	 * Increases the maximum speed level.
