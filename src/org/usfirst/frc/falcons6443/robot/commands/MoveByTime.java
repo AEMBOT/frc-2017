@@ -18,6 +18,10 @@ public class MoveByTime extends SimpleCommand {
         this.rightSpeed = rightSpeed;
     }
 
+    public MoveByTime(double stopTime, double speed) {
+        this(stopTime, speed, speed);
+    }
+
     @Override
     public void initialize() {
         setTimeout(stopTime);

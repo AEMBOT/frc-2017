@@ -9,6 +9,7 @@ public class GearAutonomy extends SimpleCommand {
 
     public GearAutonomy() {
         super("Move By Time");
+        requires(gearHolder);
         requires(driveTrain);
     }
 
@@ -18,15 +19,14 @@ public class GearAutonomy extends SimpleCommand {
 
     @Override
     public void execute() {
-        // TESTING
-        // Go forward for 2 seconds, turn, and go forward again for 2 seconds
-        new MoveByTime(2, 0.5, 0.5).start();
-        new RotateToAngle(45).start();
-        new MoveByTime(2, 0.5, 0.5).start();
+        new MoveByTime(3.5, 0.5).start();
+        gearHolder.open();
+        new MoveByTime(3.5, -0.5).start();
+        gearHolder.close();
     }
 
     @Override
     protected boolean isFinished() {
-        return isTimedOut();
+        return false;
     }
 }
