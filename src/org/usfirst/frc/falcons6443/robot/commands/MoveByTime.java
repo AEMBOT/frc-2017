@@ -1,23 +1,21 @@
 package org.usfirst.frc.falcons6443.robot.commands;
 
-import edu.wpi.first.wpilibj.Utility;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.falcons6443.robot.utilities.Smashboard;
-
 /**
- * Created by higgp153 on 3/8/2017.
+ * Moves the robot for a certain amount of time specified in the constructor.
+ *
+ * @author Shivashriganesh Mahato
  */
 public class MoveByTime extends SimpleCommand {
 
-    private double stopTime;
-    private double speed;
+    private double stopTime, leftSpeed, rightSpeed;
 
-    public MoveByTime(double stopTime, double speed) {
+    public MoveByTime(double stopTime, double leftSpeed, double rightSpeed) {
         super("Move By Time");
         requires(driveTrain);
 
         this.stopTime = stopTime;
-        this.speed = speed;
+        this.leftSpeed = leftSpeed;
+        this.rightSpeed = rightSpeed;
     }
 
     @Override
@@ -27,7 +25,7 @@ public class MoveByTime extends SimpleCommand {
 
     @Override
     public void execute() {
-        driveTrain.tankDrive(speed,speed);
+        driveTrain.tankDrive(leftSpeed, rightSpeed);
     }
 
     @Override
