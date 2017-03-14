@@ -50,7 +50,10 @@ public class UltrasonicSensor extends I2C {
 		read(deviceAddress + 1, 2, buffer);
 		return averagedRange(buffer);
 	}
-	
+	public double readInches () {
+		//multiply return by cm:inch ratio
+		return read() * 0.393700787402;
+	}
 	private double averagedRange (byte[] values) {
 		double average;
 		
