@@ -29,7 +29,7 @@ public class SimpleDriveTrainSystem extends Subsystem {
 	private static final double GEAR_TWO = 0.6;
 	private static final double GEAR_THREE = 1;
 
-	private static final double MAXIMUM_CURVE = 0.36787944;
+	private static final double MAXIMUM_CURVE = 0.6;
 
 	private SpeedControllerGroup leftMotors;
 	private SpeedControllerGroup rightMotors;
@@ -90,14 +90,16 @@ public class SimpleDriveTrainSystem extends Subsystem {
 	public void spin(double speed) {
 		//drive.setMaxOutput(speed);
 		if (!reversed) {
-			drive.tankDrive(speed, -speed);
+			leftMotors.set(speed);
+			rightMotors.set(speed);
 		}
 		else {
-			drive.tankDrive(-speed, speed);
+			leftMotors.set(speed);
+			rightMotors.set(speed);
 		}
 		//updateMaxOutput();
 	}
-	;
+
 	/**
 	 * Toggles the motors to go in reverse.
 	 */
