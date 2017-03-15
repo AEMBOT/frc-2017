@@ -3,8 +3,6 @@ package org.usfirst.frc.falcons6443.robot.subsystems;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.falcons6443.robot.Robot;
 import org.usfirst.frc.falcons6443.robot.RobotMap;
 import org.usfirst.frc.falcons6443.robot.commands.TankDriveWithTriggers;
 import org.usfirst.frc.falcons6443.robot.commands.TeleopMode;
@@ -64,7 +62,7 @@ public class SimpleDriveTrainSystem extends Subsystem {
 	
 	@Override
 	public void initDefaultCommand () {
-		setDefaultCommand(new TeleopMode());
+		setDefaultCommand(new TankDriveWithTriggers());
 	}
 
 	/**
