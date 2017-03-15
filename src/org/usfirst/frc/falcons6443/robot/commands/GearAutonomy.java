@@ -1,32 +1,21 @@
 package org.usfirst.frc.falcons6443.robot.commands;
 
+import edu.wpi.first.wpilibj.command.CommandGroup;
+
 /**
  * Delivers a gear considering the robot starts in the center, to be used in autonomy.
  *
  * @author Christopher Medlin
  */
-public class GearAutonomy extends SimpleCommand {
+public class GearAutonomy extends CommandGroup {
 
     public GearAutonomy() {
-        super("Move By Time");
-        requires(driveTrain);
+        addSequential(new MoveByTime(1.5, 0.5, 0.5));
+        addSequential(new MoveByTime(2, 0, 0));
+        addSequential(new MoveByTime(1.5, -0.5, -0.5));
+//        addSequential(new ToggleGearHolder());
+//        addSequential(new MoveByTime(2, -0.5, -0.5));
+//        addSequential(new ToggleGearHolder());
     }
 
-    @Override
-    public void initialize() {
-    }
-
-    @Override
-    public void execute() {
-        // TESTING
-        // Go forward for 2 seconds, turn, and go forward again for 2 seconds
-        new MoveByTime(2, 0.5, 0.5).start();
-        new RotateToAngle(45).start();
-        new MoveByTime(2, 0.5, 0.5).start();
-    }
-
-    @Override
-    protected boolean isFinished() {
-        return isTimedOut();
-    }
 }
