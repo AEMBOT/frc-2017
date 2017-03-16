@@ -9,6 +9,7 @@ import org.usfirst.frc.falcons6443.robot.RobotMap;
 import org.usfirst.frc.falcons6443.robot.commands.TankDriveWithTriggers;
 import org.usfirst.frc.falcons6443.robot.commands.TeleopMode;
 import org.usfirst.frc.falcons6443.robot.hardware.SpeedControllerGroup;
+import org.usfirst.frc.falcons6443.robot.hardware.UltrasonicSensor;
 
 /**
  * Subsystem for the robot's drive train.
@@ -33,6 +34,8 @@ public class SimpleDriveTrainSystem extends Subsystem {
 
 	private SpeedControllerGroup leftMotors;
 	private SpeedControllerGroup rightMotors;
+	
+	private UltrasonicSensor uSensor;
 
 	private boolean isSpinning;
 	private boolean reversed;
@@ -47,7 +50,7 @@ public class SimpleDriveTrainSystem extends Subsystem {
 	public SimpleDriveTrainSystem() {
 		//invert motors here
 		  
-	    leftMotors = new SpeedControllerGroup(new VictorSP(RobotMap.FrontLeftVictor),
+	    	leftMotors = new SpeedControllerGroup(new VictorSP(RobotMap.FrontLeftVictor),
 											  new VictorSP(RobotMap.BackLeftVictor));
 		
 		rightMotors = new SpeedControllerGroup(new VictorSP(RobotMap.FrontRightVictor),
@@ -60,6 +63,9 @@ public class SimpleDriveTrainSystem extends Subsystem {
 		drive.setSafetyEnabled(false);
 
 		speedLevel = 1; //start in lowest speed mode
+		
+		uSensor = new UltrasonicSensor(10);
+		uSensor.ping()
 	}
 	
 	@Override
@@ -169,5 +175,9 @@ public class SimpleDriveTrainSystem extends Subsystem {
 		else {
 			drive.setMaxOutput(GEAR_THREE);
 		}
+	}
+	
+	public double readUSensor() {
+		return uSensor.read();
 	}
 }
