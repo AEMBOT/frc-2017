@@ -72,6 +72,8 @@ public class TeleopMode extends SimpleCommand {
         else {
             driveTrain.drive(power, turn);
         }
+        
+        SmartDashboard.putNumber("Sensor", driveTrain.read());
     }
 
     public boolean isFinished () {
