@@ -1,5 +1,6 @@
 package org.usfirst.frc.falcons6443.robot.utilities;
 
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 /**
@@ -77,6 +78,19 @@ public class Smashboard {
         boolean xFlag = table.putNumber((key + "X"), x);
         boolean yFlag = table.putNumber((key + "Y"), y);
         return xFlag && yFlag;
+    }
+
+    public static boolean addCommandChooser(CommandChooser commandChooser) {
+        String key = commandChooser.getName();
+        boolean defFlag = table.putString(key + "Default", commandChooser.getDefaultOptionKey());
+        boolean optionsFlag = table.putStringArray(key + "Options",
+                commandChooser.getOptions().keySet().toArray(new String[commandChooser.getOptions().size()]));
+        return defFlag && optionsFlag;
+    }
+
+    public static Command getCommandChooserSelection(CommandChooser commandChooser) {
+        String key = table.getString(commandChooser.getName(), "");
+        return commandChooser.getOptions().get(key);
     }
 
 }
