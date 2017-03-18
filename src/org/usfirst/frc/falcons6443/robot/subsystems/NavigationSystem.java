@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import org.usfirst.frc.falcons6443.robot.RobotMap;
+import org.usfirst.frc.falcons6443.robot.commands.PrintYaw;
+import org.usfirst.frc.falcons6443.robot.commands.TestSensor;
 import org.usfirst.frc.falcons6443.robot.hardware.NavX;
 import org.usfirst.frc.falcons6443.robot.hardware.UltrasonicSensor;
 
@@ -43,16 +45,12 @@ public class NavigationSystem extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        //setDefaultCommand(new PrintYaw());
+        setDefaultCommand(new TestSensor());
     }
     
     public void reset () {
     	navx.ahrs().reset();
     	navx.ahrs().resetDisplacement();
-    }
-
-    public boolean isMoving () {
-        return navx.ahrs().isMoving();
     }
     
     /**
