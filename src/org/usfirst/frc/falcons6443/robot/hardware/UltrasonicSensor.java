@@ -1,14 +1,32 @@
 package org.usfirst.frc.falcons6443.robot.hardware;
 
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 
+/**
+ * A Maxbotix I2C Ultrasonic Rangefinder Device.
+ * Part No.: <a href="http://www.maxbotix.com/Ultrasonic_Sensors/MB1222.htm"> MB1222
+I2CXL-MaxSonar-EZ2</a>
+ * @author Patrick Higgins
+ *
+ */
 public class UltrasonicSensor extends I2C {
 
-	int deviceAddress; //deviceAddress = write register, deviceAddress + 1 = read register
-	
+	private int deviceAddress; //deviceAddress = write register, deviceAddress + 1 = read register
+	private PIDSourceType pidSourceType;
+
+	/**
+	 * Initializes a new Ultrasonic Sensor via the onboard I2C bus.
+	 * Before initializing sensors on a bus, it is highly recommended that you set each address individually.
+	 * @param deviceAddress the address location of the sensor on the bus. Default address is 224.
+	 */
 	public UltrasonicSensor (int deviceAddress) {
+		
+		//to initialize via navx bus, replace kOnboard with kMXP
 		super(Port.kOnboard, deviceAddress);
 		
+		pidSourceType = PIDSourceType.kDisplacement;
 		this.deviceAddress = deviceAddress;
 	}
 	
@@ -32,7 +50,10 @@ public class UltrasonicSensor extends I2C {
 		read(deviceAddress + 1, 2, buffer);
 		return averagedRange(buffer);
 	}
-	
+	public double readInches () {
+		//multiply return by cm:inch ratio
+		return read() * 0.393700787402;
+	}
 	private double averagedRange (byte[] values) {
 		double average;
 		
