@@ -1,13 +1,9 @@
 package org.usfirst.frc.falcons6443.robot.subsystems;
 
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.falcons6443.robot.Robot;
 import org.usfirst.frc.falcons6443.robot.RobotMap;
-import org.usfirst.frc.falcons6443.robot.commands.TankDriveWithTriggers;
 import org.usfirst.frc.falcons6443.robot.commands.TeleopMode;
 import org.usfirst.frc.falcons6443.robot.hardware.SpeedControllerGroup;
 import org.usfirst.frc.falcons6443.robot.hardware.UltrasonicSensor;
@@ -177,7 +173,7 @@ public class SimpleDriveTrainSystem extends Subsystem {
 		}
 	}
 	
-	public double read() {
+	public String read() {
 		return uSensor.read(true);
 	}
 

@@ -1,7 +1,6 @@
 package org.usfirst.frc.falcons6443.robot.hardware;
 
 import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.Timer;
 
@@ -45,19 +44,17 @@ public class UltrasonicSensor extends I2C {
 		return buffer[0];
 	}
 	
-	public double read (boolean somethung) {
-
-
+	public String read (boolean somethung) {
         byte[] buffer = new byte[2];
 
         //read the two bytes from the sensor, range-low and range-high
-        read(deviceAddress +1, 2, buffer);
+        read(deviceAddress + 1, 2, buffer);
 
         Byte lowByte = new Byte(buffer[1]);
         Byte highByte = new Byte(buffer[0]);
         String combinedBytes = highByte.toString().concat(lowByte.toString());
 
-        return highByte.doubleValue();
+        return String.format("%16s", Integer.toBinaryString((short) ((highByte << 9) | (lowByte)) & 0xFFFF)).replace(' ', '0');
         //return Byte.valueOf(combinedBytes);
 	}
 
