@@ -1,7 +1,9 @@
 package org.usfirst.frc.falcons6443.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.falcons6443.robot.Robot;
 import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
+import org.usfirst.frc.falcons6443.robot.utilities.Smashboard;
 
 /**
  * The new default teleoperated mode command, replacing TankDriveWithTriggers.
@@ -72,8 +74,8 @@ public class TeleopMode extends SimpleCommand {
         else {
             driveTrain.drive(power, turn);
         }
-        
-        SmartDashboard.putNumber("Sensor", driveTrain.read());
+//        Smashboard.putNumber("Ultrasonic Sensor Reading", driveTrain.read());
+        Smashboard.getTable().putNumber("Double Bytes", driveTrain.read());
     }
 
     public boolean isFinished () {

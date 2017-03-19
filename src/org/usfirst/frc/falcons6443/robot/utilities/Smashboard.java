@@ -1,6 +1,7 @@
 package org.usfirst.frc.falcons6443.robot.utilities;
 
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import sun.nio.ch.Net;
 
 /**
  * The {@link Smashboard} class is the bridge between robot programs and the Smashboard on
@@ -77,6 +78,10 @@ public class Smashboard {
         boolean xFlag = table.putNumber((key + "X"), x);
         boolean yFlag = table.putNumber((key + "Y"), y);
         return xFlag && yFlag;
+    }
+
+    public static NetworkTable getTable() {
+        return table;
     }
 
 }

@@ -1,6 +1,7 @@
 package org.usfirst.frc.falcons6443.robot.subsystems;
 
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -64,8 +65,7 @@ public class SimpleDriveTrainSystem extends Subsystem {
 
 		speedLevel = 1; //start in lowest speed mode
 		
-		uSensor = new UltrasonicSensor(10);
-		uSensor.ping()
+		uSensor = new UltrasonicSensor(112);
 	}
 	
 	@Override
@@ -177,7 +177,11 @@ public class SimpleDriveTrainSystem extends Subsystem {
 		}
 	}
 	
-	public double readUSensor() {
-		return uSensor.read();
+	public double read() {
+		return uSensor.read(true);
+	}
+
+	public UltrasonicSensor getSensor() {
+		return uSensor;
 	}
 }

@@ -1,5 +1,7 @@
 package org.usfirst.frc.falcons6443.robot;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import org.usfirst.frc.falcons6443.robot.commands.*;
 import org.usfirst.frc.falcons6443.robot.subsystems.*;
 
@@ -46,6 +48,9 @@ public class Robot extends IterativeRobot {
 		autonomyChooser.addDefault("Displacement Test", new DisplacementTest());
 		SmartDashboard.putData("Autonomy", autonomyChooser);
 		*/
+
+		CameraServer server = CameraServer.getInstance();
+		server.startAutomaticCapture();
 
 		assert RobotMap.isOK();
 	}
