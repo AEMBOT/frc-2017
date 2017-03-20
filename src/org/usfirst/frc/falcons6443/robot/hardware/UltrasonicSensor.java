@@ -33,7 +33,7 @@ public class UltrasonicSensor extends I2C {
 	public void ping () {
 		//command the sensor to measure range
 		write(deviceAddress, 81);
-		Timer.delay(1);
+		Timer.delay(0.1);
 	}
 	
 	public int readLow () {

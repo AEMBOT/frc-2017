@@ -174,6 +174,7 @@ public class SimpleDriveTrainSystem extends Subsystem {
 	}
 	
 	public String read() {
+		uSensor.ping();
 		return uSensor.read(true);
 	}
 
