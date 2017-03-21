@@ -15,7 +15,7 @@ import org.usfirst.frc.falcons6443.robot.hardware.SpeedControllerGroup;
  *
  * @author Christopher Medlin, Patrick Higgins, Shivashriganesh Mahato
  */
-public class SimpleDriveTrainSystem extends Subsystem {
+public class DriveTrainSystem extends Subsystem {
 
 	public static final double KP = 0.04;  //.04
 	public static final double KI = 0.001; //.001
@@ -41,7 +41,7 @@ public class SimpleDriveTrainSystem extends Subsystem {
 	/**
 	 * Constructor for DriveTrainSystem.
 	 */
-	public SimpleDriveTrainSystem() {
+	public DriveTrainSystem() {
 		//invert motors here
 		  
 	    leftMotors = new SpeedControllerGroup(new VictorSP(RobotMap.FrontLeftVictor),
