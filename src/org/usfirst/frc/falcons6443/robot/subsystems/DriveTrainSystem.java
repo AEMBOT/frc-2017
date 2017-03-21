@@ -3,12 +3,9 @@ package org.usfirst.frc.falcons6443.robot.subsystems;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import org.usfirst.frc.falcons6443.robot.Robot;
 import org.usfirst.frc.falcons6443.robot.RobotMap;
+import org.usfirst.frc.falcons6443.robot.commands.TeleopMode;
 import org.usfirst.frc.falcons6443.robot.hardware.SpeedControllerGroup;
-import org.usfirst.frc.falcons6443.robot.commands.*;
 
 /**
  * Subsystem for the robot's drive train.
@@ -18,7 +15,6 @@ import org.usfirst.frc.falcons6443.robot.commands.*;
  *
  * @author Christopher Medlin, Patrick Higgins, Shivashriganesh Mahato
  */
-@Deprecated
 public class DriveTrainSystem extends Subsystem {
 
 	public static final double KP = 0.04;  //.04
@@ -26,12 +22,15 @@ public class DriveTrainSystem extends Subsystem {
 	public static final double KD = 0.00;  //.00
 	public static final double KF = 0.00;
 
-	public static final double MotorPowerModifier = .75; //multiplier for max motor power
+	private static final double GEAR_ONE =  0.3;
+	private static final double GEAR_TWO = 0.6;
+	private static final double GEAR_THREE = 1;
+
+	private static final double MAXIMUM_CURVE = 0.36787944;
 
 	private SpeedControllerGroup leftMotors;
 	private SpeedControllerGroup rightMotors;
 
-	private boolean isSpinning;
 	private boolean reversed;
 
 	private int speedLevel;
@@ -42,41 +41,25 @@ public class DriveTrainSystem extends Subsystem {
 	 * Constructor for DriveTrainSystem.
 	 */
 	public DriveTrainSystem() {
-		VictorSP frontLeft = new VictorSP(RobotMap.FrontLeftVictor);
-		VictorSP backLeft = new VictorSP(RobotMap.BackLeftVictor);
-		VictorSP frontRight = new VictorSP(RobotMap.FrontRightVictor);
-		VictorSP backRight = new VictorSP(RobotMap.BackRightVictor);
-
 		//invert motors here
-
-		leftMotors = new SpeedControllerGroup(frontLeft, backLeft);
-
-		rightMotors = new SpeedControllerGroup(frontRight, backRight);
-
-		isSpinning = false;
+		  
+	    leftMotors = new SpeedControllerGroup(new VictorSP(RobotMap.FrontLeftVictor),
+											  new VictorSP(RobotMap.BackLeftVictor));
+		
+		rightMotors = new SpeedControllerGroup(new VictorSP(RobotMap.FrontRightVictor),
+				 							   new VictorSP(RobotMap.BackRightVictor));
+		
 		reversed = false;
 
-		speedLevel = 1; //start in highest speed mode
+		drive = new RobotDrive(leftMotors, rightMotors);
+		drive.setSafetyEnabled(false);
+
+		speedLevel = 1; //start in lowest speed mode
 	}
 	
 	@Override
 	public void initDefaultCommand () {
-
-	}
-
-	/**
-	 * Passes desired tank drive inputs to instance of RobotDrive
-	 *
-	 * @param left left axis value.
-	 * @param right right axis value.
-	 */
-	public void updateGamepadInput(double left, double right) {
-		tankDrive(left, right);
-
-		SmartDashboard.putNumber("Speed Level", (leftMotors.get() + rightMotors.get()) / 2);
-		SmartDashboard.putNumber("Left Input", left * MotorPowerModifier / speedLevel);
-		SmartDashboard.putNumber("Right Input", right * MotorPowerModifier / speedLevel);
-
+		setDefaultCommand(new TeleopMode());
 	}
 
 	/**
@@ -86,28 +69,12 @@ public class DriveTrainSystem extends Subsystem {
 	 * @param right the power for the right motors.
 	 */
 	public void tankDrive(double left, double right) {
-		if (isSpinning) {
-			if (reversed) {
-				leftMotors.setInverted(true);
-				rightMotors.setInverted(true);
-			}
-
-			else {
-				leftMotors.setInverted(false);
-				rightMotors.setInverted(false);
-			}
-
-			isSpinning = false;
+		if (reversed) {
+			drive.tankDrive(-left, -right);
 		}
-
-		drive(left, right);
-	}
-
-	/**
-	 *
-	 */
-	public void tankDriveWithRobotDrive (double left, double right) {
-		drive.tankDrive(left, right);
+		else {
+			drive.tankDrive(left, right);
+		}
 	}
 	
 	/**
@@ -115,39 +82,19 @@ public class DriveTrainSystem extends Subsystem {
 	 *
 	 * @param speed the speed at which the robot spins.
 	 */
-	public void spinLeft(double speed) {
-		isSpinning = true;
-
-		leftMotors.setInverted(true);
-		rightMotors.setInverted(false);
-
-		drive(speed);
+	public void spin(double speed) {
+		if (!reversed) {
+			drive.tankDrive(speed, -speed);
+		}
+		else {
+			drive.tankDrive(-speed, speed);
+		}
 	}
-
-	/**
-	 * Spins the robot clockwise.
-	 *
-	 * @param speed the speed at which the robot spins.
-	 */
-	public void spinRight(double speed) {
-		isSpinning = true;
-
-		leftMotors.setInverted(false);
-		rightMotors.setInverted(true);
-
-		drive(speed);
-	}
-
+	
 	/**
 	 * Toggles the motors to go in reverse.
 	 */
 	public void reverse() {
-		leftMotors.stopMotor();
-		rightMotors.stopMotor();
-
-		leftMotors.toggleInverted();
-		rightMotors.toggleInverted();
-
 		reversed = !reversed;
 	}
 	
@@ -156,27 +103,20 @@ public class DriveTrainSystem extends Subsystem {
 	 * Increases the maximum speed level.
 	 */
 	public void upshift() {
-		if (speedLevel == 2 || speedLevel == 3) {
-			speedLevel--;
+		if (speedLevel != 3) {
+			speedLevel++;
 		}
+		updateMaxOutput();
 	}
 	
 	/**
 	 * Decreases the max speed level.
 	 */
 	public void downshift() {
-		if (speedLevel == 1 || speedLevel == 2) {
-			speedLevel++;
+		if (speedLevel != 1) {
+			speedLevel--;
 		}
-	}
-
-	/**
-	 * Shift to the desired speed level.
-	 *
-	 * @param gear the desired speed level.
-	 */
-	public void shiftTo(int gear) {
-		speedLevel = gear;
+		updateMaxOutput();
 	}
 	
 	/**
@@ -200,21 +140,24 @@ public class DriveTrainSystem extends Subsystem {
 	 *
 	 * @param speed the desired speed.
 	 */
-	private void drive(double speed) {
-		leftMotors.set(speed * MotorPowerModifier / speedLevel);
-		rightMotors.set(speed * MotorPowerModifier / speedLevel);
+	public void drive (double speed, double curve) {
+		if (!reversed) {
+			drive.drive(speed, curve * MAXIMUM_CURVE);
+		}
+		else {
+			drive.drive(-speed, -(curve * MAXIMUM_CURVE));
+		}
 	}
 
-	/**
-	 * Sets each pair of motors individually to a desired speed.
-	 * <p>
-	 * Also puts data on the smart dashboard pertaining to the drive train.
-	 *
-	 * @param left the desired speed for the left motor.
-	 * @param right the desired speed for the right motor.
-	 */
-	private void drive(double left, double right) {
-		leftMotors.set(left * MotorPowerModifier / speedLevel);
-		rightMotors.set(right * MotorPowerModifier / speedLevel);
+	private void updateMaxOutput () {
+		if (speedLevel == 1) {
+			drive.setMaxOutput(GEAR_ONE);
+		}
+		else if (speedLevel == 2) {
+			drive.setMaxOutput(GEAR_TWO);
+		}
+		else {
+			drive.setMaxOutput(GEAR_THREE);
+		}
 	}
 }
