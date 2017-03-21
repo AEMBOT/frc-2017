@@ -12,60 +12,26 @@ import org.usfirst.frc.falcons6443.robot.commands.TankDriveWithTriggers;
  */
 public class RopeClimberSystem extends Subsystem {
 
-    private Victor motor;
+    private Spark motor;
 
     private boolean climbing;
     private boolean descending;
 
     public RopeClimberSystem () {
-        motor = new Victor(RobotMap.BackRightVictor);
+        motor = new Spark(RobotMap.RopeClimberVictor);
         climbing = false;
         descending = false;
     }
 
     @Override
     public void initDefaultCommand () {
-        new TankDriveWithTriggers().start();
+
     }
 
     /**
-     * Turns on the rope climber motor.
+     * @param throttle
      */
-    public void climb () {
-        motor.set(0.3);
-        climbing = true;
-        descending = false;
-    }
-
-    /**
-     * Turns off the rope climber motor.
-     */
-    public void stop () {
-        motor.set(0);
-        climbing = false;
-        descending = false;
-    }
-
-    /**
-     * Sets the rope climber motor to reverse.
-     */
-    public void descend () {
-        motor.set(-0.3);
-        climbing = false;
-        descending = true;
-    }
-
-    /**
-     * @return Whether or not the rope climber mechanism is in reverse.
-     */
-    public boolean isDescending () {
-        return descending;
-    }
-
-    /**
-     * @return Whether or not the rope climber mechanism is climbing.
-     */
-    public boolean isClimbing () {
-        return climbing;
+    public void set (double throttle) {
+        motor.set(throttle);
     }
 }

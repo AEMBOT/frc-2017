@@ -2,94 +2,100 @@ package org.usfirst.frc.falcons6443.robot.commands;
 
 import org.usfirst.frc.falcons6443.robot.Robot;
 import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
-
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import org.usfirst.frc.falcons6443.robot.utilities.Smashboard;
 
 /**
- * This command allows the driver to control the robot with two triggers (located on the back of a gamepad).
- * <p>
- * The right trigger controls the right motors, the left trigger controls the left motors.
+ * The new default teleoperated mode command, replacing TankDriveWithTriggers.
  *
- * @author Christopher Medlin, Patrick Higgins
+ * @author Christopher Medlin, Ivan Kenevich
  */
-@Deprecated
 public class TankDriveWithTriggers extends SimpleCommand {
 
-	private Gamepad gamepad;
-	
-	private boolean canReverse;
+    private Gamepad gamepad;
+    boolean reversed, gearToggled, hasShifted;
 
-	/**
-	 * Constructor for TankDriveWithTriggers.
-	 */
-	
-	public TankDriveWithTriggers() {
-		super("Move With Triggers Using Tank Drive");
+    public TankDriveWithTriggers() {
+        super("Teleop Command");
 
-		requires(driveTrain);
-
-		//requires(ropeClimber);
-	}
-
-	@Override
-	public void initialize () {
-		gamepad = Robot.oi.getGamepad();
-		canReverse = true;
-	}
-	
-	@Override
-	public void execute () {
-		double leftInput = gamepad.leftTrigger();
-		double rightInput = gamepad.rightTrigger();
-		
-		if (gamepad.leftBumper()) {
-			rightInput /= 2;
-			leftInput /= 2;
-		}
-		
-		//if the reverse key is depressed and has been released since the last reverse
-		if (gamepad.leftBumper() && canReverse) {
-			driveTrain.reverse();
-			canReverse = false;
-		}
-		
-		//if the reverse key is released, re-enable the option to reverse
-		else if (!gamepad.leftBumper() && !canReverse) {
-			canReverse = true;
-		}
-		
-		if (gamepad.leftStickX() != 0) {
-			if (gamepad.leftStickX() < 0) {
-				//driveTrain.spinLeft(adjustedInput(Math.abs(gamepad.leftStickX())));
-			}
-			
-			else if (gamepad.leftStickX() > 0) {
-				//driveTrain.spinRight(adjustedInput(Math.abs(gamepad.leftStickX())));
-			}
-		}
-		
-		
-		else {
-			//driveTrain.updateGamepadInput(adjustedInput(leftInput), adjustedInput(rightInput));
-		}
-		
-		if (gamepad.rightBumper()) {
-			gearHolder.open();
-		}
-		
-		else {
-			gearHolder.close();
+        requires(driveTrain);
+        requires(navigation);
+        requires(gearHolder);
+        requires(ropeClimber);
     }
-    
-	  Smashboard.putNumber("leftTriggerVal", (int) (leftInput * 100.0));
-  	Smashboard.putNumber("rightTriggerVal", (int) (rightInput * 100.0));
-	}
 
-	/* There are no particular conditions in which we want the command to stop autonomously. */
-	@Override
-	public boolean isFinished () {
-		return false;
-	}
+    @Override
+    public void initialize () {
+        gamepad = Robot.oi.getGamepad();
+        reversed = false;
+        gearToggled = false;
+        hasShifted = false;
+    }
+
+    @Override
+    public void execute () {
+        double leftPower = gamepad.leftStickY();
+        double ropeClimberPower = gamepad.rightTrigger();
+        double rightPower = gamepad.rightStickY();
+
+        // left bumper downshifts, right bumper upshifts.
+        if (gamepad.leftBumper()) {
+            if (!hasShifted) {
+                driveTrain.downshift();
+                hasShifted = true;
+            }
+        } else if (gamepad.rightBumper()) {
+            if (!hasShifted) {
+                driveTrain.upshift();
+                hasShifted = true;
+            }
+        } else {
+            hasShifted = false;
+        }
+
+
+        // the A button will toggle the gear holder
+        if (gamepad.A()) {
+            if (!gearToggled) {
+                // safeguard for if the driver holds the A button
+                gearHolder.toggle();
+                gearToggled = true;
+            }
+        }
+        else {
+            gearToggled = false;
+        }
+
+        // the Y button will toggle the drive train to reverse mode
+        if (gamepad.Y()) {
+            // safeguard for if the drive holds down the Y button.
+            if (!reversed) {
+                driveTrain.reverse();
+                reversed = true;
+            }
+        }
+        else {
+            reversed = false;
+        }
+
+        // set ropeClimber power.
+        ropeClimber.set(ropeClimberPower);
+
+        if (leftPower == 0) {
+            driveTrain.spin(rightPower);
+        }
+        else if (rightPower == 0) {
+            driveTrain.spin(leftPower);
+        }
+        else {
+            driveTrain.tankDrive(leftPower, rightPower);
+        }
+
+        Smashboard.putNumber("RopeClimber", ropeClimberPower * 100);
+        Smashboard.putBoolean("GearHolder", gearHolder.isOpen());
+        Smashboard.putNumber("robotHeadingVal", navigation.getYaw());
+    }
+
+    public boolean isFinished () {
+        return false;
+    }
 }
-

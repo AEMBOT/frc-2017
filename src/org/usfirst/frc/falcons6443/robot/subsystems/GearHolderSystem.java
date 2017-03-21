@@ -32,7 +32,7 @@ public class GearHolderSystem extends Subsystem {
 
 	@Override
 	public void initDefaultCommand() {
-		setDefaultCommand(new ToggleGearHolder());
+		//setDefaultCommand(new ToggleGearHolder());
 	}
 
 
@@ -52,5 +52,13 @@ public class GearHolderSystem extends Subsystem {
 		open = false;
 	}
 
+	public void toggle () {
+		if (!open) {
+			open();
+		}
+		else {
+			close();
+		}
+	}
 }
 
