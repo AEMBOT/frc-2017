@@ -18,7 +18,6 @@ public class UltrasonicSensor extends I2C {
     private PIDSourceType pidSourceType;
 
 	private double[] lastFewValues;
-	private int iterationIndex;
 	private final double JUMP_TOLERANCE = 2.5;
 
 	/**
@@ -34,7 +33,7 @@ public class UltrasonicSensor extends I2C {
 		pidSourceType = PIDSourceType.kDisplacement;
 		this.deviceAddress = deviceAddress;
 
-		iterationIndex = 0;
+		// Populate with sensible possible average readings at initialization
 		lastFewValues = new double[] {50, 50, 50, 50, 50};
 	}
 	
