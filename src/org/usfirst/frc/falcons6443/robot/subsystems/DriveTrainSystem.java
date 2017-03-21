@@ -31,7 +31,6 @@ public class DriveTrainSystem extends Subsystem {
 	private SpeedControllerGroup leftMotors;
 	private SpeedControllerGroup rightMotors;
 
-	private boolean isSpinning;
 	private boolean reversed;
 
 	private int speedLevel;
@@ -50,7 +49,6 @@ public class DriveTrainSystem extends Subsystem {
 		rightMotors = new SpeedControllerGroup(new VictorSP(RobotMap.FrontRightVictor),
 				 							   new VictorSP(RobotMap.BackRightVictor));
 		
-		isSpinning = false;
 		reversed = false;
 
 		drive = new RobotDrive(leftMotors, rightMotors);
