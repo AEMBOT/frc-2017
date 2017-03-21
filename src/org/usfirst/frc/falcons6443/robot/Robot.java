@@ -1,14 +1,18 @@
 package org.usfirst.frc.falcons6443.robot;
 
-import org.usfirst.frc.falcons6443.robot.commands.*;
-import org.usfirst.frc.falcons6443.robot.subsystems.*;
-
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.falcons6443.robot.commands.MoveByTime;
+import org.usfirst.frc.falcons6443.robot.commands.TankDriveWithTriggers;
+import org.usfirst.frc.falcons6443.robot.commands.TeleopMode;
+import org.usfirst.frc.falcons6443.robot.subsystems.GearHolderSystem;
+import org.usfirst.frc.falcons6443.robot.subsystems.NavigationSystem;
+import org.usfirst.frc.falcons6443.robot.subsystems.SimpleDriveTrainSystem;
+import org.usfirst.frc.falcons6443.robot.utilities.CommandChooser;
+import org.usfirst.frc.falcons6443.robot.utilities.Smashboard;
 
 /**
  * The Robot class is FRC team 6443's implementation of WPIlib's IterativeRobot class.
@@ -27,8 +31,10 @@ public class Robot extends IterativeRobot {
 
 	private Command autonomy;
 	private Command teleop;
-	private SendableChooser<Command> teleOpChooser;
+//	private SendableChooser<Command> teleOpChooser;
 	private SendableChooser<Command> autonomyChooser;
+
+	private CommandChooser teleOpChooser;
 
 	/*
 	 * Called when the robot first starts.
@@ -36,7 +42,12 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit () {
 		oi = new OI();
-		autonomy = new MoveByTime(6, 0.5);
+		autonomy = new MoveByTime(4, 0.5);
+
+		teleOpChooser = new CommandChooser("teleopChooser");
+		teleOpChooser.addDefault("Teleop Mode", new TeleopMode());
+		teleOpChooser.addOption("Tank Drive with Triggers", new TankDriveWithTriggers());
+		Smashboard.addCommandChooser(teleOpChooser);
 		/*
 		teleOpChooser = new SendableChooser<Command>();
 		teleOpChooser.addDefault("Tank Drive With Triggers", new TankDriveWithTriggers());
@@ -94,13 +105,11 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopInit () {
-		/*
 		if (autonomy != null) autonomy.cancel();
 
-		teleop = (Command) teleOpChooser.getSelected();
+		teleop = Smashboard.getCommandChooserSelection(teleOpChooser);
 
 		if (teleop !=  null) teleop.start();
-		*/
 	}
 
 	/*
