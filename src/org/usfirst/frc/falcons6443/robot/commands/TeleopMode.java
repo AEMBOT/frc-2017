@@ -73,8 +73,8 @@ public class TeleopMode extends SimpleCommand {
         else {
             driveTrain.drive(power, turn);
         }
-//        Smashboard.putNumber("Ultrasonic Sensor Reading", driveTrain.read());
-        Smashboard.getTable().putString("Wobble Bytes", driveTrain.read());
+
+        Smashboard.getTable().putNumber("Ultrasonic Sensor Reading", driveTrain.read());
     }
 
     public boolean isFinished () {

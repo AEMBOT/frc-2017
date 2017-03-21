@@ -173,9 +173,9 @@ public class SimpleDriveTrainSystem extends Subsystem {
 		}
 	}
 	
-	public String read() {
+	public double read() {
 		uSensor.ping();
-		return uSensor.read(true);
+		return uSensor.read();
 	}
 
 	public UltrasonicSensor getSensor() {

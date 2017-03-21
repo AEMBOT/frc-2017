@@ -14,7 +14,12 @@ I2CXL-MaxSonar-EZ2</a>
 public class UltrasonicSensor extends I2C {
 
 	private int deviceAddress; //deviceAddress = write register, deviceAddress + 1 = read register
-	private PIDSourceType pidSourceType;
+
+    private PIDSourceType pidSourceType;
+
+	private double[] lastFewValues;
+	private int iterationIndex;
+	private final double JUMP_TOLERANCE = 2.5;
 
 	/**
 	 * Initializes a new Ultrasonic Sensor via the onboard I2C bus.
@@ -28,6 +33,9 @@ public class UltrasonicSensor extends I2C {
 		
 		pidSourceType = PIDSourceType.kDisplacement;
 		this.deviceAddress = deviceAddress;
+
+		iterationIndex = 0;
+		lastFewValues = new double[] {50, 50, 50, 50, 50};
 	}
 	
 	public void ping () {
@@ -44,27 +52,56 @@ public class UltrasonicSensor extends I2C {
 		return buffer[0];
 	}
 	
-	public String read (boolean somethung) {
+	public double read () {
         byte[] buffer = new byte[2];
 
         //read the two bytes from the sensor, range-low and range-high
         read(deviceAddress + 1, 2, buffer);
 
-        Byte lowByte = new Byte(buffer[1]);
-        Byte highByte = new Byte(buffer[0]);
-        String combinedBytes = highByte.toString().concat(lowByte.toString());
+        double combinedBytes = ((buffer[0] & 0xFF) << 8 | (buffer[1] & 0xFF));
 
-        return String.format("%16s", Integer.toBinaryString((short) ((highByte << 9) | (lowByte)) & 0xFFFF)).replace(' ', '0');
-        //return Byte.valueOf(combinedBytes);
+        /** smooth METHOD IS NEW AND HAS NOT BEEN TESTED */
+        /** RETURN combinedBytes IF THE METHOD MALFUNCTIONS */
+        return smooth(combinedBytes);
 	}
 
-	public double read() {
-		return 0;
+	/*
+	    The method is meant to catch erroneous readings and ignore them
+	    Thus improving the quality of readings returned by the sensor.
+
+	    The sensitivity can be adjusted by changing the size of the
+	    lastFewValues array and/or the value of the JUMP_TOLERANCE constant
+	 */
+	private double smooth (double sensorReading) {
+	    // Find the average of the last few read values
+        double sum = 0;
+        for (double d : lastFewValues) {
+            sum+=d;
+        }
+        double average = sum/lastFewValues.length;
+
+        // If the new reading is not too far from last few readings
+        if (Math.abs(average - sensorReading) < average * JUMP_TOLERANCE) {
+            // Shift the array of the last few values to the right one index
+            // Thereby getting rid of the "oldest" reading
+            for (int i = lastFewValues.length-1; i>1; i--) {
+                lastFewValues[i] = lastFewValues[i-1];
+            }
+            // Set the last reading as the "newest" value
+            lastFewValues[0] = sensorReading;
+
+            return sensorReading;
+        }
+        // If the reading is way off
+        else
+            return lastFewValues[0];
+    }
+
+	public double readInches () {
+		//multiply return by cm:inch ratio
+		return read() * 0.393700787402;
 	}
-//	public double readInches () {
-//		//multiply return by cm:inch ratio
-//		return read() * 0.393700787402;
-//	}
+
 	private double averagedRange (byte[] values) {
 		double average;
 		
