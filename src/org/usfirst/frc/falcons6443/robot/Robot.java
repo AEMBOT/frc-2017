@@ -1,5 +1,6 @@
 package org.usfirst.frc.falcons6443.robot;
 
+import org.usfirst.frc.falcons6443.robot.subsystems.RopeClimberSystem;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -21,7 +22,7 @@ public class Robot extends IterativeRobot {
 	public static final SimpleDriveTrainSystem DriveTrain = new SimpleDriveTrainSystem();
 	public static final GearHolderSystem GearHolder = new GearHolderSystem();
 	public static final NavigationSystem Navigation = new NavigationSystem();
-	//public static final RopeClimberSystem RopeClimber = new RopeClimberSystem();
+	public static final RopeClimberSystem RopeClimber = new RopeClimberSystem();
   
 	public static OI oi;
 

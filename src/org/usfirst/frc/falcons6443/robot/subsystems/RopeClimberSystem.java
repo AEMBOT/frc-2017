@@ -20,7 +20,7 @@ public class RopeClimberSystem extends Subsystem {
     private boolean descending;
 
     public RopeClimberSystem () {
-        motor = new Victor(RobotMap.BackRightVictor);
+      //  motor = new Victor(RobotMap.BackRightVictor);
         climbing = false;
         descending = false;
     }
@@ -31,43 +31,10 @@ public class RopeClimberSystem extends Subsystem {
     }
 
     /**
-     * Turns on the rope climber motor.
+     * Sets the power of the rope climber.
      */
-    public void climb () {
-        motor.set(0.3);
-        climbing = true;
-        descending = false;
+    public void set (double power) {
+        //motor.set(power);
     }
 
-    /**
-     * Turns off the rope climber motor.
-     */
-    public void stop () {
-        motor.set(0);
-        climbing = false;
-        descending = false;
-    }
-
-    /**
-     * Sets the rope climber motor to reverse.
-     */
-    public void descend () {
-        motor.set(-0.3);
-        climbing = false;
-        descending = true;
-    }
-
-    /**
-     * @return Whether or not the rope climber mechanism is in reverse.
-     */
-    public boolean isDescending () {
-        return descending;
-    }
-
-    /**
-     * @return Whether or not the rope climber mechanism is climbing.
-     */
-    public boolean isClimbing () {
-        return climbing;
-    }
 }

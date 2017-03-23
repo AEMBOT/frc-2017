@@ -1,5 +1,6 @@
 package org.usfirst.frc.falcons6443.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.falcons6443.robot.Robot;
 import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
 import org.usfirst.frc.falcons6443.robot.utilities.Smashboard;
@@ -74,7 +75,7 @@ public class TeleopMode extends SimpleCommand {
             driveTrain.drive(power, turn);
         }
 
-        Smashboard.getTable().putNumber("Ultrasonic Sensor Reading", driveTrain.read());
+        SmartDashboard.putNumber("Ultrasonic Sensor Reading", driveTrain.read());
     }
 
     public boolean isFinished () {

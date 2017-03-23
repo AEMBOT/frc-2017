@@ -31,7 +31,7 @@ public class SimpleDriveTrainSystem extends Subsystem {
 
 	private SpeedControllerGroup leftMotors;
 	private SpeedControllerGroup rightMotors;
-	
+
 	private UltrasonicSensor uSensor;
 
 	private boolean isSpinning;
@@ -60,8 +60,8 @@ public class SimpleDriveTrainSystem extends Subsystem {
 		drive.setSafetyEnabled(false);
 
 		speedLevel = 1; //start in lowest speed mode
-		
-		uSensor = new UltrasonicSensor(112);
+
+		uSensor = new UltrasonicSensor(116);
 	}
 	
 	@Override
@@ -97,19 +97,13 @@ public class SimpleDriveTrainSystem extends Subsystem {
 			drive.tankDrive(-speed, speed);
 		}
 	}
-	
+
 	/**
 	 * Toggles the motors to go in reverse.
 	 */
 	public void reverse() {
-		if (!reversed) {
-			reversed = true;
-		}
-		else  {
-			reversed = false;
-		}
+		reversed = !reversed;
 	}
-	
 
 	/**
 	 * Increases the maximum speed level.
@@ -157,7 +151,7 @@ public class SimpleDriveTrainSystem extends Subsystem {
 			drive.drive(speed, curve * MAXIMUM_CURVE);
 		}
 		else {
-			drive.drive(-speed, -(curve * MAXIMUM_CURVE));
+			drive.drive(-speed, (curve * MAXIMUM_CURVE));
 		}
 	}
 
@@ -172,7 +166,7 @@ public class SimpleDriveTrainSystem extends Subsystem {
 			drive.setMaxOutput(GEAR_THREE);
 		}
 	}
-	
+
 	public double read() {
 		uSensor.ping();
 		return uSensor.read();

@@ -17,7 +17,7 @@ public class UltrasonicSensor extends I2C {
 
     private PIDSourceType pidSourceType;
 
-	private double[] lastFewValues;
+	private int[] lastFewValues;
 	private final double JUMP_TOLERANCE = 2.5;
 
 	/**
@@ -34,13 +34,13 @@ public class UltrasonicSensor extends I2C {
 		this.deviceAddress = deviceAddress;
 
 		// Populate with sensible possible average readings at initialization
-		lastFewValues = new double[] {50, 50, 50, 50, 50};
+		lastFewValues = new int[] {20, 20, 20};
 	}
 	
 	public void ping () {
 		//command the sensor to measure range
 		write(deviceAddress, 81);
-		Timer.delay(0.1);
+		Timer.delay(0.101);
 	}
 	
 	public int readLow () {
@@ -57,7 +57,7 @@ public class UltrasonicSensor extends I2C {
         //read the two bytes from the sensor, range-low and range-high
         read(deviceAddress + 1, 2, buffer);
 
-        double combinedBytes = ((buffer[0] & 0xFF) << 8 | (buffer[1] & 0xFF));
+        int combinedBytes = ((buffer[0] & 0xFF) << 8 | (buffer[1] & 0xFF));
 
         /** smooth METHOD IS NEW AND HAS NOT BEEN TESTED */
         /** RETURN combinedBytes IF THE METHOD MALFUNCTIONS */
@@ -71,16 +71,16 @@ public class UltrasonicSensor extends I2C {
 	    The sensitivity can be adjusted by changing the size of the
 	    lastFewValues array and/or the value of the JUMP_TOLERANCE constant
 	 */
-	private double smooth (double sensorReading) {
+	private double smooth (int sensorReading) {
 	    // Find the average of the last few read values
         double sum = 0;
-        for (double d : lastFewValues) {
-            sum+=d;
+        for (int i : lastFewValues) {
+            sum+=i;
         }
         double average = sum/lastFewValues.length;
 
         // If the new reading is not too far from last few readings
-        if (Math.abs(average - sensorReading) < average * JUMP_TOLERANCE) {
+        if (Math.abs(average - (double) sensorReading) < average * JUMP_TOLERANCE) {
             // Shift the array of the last few values to the right one index
             // Thereby getting rid of the "oldest" reading
             for (int i = lastFewValues.length-1; i>1; i--) {
@@ -89,11 +89,11 @@ public class UltrasonicSensor extends I2C {
             // Set the last reading as the "newest" value
             lastFewValues[0] = sensorReading;
 
-            return sensorReading;
+            return average;
         }
         // If the reading is way off
         else
-            return lastFewValues[0];
+        	return average;
     }
 
 	public double readInches () {
