@@ -20,7 +20,7 @@ public class TankDriveWithTriggers extends SimpleCommand {
         requires(driveTrain);
         requires(navigation);
         requires(gearHolder);
-        requires(ropeClimber);
+        //requires(ropeClimber);
     }
 
     @Override
@@ -78,7 +78,7 @@ public class TankDriveWithTriggers extends SimpleCommand {
         }
 
         // set ropeClimber power.
-        ropeClimber.set(ropeClimberPower);
+        //ropeClimber.set(ropeClimberPower);
 
         if (leftPower == 0) {
             driveTrain.spin(rightPower);

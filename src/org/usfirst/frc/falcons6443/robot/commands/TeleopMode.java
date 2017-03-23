@@ -20,7 +20,7 @@ public class TeleopMode extends SimpleCommand {
         requires(driveTrain);
         requires(navigation);
         requires(gearHolder);
-        requires(ropeClimber);
+        //requires(ropeClimber);
     }
 
     @Override
@@ -77,7 +77,7 @@ public class TeleopMode extends SimpleCommand {
         }
 
         // set ropeClimber power.
-        ropeClimber.set(ropeClimberPower);
+        //ropeClimber.set(ropeClimberPower);
 
         // set the driveTrain power.
         if (power == 0) {

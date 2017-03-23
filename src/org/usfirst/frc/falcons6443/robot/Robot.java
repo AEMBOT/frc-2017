@@ -48,7 +48,7 @@ public class Robot extends IterativeRobot {
 
 		teleOpChooser = new CommandChooser("teleopChooser");
 		teleOpChooser.addDefault("Teleop Mode", new TeleopMode());
-		teleOpChooser.addOption("Tank Drive with Triggers", new TankDriveWithTriggers());
+		teleOpChooser.addOption("Tank Drive with Triggers", new MoveByTime(1, 0.5));
 		Smashboard.addCommandChooser(teleOpChooser);
 		/*
 		teleOpChooser = new SendableChooser<Command>();

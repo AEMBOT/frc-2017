@@ -68,4 +68,13 @@ public class RopeClimberSystem extends Subsystem {
     public boolean isClimbing () {
         return climbing;
     }
+
+    /**
+     * Sets the motor's power.
+     * @param power the desired power.
+     */
+    public void set (double power) {
+        motor.set(power);
+    }
+
 }
