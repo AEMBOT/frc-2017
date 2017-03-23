@@ -110,12 +110,7 @@ public class DriveTrainSystem extends Subsystem {
 	 * Toggles the motors to go in reverse.
 	 */
 	public void reverse() {
-		if (!reversed) {
-			reversed = true;
-		}
-		else  {
-			reversed = false;
-		}
+		reversed = !reversed;
 	}
 	
 
@@ -167,7 +162,12 @@ public class DriveTrainSystem extends Subsystem {
 	 * @param curve the desired curvature.
 	 */
 	public void drive (double speed, double curve) {
-		drive.drive(speed, curve * MAXIMUM_CURVE);
+		if (!reversed) {
+			drive.drive(speed, curve * MAXIMUM_CURVE);
+		}
+		else {
+			drive.drive(-speed, curve * MAXIMUM_CURVE);
+		}
 	}
 
 	/* This method is being called from the two shift methods whenever they get called.

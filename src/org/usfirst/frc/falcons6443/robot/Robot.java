@@ -9,11 +9,9 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import org.usfirst.frc.falcons6443.robot.commands.MoveByTime;
-import org.usfirst.frc.falcons6443.robot.commands.TankDriveWithTriggers;
 import org.usfirst.frc.falcons6443.robot.commands.TeleopMode;
 import org.usfirst.frc.falcons6443.robot.subsystems.GearHolderSystem;
 import org.usfirst.frc.falcons6443.robot.subsystems.NavigationSystem;
-import org.usfirst.frc.falcons6443.robot.subsystems.SimpleDriveTrainSystem;
 import org.usfirst.frc.falcons6443.robot.utilities.CommandChooser;
 import org.usfirst.frc.falcons6443.robot.utilities.Smashboard;
 
@@ -94,11 +92,13 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopInit () {
+		/*
 		if (autonomy != null) autonomy.cancel();
 
 		teleop = Smashboard.getCommandChooserSelection(teleOpChooser);
 
 		if (teleop !=  null) teleop.start();
+		*/
 	}
 
 	/*
