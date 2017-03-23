@@ -3,80 +3,79 @@ package org.usfirst.frc.falcons6443.robot.subsystems;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import org.usfirst.frc.falcons6443.robot.Robot;
 import org.usfirst.frc.falcons6443.robot.RobotMap;
 import org.usfirst.frc.falcons6443.robot.hardware.SpeedControllerGroup;
-import org.usfirst.frc.falcons6443.robot.commands.*;
+import org.usfirst.frc.falcons6443.robot.commands.TeleopMode;
 
 /**
  * Subsystem for the robot's drive train.
  * <p>
- * Contains 2 VictorSPGroups for the left and right motors and several boolean values pertaining
- * to the drive train.
+ * Contains 2 SpeedControllerGroups which are controlled by an instance of RobotDrive.
+ * This class is meant to fix some of the shortcomings of the original DriveTrainSystem
+ * class as well as make it more simple and readable.
  *
- * @author Christopher Medlin, Patrick Higgins, Shivashriganesh Mahato
+ * @author Christopher Medlin, Ivan Kenevich
  */
-@Deprecated
 public class DriveTrainSystem extends Subsystem {
 
+	// PID: roportional–integral–derivative controller
+	// more info at https://en.wikipedia.org/wiki/PID_controller
 	public static final double KP = 0.04;  //.04
 	public static final double KI = 0.001; //.001
 	public static final double KD = 0.00;  //.00
 	public static final double KF = 0.00;
 
-	public static final double MotorPowerModifier = .75; //multiplier for max motor power
+	private static final double GEAR_ONE =  0.3; // Lowest speed
+	private static final double GEAR_TWO = 0.6;  // Medium speed
+	private static final double GEAR_THREE = 1;  // Maximum speed
+
+	// The constant that determines the maximum curvature at which the robot can move.
+	// It is determined by the formula c = e^(-r/w), where
+	// r is the radius of the turn and w is the wheelbase (distance between the wheels) of the robot
+	// more info in the describtion of drive() method in RobotDrive
+	private static final double MAXIMUM_CURVE = 0.36787944;
 
 	private SpeedControllerGroup leftMotors;
 	private SpeedControllerGroup rightMotors;
 
-	private boolean isSpinning;
 	private boolean reversed;
 
+	// can be 1, 2, or 3. determines the maximum power of the RobotDrive instance.
 	private int speedLevel;
 
+	// A [nice] class in the wpilib that provides numerous driving capabilities.
+	// Use it whenever you want your robot to move.
 	private RobotDrive drive;
 
 	/**
 	 * Constructor for DriveTrainSystem.
 	 */
 	public DriveTrainSystem() {
-		VictorSP frontLeft = new VictorSP(RobotMap.FrontLeftVictor);
-		VictorSP backLeft = new VictorSP(RobotMap.BackLeftVictor);
-		VictorSP frontRight = new VictorSP(RobotMap.FrontRightVictor);
-		VictorSP backRight = new VictorSP(RobotMap.BackRightVictor);
+	    leftMotors = new SpeedControllerGroup(new VictorSP(RobotMap.FrontLeftVictor),
+											  new VictorSP(RobotMap.BackLeftVictor));
 
-		//invert motors here
+		rightMotors = new SpeedControllerGroup(new VictorSP(RobotMap.FrontRightVictor),
+				 							   new VictorSP(RobotMap.BackRightVictor));
 
-		leftMotors = new SpeedControllerGroup(frontLeft, backLeft);
+		drive = new RobotDrive(leftMotors, rightMotors);
+		// the driver station will complain for some reason if this isn't set so it's pretty necessary.
+		// [FOR SCIENCE!]
+		drive.setSafetyEnabled(false);
 
-		rightMotors = new SpeedControllerGroup(frontRight, backRight);
-
-		isSpinning = false;
 		reversed = false;
 
-		speedLevel = 1; //start in highest speed mode
+		speedLevel = 1; //start in lowest speed mode [SAFETY FIRST]
 	}
 	
 	@Override
-	public void initDefaultCommand () {
-
-	}
-
 	/**
-	 * Passes desired tank drive inputs to instance of RobotDrive
+	 * Pretty self-explanatory.
 	 *
-	 * @param left left axis value.
-	 * @param right right axis value.
+	 * This is where you choose the default command to be run.
+	 * [IF YOU JUST WROTE A NEW COMMAND AND WANT TO TEST IT, this is where it belongs]
 	 */
-	public void updateGamepadInput(double left, double right) {
-		tankDrive(left, right);
-
-		SmartDashboard.putNumber("Speed Level", (leftMotors.get() + rightMotors.get()) / 2);
-		SmartDashboard.putNumber("Left Input", left * MotorPowerModifier / speedLevel);
-		SmartDashboard.putNumber("Right Input", right * MotorPowerModifier / speedLevel);
-
+	public void initDefaultCommand () {
+		setDefaultCommand(new TeleopMode());
 	}
 
 	/**
@@ -86,69 +85,37 @@ public class DriveTrainSystem extends Subsystem {
 	 * @param right the power for the right motors.
 	 */
 	public void tankDrive(double left, double right) {
-		if (isSpinning) {
-			if (reversed) {
-				leftMotors.setInverted(true);
-				rightMotors.setInverted(true);
-			}
-
-			else {
-				leftMotors.setInverted(false);
-				rightMotors.setInverted(false);
-			}
-
-			isSpinning = false;
+		if (reversed) {
+			drive.tankDrive(-left, -right);
 		}
-
-		drive(left, right);
-	}
-
-	/**
-	 *
-	 */
-	public void tankDriveWithRobotDrive (double left, double right) {
-		drive.tankDrive(left, right);
+		else {
+			drive.tankDrive(left, right);
+		}
 	}
 	
 	/**
-	 * Spins the robot counterclockwise.
+	 * Spins the robot.
+	 *
+	 * A negative speed spins the robot clockwise and a positive speed
+	 * spins it counter-clockwise.
+	 * [I know that some of you math nerds will be annoyed by this choice of sign]
 	 *
 	 * @param speed the speed at which the robot spins.
 	 */
-	public void spinLeft(double speed) {
-		isSpinning = true;
-
-		leftMotors.setInverted(true);
-		rightMotors.setInverted(false);
-
-		drive(speed);
+	public void spin(double speed) {
+		drive.tankDrive(speed, -speed);
 	}
-
-	/**
-	 * Spins the robot clockwise.
-	 *
-	 * @param speed the speed at which the robot spins.
-	 */
-	public void spinRight(double speed) {
-		isSpinning = true;
-
-		leftMotors.setInverted(false);
-		rightMotors.setInverted(true);
-
-		drive(speed);
-	}
-
+	
 	/**
 	 * Toggles the motors to go in reverse.
 	 */
 	public void reverse() {
-		leftMotors.stopMotor();
-		rightMotors.stopMotor();
-
-		leftMotors.toggleInverted();
-		rightMotors.toggleInverted();
-
-		reversed = !reversed;
+		if (!reversed) {
+			reversed = true;
+		}
+		else  {
+			reversed = false;
+		}
 	}
 	
 
@@ -156,27 +123,20 @@ public class DriveTrainSystem extends Subsystem {
 	 * Increases the maximum speed level.
 	 */
 	public void upshift() {
-		if (speedLevel == 2 || speedLevel == 3) {
-			speedLevel--;
+		if (speedLevel != 3) {
+			speedLevel++;
 		}
+		updateMaxOutput();
 	}
 	
 	/**
 	 * Decreases the max speed level.
 	 */
 	public void downshift() {
-		if (speedLevel == 1 || speedLevel == 2) {
-			speedLevel++;
+		if (speedLevel != 1) {
+			speedLevel--;
 		}
-	}
-
-	/**
-	 * Shift to the desired speed level.
-	 *
-	 * @param gear the desired speed level.
-	 */
-	public void shiftTo(int gear) {
-		speedLevel = gear;
+		updateMaxOutput();
 	}
 	
 	/**
@@ -196,25 +156,33 @@ public class DriveTrainSystem extends Subsystem {
 	}
 
 	/**
-	 * Sets all motors to a desired speed.
+	 * Moves the robot at a specified speed and curvature.
+	 *
+	 * This method is mostly used for teleoperated mode.
+	 * Unless if you want a really fancy autonomous mode that saves alot of time
+	 * it is pretty unlikely that curve will have to be manually specified in the code as
+	 * anything other than a joystick value.
 	 *
 	 * @param speed the desired speed.
+	 * @param curve the desired curvature.
 	 */
-	private void drive(double speed) {
-		leftMotors.set(speed * MotorPowerModifier / speedLevel);
-		rightMotors.set(speed * MotorPowerModifier / speedLevel);
+	public void drive (double speed, double curve) {
+		drive.drive(speed, curve * MAXIMUM_CURVE);
 	}
 
-	/**
-	 * Sets each pair of motors individually to a desired speed.
-	 * <p>
-	 * Also puts data on the smart dashboard pertaining to the drive train.
-	 *
-	 * @param left the desired speed for the left motor.
-	 * @param right the desired speed for the right motor.
+	/* This method is being called from the two shift methods whenever they get called.
+	 * If you ever wish to change the three power levels you can simply modify their constants, GEAR_ONE,
+	 * GEAR_TWO and GEAR_THREE up above.
 	 */
-	private void drive(double left, double right) {
-		leftMotors.set(left * MotorPowerModifier / speedLevel);
-		rightMotors.set(right * MotorPowerModifier / speedLevel);
+	private void updateMaxOutput () {
+		if (speedLevel == 1) {
+			drive.setMaxOutput(GEAR_ONE);
+		}
+		else if (speedLevel == 2) {
+			drive.setMaxOutput(GEAR_TWO);
+		}
+		else {
+			drive.setMaxOutput(GEAR_THREE);
+		}
 	}
 }

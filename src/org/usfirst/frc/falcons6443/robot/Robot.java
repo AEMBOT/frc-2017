@@ -18,16 +18,20 @@ import org.usfirst.frc.falcons6443.robot.utilities.CommandChooser;
 import org.usfirst.frc.falcons6443.robot.utilities.Smashboard;
 
 /**
+ * ROBOTS DON'T QUIT!
  * The Robot class is FRC team 6443's implementation of WPIlib's IterativeRobot class.
  *
  * @author Christopher Medlin
  */
 public class Robot extends IterativeRobot {
 
-	public static final SimpleDriveTrainSystem DriveTrain = new SimpleDriveTrainSystem();
+	// All the subsystems that the robot possesses
+	// If a new subsystem is added, it must also be added to SimpleCommand.
+	// From there the subsystem can be referred to from any command that inherits SimpleCommand.
+	public static final DriveTrainSystem DriveTrain = new DriveTrainSystem();
 	public static final GearHolderSystem GearHolder = new GearHolderSystem();
 	public static final NavigationSystem Navigation = new NavigationSystem();
-	//public static final RopeClimberSystem RopeClimber = new RopeClimberSystem();
+	public static final RopeClimberSystem RopeClimber = new RopeClimberSystem();
   
 	public static OI oi;
 
@@ -45,23 +49,6 @@ public class Robot extends IterativeRobot {
 	public void robotInit () {
 		oi = new OI();
 		autonomy = new MoveByTime(4, 0.5);
-
-		teleOpChooser = new CommandChooser("teleopChooser");
-		teleOpChooser.addDefault("Teleop Mode", new TeleopMode());
-		teleOpChooser.addOption("Tank Drive with Triggers", new MoveByTime(1, 0.5));
-		Smashboard.addCommandChooser(teleOpChooser);
-		/*
-		teleOpChooser = new SendableChooser<Command>();
-		teleOpChooser.addDefault("Tank Drive With Triggers", new TankDriveWithTriggers());
-		teleOpChooser.addObject("Simple Tank Drive With Joystiscks", new SimpleTankDriveWithJoysticks());
-		SmartDashboard.putData("TeleOp", teleOpChooser);
-
-		autonomyChooser = new SendableChooser<Command>();
-		autonomyChooser.addDefault("Displacement Test", new DisplacementTest());
-		SmartDashboard.putData("Autonomy", autonomyChooser);
-		*/
-
-		assert RobotMap.isOK();
 	}
 	
 	/*
