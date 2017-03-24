@@ -2,6 +2,7 @@ package org.usfirst.frc.falcons6443.robot.commands;
 
 import org.usfirst.frc.falcons6443.robot.Robot;
 import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
+import org.usfirst.frc.falcons6443.robot.utilities.Smashboard;
 
 /**
  * Teleoperated mode for the robot.
@@ -79,6 +80,8 @@ public class TeleopMode extends SimpleCommand {
         if (ropeClimberThrottle > 0.25) {
             ropeClimber.pulse(ropeClimberThrottle);
         }
+
+        Smashboard.putBoolean("reversed", reversed);
     }
 
     public boolean isFinished () {
