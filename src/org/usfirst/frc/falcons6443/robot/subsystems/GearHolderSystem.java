@@ -31,7 +31,9 @@ public class GearHolderSystem extends Subsystem {
 	}
 
 	@Override
-	public void initDefaultCommand() {}
+	public void initDefaultCommand() {
+		setDefaultCommand(new ToggleGearHolder());
+	}
 
 
 	public boolean isOpen() {

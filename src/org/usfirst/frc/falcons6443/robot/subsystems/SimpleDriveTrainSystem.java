@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.falcons6443.robot.RobotMap;
-import org.usfirst.frc.falcons6443.robot.commands.MoveStraightWithTime;
 import org.usfirst.frc.falcons6443.robot.commands.TeleopMode;
 import org.usfirst.frc.falcons6443.robot.hardware.SpeedControllerGroup;
 import org.usfirst.frc.falcons6443.robot.hardware.UltrasonicSensor;
@@ -19,155 +18,161 @@ import org.usfirst.frc.falcons6443.robot.hardware.UltrasonicSensor;
  */
 public class SimpleDriveTrainSystem extends Subsystem {
 
-    public static final double KP = 0.05;  //.04
-    public static final double KI = 0.001; //.001
-    public static final double KD = 0.00;  //.00
-    public static final double KF = 0.00;
+	public static final double KP = 0.04;  //.04
+	public static final double KI = 0.001; //.001
+	public static final double KD = 0.00;  //.00
+	public static final double KF = 0.00;
 
-    public static final double GEAR_ONE = 0.3;
-    public static final double GEAR_TWO = 0.6;
-    public static final double GEAR_THREE = 1;
+	private static final double GEAR_ONE =  0.3;
+	private static final double GEAR_TWO = 0.6;
+	private static final double GEAR_THREE = 1;
 
-    private static final double MAXIMUM_CURVE = 0.36787944;
+	private static final double MAXIMUM_CURVE = 0.36787944;
 
-    private SpeedControllerGroup leftMotors;
-    private SpeedControllerGroup rightMotors;
+	private SpeedControllerGroup leftMotors;
+	private SpeedControllerGroup rightMotors;
 
-    private UltrasonicSensor uSensor;
+	private UltrasonicSensor uSensor;
 
-    private boolean isSpinning;
-    private boolean reversed;
+	private boolean isSpinning;
+	private boolean reversed;
 
-    private int speedLevel;
+	private int speedLevel;
 
-    private RobotDrive drive;
+	private RobotDrive drive;
 
-    /**
-     * Constructor for DriveTrainSystem.
-     */
-    public SimpleDriveTrainSystem() {
-        //invert motors here
+	/**
+	 * Constructor for DriveTrainSystem.
+	 */
+	public SimpleDriveTrainSystem() {
+		//invert motors here
+		  
+	    	leftMotors = new SpeedControllerGroup(new VictorSP(RobotMap.FrontLeftVictor),
+											  new VictorSP(RobotMap.BackLeftVictor));
+		
+		rightMotors = new SpeedControllerGroup(new VictorSP(RobotMap.FrontRightVictor),
+				 							   new VictorSP(RobotMap.BackRightVictor));
+		
+		isSpinning = false;
+		reversed = false;
 
-        leftMotors = new SpeedControllerGroup(new VictorSP(RobotMap.FrontLeftVictor),
-                new VictorSP(RobotMap.BackLeftVictor));
+		drive = new RobotDrive(leftMotors, rightMotors);
+		drive.setSafetyEnabled(false);
 
-        rightMotors = new SpeedControllerGroup(new VictorSP(RobotMap.FrontRightVictor),
-                new VictorSP(RobotMap.BackRightVictor));
+		speedLevel = 1; //start in lowest speed mode
 
-        isSpinning = false;
-        reversed = false;
+		uSensor = new UltrasonicSensor(116);
+	}
+	
+	@Override
+	public void initDefaultCommand () {
+		setDefaultCommand(new TeleopMode());
+	}
 
-        drive = new RobotDrive(leftMotors, rightMotors);
-        drive.setSafetyEnabled(false);
+	/**
+	 * Allows for custom setting of motor power level.
+	 *
+	 * @param left the power for the left motors.
+	 * @param right the power for the right motors.
+	 */
+	public void tankDrive(double left, double right) {
+		if (reversed) {
+			drive.tankDrive(-left, -right);
+		}
+		else {
+			drive.tankDrive(left, right);
+		}
+	}
+	
+	/**
+	 * Spins the robot counterclockwise.
+	 *
+	 * @param speed the speed at which the robot spins.
+	 */
+	public void spin(double speed) {
+		if (!reversed) {
+			drive.tankDrive(speed, -speed);
+		}
+		else {
+			drive.tankDrive(-speed, speed);
+		}
+	}
 
-        speedLevel = 1; //start in lowest speed mode
-        drive.setMaxOutput(GEAR_TWO);
+	/**
+	 * Toggles the motors to go in reverse.
+	 */
+	public void reverse() {
+		reversed = !reversed;
+	}
 
-        uSensor = new UltrasonicSensor(116);
-    }
+	/**
+	 * Increases the maximum speed level.
+	 */
+	public void upshift() {
+		if (speedLevel != 3) {
+			speedLevel++;
+		}
+		updateMaxOutput();
+	}
+	
+	/**
+	 * Decreases the max speed level.
+	 */
+	public void downshift() {
+		if (speedLevel != 1) {
+			speedLevel--;
+		}
+		updateMaxOutput();
+	}
+	
+	/**
+	 * @return whether the robot is reversed
+	 */
+	public boolean isReversed() {
+		return reversed;
+	}
+	
+	/**
+	 * Gets the current maximum speed level.
+	 *
+	 * @return the current speed level of the robot.
+	 */
+	public int getSpeedLevel() {
+		return speedLevel;
+	}
 
-    @Override
-    public void initDefaultCommand() {}
+	/**
+	 * Sets all motors to a desired speed.
+	 *
+	 * @param speed the desired speed.
+	 */
+	public void drive (double speed, double curve) {
+		if (!reversed) {
+			drive.drive(speed, curve * MAXIMUM_CURVE);
+		}
+		else {
+			drive.drive(-speed, (curve * MAXIMUM_CURVE));
+		}
+	}
 
-    /**
-     * Allows for custom setting of motor power level.
-     *
-     * @param left  the power for the left motors.
-     * @param right the power for the right motors.
-     */
-    public void tankDrive(double left, double right) {
-        if (reversed) {
-            drive.tankDrive(-left, -right);
-        } else {
-            drive.tankDrive(left, right);
-        }
-    }
+	private void updateMaxOutput () {
+		if (speedLevel == 1) {
+			drive.setMaxOutput(GEAR_ONE);
+		}
+		else if (speedLevel == 2) {
+			drive.setMaxOutput(GEAR_TWO);
+		}
+		else {
+			drive.setMaxOutput(GEAR_THREE);
+		}
+	}
 
-    /**
-     * Spins the robot counterclockwise.
-     *
-     * @param speed the speed at which the robot spins.
-     */
-    public void spin(double speed) {
-        if (!reversed) {
-            drive.tankDrive(speed, -speed);
-        } else {
-            drive.tankDrive(-speed, speed);
-        }
-    }
+	public double read() {
+		uSensor.ping();
+		return uSensor.read();
+	}
 
-    /**
-     * Toggles the motors to go in reverse.
-     */
-    public void reverse() {
-        reversed = !reversed;
-    }
-
-    /**
-     * Increases the maximum speed level.
-     */
-    public void upshift() {
-        if (speedLevel != 3) {
-            speedLevel++;
-        }
-        updateMaxOutput();
-    }
-
-    /**
-     * Decreases the max speed level.
-     */
-    public void downshift() {
-        if (speedLevel != 1) {
-            speedLevel--;
-        }
-        updateMaxOutput();
-    }
-
-    /**
-     * @return whether the robot is reversed
-     */
-    public boolean isReversed() {
-        return reversed;
-    }
-
-    /**
-     * Gets the current maximum speed level.
-     *
-     * @return the current speed level of the robot.
-     */
-    public int getSpeedLevel() {
-        return speedLevel;
-    }
-
-    /**
-     * Sets all motors to a desired speed.
-     *
-     * @param speed the desired speed.
-     */
-    public void drive(double speed, double curve) {
-        if (!reversed) {
-            drive.drive(speed, curve * MAXIMUM_CURVE);
-        } else {
-            drive.drive(-speed, (curve * MAXIMUM_CURVE));
-        }
-    }
-
-    private void updateMaxOutput() {
-        if (speedLevel == 1) {
-            drive.setMaxOutput(GEAR_ONE);
-        } else if (speedLevel == 2) {
-            drive.setMaxOutput(GEAR_TWO);
-        } else {
-            drive.setMaxOutput(GEAR_THREE);
-        }
-    }
-
-    public double read() {
-        uSensor.ping();
-        return uSensor.read();
-    }
-
-    public UltrasonicSensor getSensor() {
-        return uSensor;
-    }
+	public UltrasonicSensor getSensor() {
+		return uSensor;
+	}
 }
