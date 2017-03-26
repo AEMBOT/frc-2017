@@ -1,5 +1,7 @@
 package org.usfirst.frc.falcons6443.robot;
 
+import org.usfirst.frc.falcons6443.robot.commands.MoveStraightWithTime;
+import org.usfirst.frc.falcons6443.robot.commands.TeleopMode;
 import org.usfirst.frc.falcons6443.robot.subsystems.RopeClimberSystem;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -11,6 +13,7 @@ import org.usfirst.frc.falcons6443.robot.commands.MoveByTime;
 import org.usfirst.frc.falcons6443.robot.subsystems.GearHolderSystem;
 import org.usfirst.frc.falcons6443.robot.subsystems.NavigationSystem;
 import org.usfirst.frc.falcons6443.robot.subsystems.SimpleDriveTrainSystem;
+import org.usfirst.frc.falcons6443.robot.utilities.Smashboard;
 
 /**
  * The Robot class is FRC team 6443's implementation of WPIlib's IterativeRobot class.
@@ -26,10 +29,8 @@ public class Robot extends IterativeRobot {
   
 	public static OI oi;
 
-	private Command autonomy;
-	private Command teleop;
-	private SendableChooser<Command> teleOpChooser;
-	private SendableChooser<Command> autonomyChooser;
+	private MoveStraightWithTime autonomy;
+	private Command teleop;;
 
 	/*
 	 * Called when the robot first starts.
@@ -37,17 +38,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit () {
 		oi = new OI();
-		autonomy = new MoveByTime(4, 0.5);
-		/*
-		teleOpChooser = new SendableChooser<Command>();
-		teleOpChooser.addDefault("Tank Drive With Triggers", new TankDriveWithTriggers());
-		teleOpChooser.addObject("Simple Tank Drive With Joystiscks", new SimpleTankDriveWithJoysticks());
-		SmartDashboard.putData("TeleOp", teleOpChooser);
-
-		autonomyChooser = new SendableChooser<Command>();
-		autonomyChooser.addDefault("Displacement Test", new DisplacementTest());
-		SmartDashboard.putData("Autonomy", autonomyChooser);
-		*/
+		teleop = new TeleopMode();
+		autonomy = new MoveStraightWithTime(1);
 
 		CameraServer server = CameraServer.getInstance();
 		server.startAutomaticCapture();
@@ -76,12 +68,10 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit () {
-		/*
-		autonomy = (Command) autonomyChooser.getSelected();
-
-		if (autonomy != null) autonomy.start();
-		*/
-		if (autonomy != null) autonomy.start();
+		if (autonomy != null) {
+		    autonomy.setDuration(Smashboard.getNumber("autonomyTime", 0));
+		    autonomy.start();
+		}
 	}
 
 	/*
@@ -98,13 +88,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopInit () {
-		/*
 		if (autonomy != null) autonomy.cancel();
 
-		teleop = (Command) teleOpChooser.getSelected();
-
 		if (teleop !=  null) teleop.start();
-		*/
 	}
 
 	/*

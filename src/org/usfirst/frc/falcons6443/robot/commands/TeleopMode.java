@@ -69,7 +69,7 @@ public class TeleopMode extends SimpleCommand {
 
         // set the driveTrain power.
         if (power == 0) {
-            driveTrain.spin(turn/2);
+            driveTrain.spin(turn);
         }
         else {
             driveTrain.drive(power, turn);

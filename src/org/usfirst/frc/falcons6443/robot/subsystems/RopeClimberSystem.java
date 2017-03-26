@@ -26,9 +26,7 @@ public class RopeClimberSystem extends Subsystem {
     }
 
     @Override
-    public void initDefaultCommand () {
-        new TankDriveWithTriggers().start();
-    }
+    public void initDefaultCommand () {}
 
     /**
      * Sets the power of the rope climber.
