@@ -5,10 +5,11 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import org.usfirst.frc.falcons6443.robot.commands.GearAutonomy;
+import org.usfirst.frc.falcons6443.robot.commands.MoveStraightWithTime;
 import org.usfirst.frc.falcons6443.robot.subsystems.GearHolderSystem;
 import org.usfirst.frc.falcons6443.robot.subsystems.NavigationSystem;
 import org.usfirst.frc.falcons6443.robot.subsystems.SimpleDriveTrainSystem;
+import org.usfirst.frc.falcons6443.robot.utilities.Smashboard;
 
 /**
  * The Robot class is FRC team 6443's implementation of WPIlib's IterativeRobot class.
@@ -24,10 +25,10 @@ public class Robot extends IterativeRobot {
   
 	public static OI oi;
 
-	private Command autonomy;
+	private MoveStraightWithTime autonomy;
 	private Command teleop;
-	private SendableChooser<Command> teleOpChooser;
-	private SendableChooser<Command> autonomyChooser;
+    private SendableChooser<Command> teleOpChooser;
+    private SendableChooser<Command> autonomyChooser;
 
 	/*
 	 * Called when the robot first starts.
@@ -35,13 +36,13 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit () {
 		oi = new OI();
-		autonomy = new GearAutonomy();
+		autonomy = new MoveStraightWithTime(1);
 		/*
 		teleOpChooser = new SendableChooser<Command>();
 		teleOpChooser.addDefault("Tank Drive With Triggers", new TankDriveWithTriggers());
 		teleOpChooser.addObject("Simple Tank Drive With Joystiscks", new SimpleTankDriveWithJoysticks());
 		SmartDashboard.putData("TeleOp", teleOpChooser);
-
+		autonomy = new MoveStraightWithTime(1);
 		autonomyChooser = new SendableChooser<Command>();
 		autonomyChooser.addDefault("Displacement Test", new DisplacementTest());
 		SmartDashboard.putData("Autonomy", autonomyChooser);
@@ -71,12 +72,10 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit () {
-		/*
-		autonomy = (Command) autonomyChooser.getSelected();
-
-		if (autonomy != null) autonomy.start();
-		*/
-		if (autonomy != null) autonomy.start();
+		if (autonomy != null) {
+		    autonomy.setDuration(Smashboard.getNumber("autonomyTime", 0));
+		    autonomy.start();
+		}
 	}
 
 	/*
@@ -93,13 +92,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopInit () {
-		/*
 		if (autonomy != null) autonomy.cancel();
 
-		teleop = (Command) teleOpChooser.getSelected();
-
 		if (teleop !=  null) teleop.start();
-		*/
 	}
 
 	/*
