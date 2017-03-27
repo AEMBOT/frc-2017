@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  * Delivers a gear considering the robot starts in the center, to be used in autonomy.
  *
- * @author Christopher Medlin
+ * @author Shivashriganesh Mahato
  */
 public class GearAutonomy extends CommandGroup {
 
@@ -17,4 +17,5 @@ public class GearAutonomy extends CommandGroup {
 //        addSequential(new MoveByTime(2, -0.5, -0.5));
 //        addSequential(new ToggleGearHolder());
     }
+
 }
