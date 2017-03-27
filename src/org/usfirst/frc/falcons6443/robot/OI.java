@@ -2,6 +2,7 @@ package org.usfirst.frc.falcons6443.robot;
 
 import java.util.HashMap;
 
+import org.usfirst.frc.falcons6443.robot.commands.MoveForward;
 import org.usfirst.frc.falcons6443.robot.commands.ToggleGearHolder;
 import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
 

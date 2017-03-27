@@ -46,13 +46,13 @@ public class SimpleDriveTrainSystem extends Subsystem {
 	 */
 	public SimpleDriveTrainSystem() {
 		//invert motors here
-		  
-	    	leftMotors = new SpeedControllerGroup(new VictorSP(RobotMap.FrontLeftVictor),
+
+	    leftMotors = new SpeedControllerGroup(new VictorSP(RobotMap.FrontLeftVictor),
 											  new VictorSP(RobotMap.BackLeftVictor));
-		
+
 		rightMotors = new SpeedControllerGroup(new VictorSP(RobotMap.FrontRightVictor),
 				 							   new VictorSP(RobotMap.BackRightVictor));
-		
+
 		isSpinning = false;
 		reversed = false;
 
@@ -63,7 +63,7 @@ public class SimpleDriveTrainSystem extends Subsystem {
 
 		uSensor = new UltrasonicSensor(116);
 	}
-	
+
 	@Override
 	public void initDefaultCommand () {
 		setDefaultCommand(new TeleopMode());
@@ -83,7 +83,7 @@ public class SimpleDriveTrainSystem extends Subsystem {
 			drive.tankDrive(left, right);
 		}
 	}
-	
+
 	/**
 	 * Spins the robot counterclockwise.
 	 *
@@ -114,7 +114,7 @@ public class SimpleDriveTrainSystem extends Subsystem {
 		}
 		updateMaxOutput();
 	}
-	
+
 	/**
 	 * Decreases the max speed level.
 	 */
@@ -124,14 +124,14 @@ public class SimpleDriveTrainSystem extends Subsystem {
 		}
 		updateMaxOutput();
 	}
-	
+
 	/**
 	 * @return whether the robot is reversed
 	 */
 	public boolean isReversed() {
 		return reversed;
 	}
-	
+
 	/**
 	 * Gets the current maximum speed level.
 	 *

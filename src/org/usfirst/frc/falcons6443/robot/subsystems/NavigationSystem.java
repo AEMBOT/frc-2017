@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import org.usfirst.frc.falcons6443.robot.RobotMap;
+import org.usfirst.frc.falcons6443.robot.commands.PrintYaw;
+import org.usfirst.frc.falcons6443.robot.commands.TestSensor;
 import org.usfirst.frc.falcons6443.robot.hardware.NavX;
 import org.usfirst.frc.falcons6443.robot.hardware.UltrasonicSensor;
 
@@ -29,29 +31,26 @@ public class NavigationSystem extends Subsystem {
     /**
      * Constructor for NavigationSystem.
      */
-    public NavigationSystem() {
+    @SuppressWarnings("serial")
+	public NavigationSystem() {
     	navx = NavX.get();
 
-    	sensors = new HashMap<String, UltrasonicSensor>(4) {{
+    	sensors = new HashMap<String, UltrasonicSensor>(1) {{
     	    put("Left", new UltrasonicSensor(RobotMap.LeftUltrasonic));
-    	    put("Front", new UltrasonicSensor(RobotMap.FrontUltrasonic));
-    	    put("Back", new UltrasonicSensor(RobotMap.BackUltrasonic));
-    	    put("Right", new UltrasonicSensor(RobotMap.RightUltrasonic));
+    	    //put("Front", new UltrasonicSensor(RobotMap.FrontUltrasonic));
+    	    //put("Back", new UltrasonicSensor(RobotMap.BackUltrasonic));
+    	   //put("Right", new UltrasonicSensor(RobotMap.RightUltrasonic));
         }};
     }
 
     @Override
     public void initDefaultCommand() {
-        //setDefaultCommand(new PrintYaw());
+        setDefaultCommand(new TestSensor());
     }
     
     public void reset () {
     	navx.ahrs().reset();
     	navx.ahrs().resetDisplacement();
-    }
-
-    public boolean isMoving () {
-        return navx.ahrs().isMoving();
     }
     
     /**
@@ -119,7 +118,11 @@ public class NavigationSystem extends Subsystem {
             pid.setSetpoint(setpoint);
         }
     }
-
+    
+    public void pingSensor (String key) {
+        sensors.get(key).ping();
+    }
+    
     /**
      * Read from one of the 4 ultrasonic sensors on the robot.
      *
@@ -127,8 +130,7 @@ public class NavigationSystem extends Subsystem {
      *
      * @param key one of four possible ultrasonic sensors.
      */
-    public double read (String key) {
-        sensors.get(key).ping();
+    public double readSensor (String key) {
         Timer.delay(PingTimeDelay);
         return sensors.get(key).read();
     }
