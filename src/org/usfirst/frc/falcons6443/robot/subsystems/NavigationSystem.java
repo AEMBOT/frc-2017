@@ -1,18 +1,14 @@
 package org.usfirst.frc.falcons6443.robot.subsystems;
 
-import java.util.HashMap;
-
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.Ultrasonic;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.falcons6443.robot.RobotMap;
-import org.usfirst.frc.falcons6443.robot.commands.PrintYaw;
-import org.usfirst.frc.falcons6443.robot.commands.TestSensor;
 import org.usfirst.frc.falcons6443.robot.hardware.NavX;
 import org.usfirst.frc.falcons6443.robot.hardware.UltrasonicSensor;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.Timer;
+import java.util.HashMap;
 
 /**
  * Subsystem containing the NavX sensor as well as ultrasonic sensors.
@@ -31,47 +27,50 @@ public class NavigationSystem extends Subsystem {
     /**
      * Constructor for NavigationSystem.
      */
-    @SuppressWarnings("serial")
-	public NavigationSystem() {
-    	navx = NavX.get();
+    public NavigationSystem() {
+        navx = NavX.get();
 
-    	sensors = new HashMap<String, UltrasonicSensor>(1) {{
-    	    put("Left", new UltrasonicSensor(RobotMap.LeftUltrasonic));
-    	    //put("Front", new UltrasonicSensor(RobotMap.FrontUltrasonic));
-    	    //put("Back", new UltrasonicSensor(RobotMap.BackUltrasonic));
-    	   //put("Right", new UltrasonicSensor(RobotMap.RightUltrasonic));
+        sensors = new HashMap<String, UltrasonicSensor>(4) {{
+            put("Left", new UltrasonicSensor(RobotMap.LeftUltrasonic));
+            put("Front", new UltrasonicSensor(RobotMap.FrontUltrasonic));
+            put("Back", new UltrasonicSensor(RobotMap.BackUltrasonic));
+            put("Right", new UltrasonicSensor(RobotMap.RightUltrasonic));
         }};
     }
 
     @Override
     public void initDefaultCommand() {
-        setDefaultCommand(new TestSensor());
+        //setDefaultCommand(new PrintYaw());
     }
-    
-    public void reset () {
-    	navx.ahrs().reset();
-    	navx.ahrs().resetDisplacement();
+
+    public void reset() {
+        navx.ahrs().reset();
+        navx.ahrs().resetDisplacement();
     }
-    
+
+    public boolean isMoving() {
+        return navx.ahrs().isMoving();
+    }
+
     /**
      * @return the x displacement of the NavX.
      */
-    public float getDisplacementX () {
-    	return navx.ahrs().getDisplacementX();
+    public float getDisplacementX() {
+        return navx.ahrs().getDisplacementX();
     }
-    
+
     /**
      * @return the y displacement of the NavX.
      */
-    public float getDisplacementY () {
-    	return navx.ahrs().getDisplacementY();
+    public float getDisplacementY() {
+        return navx.ahrs().getDisplacementY();
     }
-    
+
     /**
      * Resets the displacement of the NavX.
      */
-    public void resetDisplacement () {
-    	navx.ahrs().resetDisplacement();
+    public void resetDisplacement() {
+        navx.ahrs().resetDisplacement();
     }
 
     /**
@@ -86,13 +85,13 @@ public class NavigationSystem extends Subsystem {
      *
      * @param output the PIDOutput for the PIDController to write to.
      */
-    public void initPIDController (PIDOutput output) {
+    public void initPIDController(PIDOutput output) {
         isPIDInitialized = true;
-        pid = new PIDController(DriveTrainSystem.KP,
-                                DriveTrainSystem.KI,
-                                DriveTrainSystem.KD,
-                                DriveTrainSystem.KF,
-                                navx.ahrs(), output);
+        pid = new PIDController(SimpleDriveTrainSystem.KP,
+                SimpleDriveTrainSystem.KI,
+                SimpleDriveTrainSystem.KD,
+                SimpleDriveTrainSystem.KF,
+                navx.ahrs(), output);
         pid.setInputRange(-180.0f, 180.0f);
         pid.setOutputRange(-0.5, 0.5);
         pid.setAbsoluteTolerance(2.0f);
@@ -100,7 +99,7 @@ public class NavigationSystem extends Subsystem {
         pid.enable();
     }
 
-    public void pidSetEnabled (boolean enabled) {
+    public void pidSetEnabled(boolean enabled) {
         if (enabled) {
             pid.enable();
         } else {
@@ -113,26 +112,22 @@ public class NavigationSystem extends Subsystem {
      *
      * @param setpoint the desired setpoint.
      */
-    public void pidSetPoint (float setpoint) {
+    public void pidSetPoint(float setpoint) {
         if (isPIDInitialized) {
             pid.setSetpoint(setpoint);
         }
     }
-    
-    public void pingSensor (String key) {
-        sensors.get(key).ping();
-    }
-    
+
     /**
      * Read from one of the 4 ultrasonic sensors on the robot.
-     *
+     * <p>
      * The 4 keys that this method takes are Left, Back, Front, and Right.
      *
      * @param key one of four possible ultrasonic sensors.
      */
-    public double readSensor (String key) {
+    public double read(String key) {
+        sensors.get(key).ping();
         Timer.delay(PingTimeDelay);
         return sensors.get(key).read();
     }
 }
-

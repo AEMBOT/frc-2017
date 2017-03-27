@@ -23,11 +23,11 @@ public class MoveDistance extends SimpleCommand {
 
     @Override
     public void initialize () {
-        initUltrasonicReading = navigation.readSensor("Back");
+        initUltrasonicReading = navigation.read("Back");
     }
 
     @Override
     public boolean isFinished () {
-        return (navigation.readSensor("Back") <= initUltrasonicReading + distance);
+        return (navigation.read("Back") <= initUltrasonicReading + distance);
     }
 }

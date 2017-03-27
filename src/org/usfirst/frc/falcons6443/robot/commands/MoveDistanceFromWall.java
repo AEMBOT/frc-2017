@@ -34,7 +34,7 @@ public class MoveDistanceFromWall extends SimpleCommand {
 
     @Override
     public boolean isFinished () {
-        if (navigation.readSensor(ultra) >= coord) {
+        if (navigation.read(ultra) >= coord) {
             driveTrain.tankDrive(0, 0);
             return true;
         }

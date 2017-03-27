@@ -34,7 +34,6 @@ public class SpeedControllerGroup implements SpeedController {
 	
 	@Override
 	public void pidWrite(double arg0) {
-		
 		for (SpeedController controller : controllers) {
 			controller.pidWrite(arg0);
 		}
@@ -43,7 +42,6 @@ public class SpeedControllerGroup implements SpeedController {
 
 	@Override
 	public void disable() {
-		
 		for (SpeedController controller : controllers) {
 			controller.disable();
 		}
