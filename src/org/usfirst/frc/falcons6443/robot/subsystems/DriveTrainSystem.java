@@ -105,7 +105,7 @@ public class DriveTrainSystem extends Subsystem {
 	public void spin(double speed) {
 		drive.tankDrive(speed, -speed);
 	}
-	
+
 	/**
 	 * Toggles the motors to go in reverse.
 	 */
@@ -166,7 +166,7 @@ public class DriveTrainSystem extends Subsystem {
 			drive.drive(speed, curve * MAXIMUM_CURVE);
 		}
 		else {
-			drive.drive(-speed, curve * MAXIMUM_CURVE);
+			drive.drive(-speed, -curve * MAXIMUM_CURVE);
 		}
 	}
 
