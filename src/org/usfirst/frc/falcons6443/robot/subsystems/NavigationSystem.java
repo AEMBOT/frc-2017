@@ -19,7 +19,7 @@ public class NavigationSystem extends Subsystem {
 
     public final double PingTimeDelay = 0.05;
 
-    private NavX navx;
+    public NavX navx;
     PIDController pid;
     private boolean isPIDInitialized;
     private HashMap<String, UltrasonicSensor> sensors;
@@ -95,6 +95,10 @@ public class NavigationSystem extends Subsystem {
         pid.setAbsoluteTolerance(2.0f);
         pid.setContinuous(true);
         pid.enable();
+    }
+
+    public boolean onTarget () {
+        return pid.onTarget();
     }
 
     public void pidSetEnabled(boolean enabled) {

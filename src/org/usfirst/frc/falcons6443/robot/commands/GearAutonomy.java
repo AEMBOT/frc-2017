@@ -10,12 +10,12 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class GearAutonomy extends CommandGroup {
 
     public GearAutonomy() {
-        addSequential(new MoveByTime(1.5, 0.5, 0.5));
-        addSequential(new MoveByTime(2, 0, 0));
-        addSequential(new MoveByTime(1.5, -0.5, -0.5));
-//        addSequential(new ToggleGearHolder());
-//        addSequential(new MoveByTime(2, -0.5, -0.5));
-//        addSequential(new ToggleGearHolder());
+        addSequential(new AutonomousMove(9, 12.29, true));
+        addSequential(new Delay(3));
+        addSequential(new ToggleGearHolder());
+        addSequential(new Delay(1.5));
+        addSequential(new ToggleGearHolder());
+        addSequential(new AutonomousMove(3, 12.29, false));
     }
 
 }
