@@ -9,11 +9,13 @@ import org.usfirst.frc.falcons6443.robot.utilities.Smashboard;
  * The execute method of this class handles all possible inputs from the driver during the game.
  *
  * @author Ivan Kenevich, Christopher Medlin
+ *
  */
+
 public class TeleopMode extends SimpleCommand {
 
     private Gamepad gamepad;
-    boolean reversed, gearToggled;
+    boolean reversed, gearToggled, ropeClimberIdled;
 
     public TeleopMode () {
         super("Teleop Command");
@@ -28,6 +30,7 @@ public class TeleopMode extends SimpleCommand {
         gamepad = Robot.oi.getGamepad();
         reversed = false;
         gearToggled = false;
+        ropeClimberIdled = false;
     }
 
     @Override
@@ -57,6 +60,18 @@ public class TeleopMode extends SimpleCommand {
             gearToggled = false;
         }
 
+        // the X button will toggle the rope climber to idleing mode
+        if (gamepad.X()) {
+            // safeguard for if the driver holds down the X button.
+            if (!ropeClimberIdled) {
+                ropeClimber.toggleIdle();
+                ropeClimberIdled = true;
+            }
+        }
+        else {
+            ropeClimberIdled = false;
+        }
+
         // the Y button will toggle the drive train to reverse mode
         if (gamepad.Y()) {
             // safeguard for if the driver holds down the Y button.
@@ -77,12 +92,14 @@ public class TeleopMode extends SimpleCommand {
             driveTrain.drive(throttle, turn);
         }
 
-        if (ropeClimberThrottle > 0.25) {
-            ropeClimber.pulse(ropeClimberThrottle);
+        // if the input from the joystick exceeds idle speed
+        if (ropeClimberThrottle > 0.3) {
+            // set the rope climber to that speed
+            ropeClimber.set(ropeClimberThrottle);
         }
 
         Smashboard.putBoolean("reversed", driveTrain.isReversed());
-    }
+        }
 
     public boolean isFinished () {
         return false;
