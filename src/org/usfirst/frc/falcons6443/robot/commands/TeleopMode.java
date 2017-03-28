@@ -81,7 +81,7 @@ public class TeleopMode extends SimpleCommand {
             ropeClimber.pulse(ropeClimberThrottle);
         }
 
-        Smashboard.putBoolean("reversed", reversed);
+        Smashboard.putBoolean("reversed", driveTrain.isReversed());
     }
 
     public boolean isFinished () {
