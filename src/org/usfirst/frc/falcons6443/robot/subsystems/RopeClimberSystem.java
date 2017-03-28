@@ -15,12 +15,16 @@ public class RopeClimberSystem extends Subsystem {
     // Just like a Victor
     private Spark motor;
 
-    // This value extends the range of the pulse interval.
-    // You probably don't need to worry about this, just a magic number.
-    private final double PULSE_INTERVAL_MODIFIER = 30;
+    // Boolean for whether or not the rope climber is in idleing mode.
+    private boolean idle;
+
+    // The speed that the rope climber idles at
+    private final double IDLE_SPEED = 0.3;
 
     public RopeClimberSystem() {
         motor = new Spark(RobotMap.RopeClimberSpark);
+        idle = false;
+        set(0);
     }
 
     @Override
@@ -37,17 +41,16 @@ public class RopeClimberSystem extends Subsystem {
     }
 
     /**
-     * Pulsates the motor.
-     * <p>
-     * The motor will run at full power for a certain amount of time and then stop the thread
-     * for the same amount of time. This method is meant to be called repeatedly.
-     *
-     * @param pulseInterval the interval between pulses. 0 < pulseInterval <= 1
+     * Toggles setting the rope climber to an idle speed, similar to a motor vehicle.
      */
-    public void pulse(double pulseInterval) {
-        set(pulseInterval);
-        //Timer.delay(0.2);
-        //set(0);
-        //Timer.delay(1 / (pulseInterval * PULSE_INTERVAL_MODIFIER));
+    public void toggleIdle() {
+        if (!idle) {
+            set(IDLE_SPEED);
+        }
+        else {
+            set(0);
+        }
+
+        idle = !idle;
     }
 }
