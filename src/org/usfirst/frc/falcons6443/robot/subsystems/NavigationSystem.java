@@ -40,7 +40,6 @@ public class NavigationSystem extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        //setDefaultCommand(new PrintYaw());
     }
 
     public void reset() {

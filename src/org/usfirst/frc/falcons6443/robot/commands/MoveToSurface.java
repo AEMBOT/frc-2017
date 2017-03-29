@@ -1,7 +1,11 @@
 package org.usfirst.frc.falcons6443.robot.commands;
 
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
+import org.usfirst.frc.falcons6443.robot.subsystems.SimpleDriveTrainSystem;
+
 /**
- * Created by chris-medlin on 3/8/17.
+ * @author Ivan Kenevich
  */
 public class MoveToSurface extends SimpleCommand {
 
@@ -16,11 +20,16 @@ public class MoveToSurface extends SimpleCommand {
         driveTrain.tankDrive(0.5,0.5);
     }
 
-    public void end () {
-        driveTrain.tankDrive(0, 0);
+    public void execute () {
+
     }
 
+
     public boolean isFinished () {
-        return navigation.isMoving();
+        if (driveTrain.read() < 30) {
+            driveTrain.tankDrive(0,0);
+            return true;
+        }
+        return false;
     }
 }

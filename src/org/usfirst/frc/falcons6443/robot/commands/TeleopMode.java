@@ -75,7 +75,7 @@ public class TeleopMode extends SimpleCommand {
             driveTrain.drive(power, turn);
         }
 
-        SmartDashboard.putNumber("Ultrasonic Sensor Reading", driveTrain.read());
+        SmartDashboard.putNumber("Ultrasonic Sensor Peading", driveTrain.read());
     }
 
     public boolean isFinished () {

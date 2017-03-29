@@ -27,7 +27,6 @@ public class RopeClimberSystem extends Subsystem {
 
     @Override
     public void initDefaultCommand () {
-        new TankDriveWithTriggers().start();
     }
 
     /**

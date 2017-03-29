@@ -1,5 +1,7 @@
 package org.usfirst.frc.falcons6443.robot;
 
+import org.usfirst.frc.falcons6443.robot.commands.MoveToSurface;
+import org.usfirst.frc.falcons6443.robot.commands.TeleopMode;
 import org.usfirst.frc.falcons6443.robot.subsystems.RopeClimberSystem;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -37,7 +39,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit () {
 		oi = new OI();
-		autonomy = new MoveByTime(4, 0.5);
+		autonomy = new MoveToSurface();
+		teleop = new TeleopMode();
 		/*
 		teleOpChooser = new SendableChooser<Command>();
 		teleOpChooser.addDefault("Tank Drive With Triggers", new TankDriveWithTriggers());
@@ -76,11 +79,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit () {
-		/*
-		autonomy = (Command) autonomyChooser.getSelected();
-
-		if (autonomy != null) autonomy.start();
-		*/
 		if (autonomy != null) autonomy.start();
 	}
 
@@ -98,13 +96,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopInit () {
-		/*
 		if (autonomy != null) autonomy.cancel();
 
-		teleop = (Command) teleOpChooser.getSelected();
-
 		if (teleop !=  null) teleop.start();
-		*/
 	}
 
 	/*

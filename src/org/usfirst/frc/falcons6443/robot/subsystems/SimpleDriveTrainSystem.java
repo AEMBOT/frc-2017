@@ -66,7 +66,7 @@ public class SimpleDriveTrainSystem extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        setDefaultCommand(new TeleopMode());
+
     }
 
     /**
@@ -164,7 +164,7 @@ public class SimpleDriveTrainSystem extends Subsystem {
 
     public double read() {
         uSensor.ping();
-        return uSensor.read();
+        return uSensor.readInches();
     }
 
     public UltrasonicSensor getSensor() {

@@ -34,7 +34,7 @@ public class UltrasonicSensor extends I2C {
 		this.deviceAddress = deviceAddress;
 
 		// Populate with sensible possible average readings at initialization
-		lastFewValues = new int[] {20, 20, 20};
+		lastFewValues = new int[] {32, 32, 32};
 	}
 	
 	public void ping () {
@@ -61,7 +61,7 @@ public class UltrasonicSensor extends I2C {
 
         /** smooth METHOD IS NEW AND HAS NOT BEEN TESTED */
         /** RETURN combinedBytes IF THE METHOD MALFUNCTIONS */
-        return smooth(combinedBytes);
+        return combinedBytes;
 	}
 
 	/*
@@ -80,7 +80,7 @@ public class UltrasonicSensor extends I2C {
         double average = sum/lastFewValues.length;
 
         // If the new reading is not too far from last few readings
-        if (Math.abs(average - (double) sensorReading) < average * JUMP_TOLERANCE) {
+        if (Math.abs(average - (double) sensorReading) < 30) {
             // Shift the array of the last few values to the right one index
             // Thereby getting rid of the "oldest" reading
             for (int i = lastFewValues.length-1; i>1; i--) {
