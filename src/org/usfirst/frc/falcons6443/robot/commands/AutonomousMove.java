@@ -1,6 +1,8 @@
 package org.usfirst.frc.falcons6443.robot.commands;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  * @author Ivan Kenevich, Shivashriganesh Mahato
@@ -37,20 +39,17 @@ public class AutonomousMove extends SimpleCommand implements PIDOutput {
 
     @Override
     public void execute() {
-        if (isTimedOut())
-            driveTrain.tankDrive(pidOutput, -pidOutput);
-        else
-            driveTrain.tankDrive(direction * 0.6 + pidOutput, direction * 0.6 - pidOutput);
+        driveTrain.tankDrive(direction * (0.6 + pidOutput), direction * (0.6 - pidOutput));
     }
 
     @Override
     protected boolean isFinished() {
         if (isTimedOut()) {
-            if (navigation.onTarget()) {
-                // if navx doesn't re-center the robot correctly, add a delay after the robot stopped moving
-                // to let pid do its thing
-                return true;
-            }
+            driveTrain.tankDrive(0,0);
+            Timer.delay(2);
+            DriverStation.reportWarning("Finished moving",false);
+            navigation.freePID();
+            return true;
         }
         return false;
     }

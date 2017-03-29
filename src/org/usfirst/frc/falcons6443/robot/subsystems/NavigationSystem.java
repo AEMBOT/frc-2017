@@ -120,6 +120,11 @@ public class NavigationSystem extends Subsystem {
         }
     }
 
+    public void freePID () {
+        pid.disable();
+        pid.free();
+    }
+
     /**
      * Read from one of the 4 ultrasonic sensors on the robot.
      * <p>
