@@ -34,6 +34,11 @@ public class AutonomousMove extends SimpleCommand implements PIDOutput {
 
         // magic numbers   WOOOOOOOH
         time = (-0.037819 * charge + 0.74216) * distance + (-0.3676 * charge + 4.26483);
+        if (time < 0) {
+            time = 0;
+            DriverStation.reportWarning("Time is less than 0. Make sure distance is greater than or equal to 2",
+                    false);
+        }
         setTimeout(time);
     }
 
