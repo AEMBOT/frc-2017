@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.falcons6443.robot.RobotMap;
 import org.usfirst.frc.falcons6443.robot.hardware.SpeedControllerGroup;
-import org.usfirst.frc.falcons6443.robot.commands.TeleopMode;
 
 /**
  * Subsystem for the robot's drive train.
@@ -14,7 +13,7 @@ import org.usfirst.frc.falcons6443.robot.commands.TeleopMode;
  * This class is meant to fix some of the shortcomings of the original DriveTrainSystem
  * class as well as make it more simple and readable.
  *
- * @author Christopher Medlin, Ivan Kenevich
+ * @author Christopher Medlin, Ivan Kenevich, Shivashriganesh Mahato
  */
 public class DriveTrainSystem extends Subsystem {
 
@@ -25,9 +24,9 @@ public class DriveTrainSystem extends Subsystem {
 	public static final double KD = 0.00;  //.00
 	public static final double KF = 0.00;
 
-	private static final double GEAR_ONE =  0.3; // Lowest speed
-	private static final double GEAR_TWO = 0.6;  // Medium speed
-	private static final double GEAR_THREE = 1;  // Maximum speed
+	public static final double GEAR_ONE =  0.3; // Lowest speed
+    public static final double GEAR_TWO = 0.6;  // Medium speed
+    public static final double GEAR_THREE = 1;  // Maximum speed
 
 	// The constant that determines the maximum curvature at which the robot can move.
 	// It is determined by the formula c = e^(-r/w), where
@@ -66,17 +65,9 @@ public class DriveTrainSystem extends Subsystem {
 
 		speedLevel = 1; //start in lowest speed mode [SAFETY FIRST]
 	}
-	
+
 	@Override
-	/**
-	 * Pretty self-explanatory.
-	 *
-	 * This is where you choose the default command to be run.
-	 * [IF YOU JUST WROTE A NEW COMMAND AND WANT TO TEST IT, this is where it belongs]
-	 */
-	public void initDefaultCommand () {
-		setDefaultCommand(new TeleopMode());
-	}
+	public void initDefaultCommand () {}
 
 	/**
 	 * Allows for custom setting of motor power level.
@@ -92,7 +83,7 @@ public class DriveTrainSystem extends Subsystem {
 			drive.tankDrive(left, right);
 		}
 	}
-	
+
 	/**
 	 * Spins the robot.
 	 *
@@ -112,7 +103,7 @@ public class DriveTrainSystem extends Subsystem {
 	public void reverse() {
 		reversed = !reversed;
 	}
-	
+
 
 	/**
 	 * Increases the maximum speed level.
@@ -123,7 +114,7 @@ public class DriveTrainSystem extends Subsystem {
 		}
 		updateMaxOutput();
 	}
-	
+
 	/**
 	 * Decreases the max speed level.
 	 */
@@ -133,14 +124,14 @@ public class DriveTrainSystem extends Subsystem {
 		}
 		updateMaxOutput();
 	}
-	
+
 	/**
 	 * @return whether the robot is reversed
 	 */
 	public boolean isReversed() {
 		return reversed;
 	}
-	
+
 	/**
 	 * Gets the current maximum speed level.
 	 *

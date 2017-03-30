@@ -1,7 +1,6 @@
 package org.usfirst.frc.falcons6443.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Spark;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.falcons6443.robot.RobotMap;
 
@@ -15,17 +14,12 @@ public class RopeClimberSystem extends Subsystem {
     // Just like a Victor
     private Spark motor;
 
-    // This value extends the range of the pulse interval.
-    // You probably don't need to worry about this, just a magic number.
-    private final double PULSE_INTERVAL_MODIFIER = 30;
-
     public RopeClimberSystem() {
         motor = new Spark(RobotMap.RopeClimberSpark);
     }
 
     @Override
-    public void initDefaultCommand() {
-    }
+    public void initDefaultCommand() {}
 
     /**
      * Used for directly setting the power of the rope climber motor.
@@ -46,8 +40,5 @@ public class RopeClimberSystem extends Subsystem {
      */
     public void pulse(double pulseInterval) {
         set(pulseInterval);
-        //Timer.delay(0.2);
-        //set(0);
-        //Timer.delay(1 / (pulseInterval * PULSE_INTERVAL_MODIFIER));
     }
 }

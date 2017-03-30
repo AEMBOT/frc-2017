@@ -31,4 +31,5 @@ public class RobotMap {
 
 	//rope climber
 	public static final int RopeClimberSpark = 4;
+
 }

@@ -1,19 +1,16 @@
 package org.usfirst.frc.falcons6443.robot;
 
-import org.usfirst.frc.falcons6443.robot.commands.*;
-import org.usfirst.frc.falcons6443.robot.subsystems.*;
-
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import org.usfirst.frc.falcons6443.robot.commands.MoveByTime;
+import org.usfirst.frc.falcons6443.robot.commands.GearAutonomy;
 import org.usfirst.frc.falcons6443.robot.commands.TeleopMode;
+import org.usfirst.frc.falcons6443.robot.subsystems.DriveTrainSystem;
 import org.usfirst.frc.falcons6443.robot.subsystems.GearHolderSystem;
 import org.usfirst.frc.falcons6443.robot.subsystems.NavigationSystem;
+import org.usfirst.frc.falcons6443.robot.subsystems.RopeClimberSystem;
 import org.usfirst.frc.falcons6443.robot.utilities.CommandChooser;
-import org.usfirst.frc.falcons6443.robot.utilities.Smashboard;
 
 /**
  * ROBOTS DON'T QUIT!
@@ -35,8 +32,6 @@ public class Robot extends IterativeRobot {
 
 	private Command autonomy;
 	private Command teleop;
-//	private SendableChooser<Command> teleOpChooser;
-	private SendableChooser<Command> autonomyChooser;
 
 	private CommandChooser teleOpChooser;
 
@@ -46,7 +41,10 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit () {
 		oi = new OI();
-		autonomy = new MoveByTime(4, 0.5);
+		autonomy = new GearAutonomy();
+		teleop = new TeleopMode();
+
+		assert RobotMap.isOK();
 	}
 	
 	/*
@@ -70,12 +68,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit () {
-		/*
-		autonomy = (Command) autonomyChooser.getSelected();
-
-		if (autonomy != null) autonomy.start();
-		*/
-		if (autonomy != null) autonomy.start();
+		if (autonomy != null) {
+		    autonomy.start();
+		}
 	}
 
 	/*
@@ -92,13 +87,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopInit () {
-		/*
 		if (autonomy != null) autonomy.cancel();
 
-		teleop = Smashboard.getCommandChooserSelection(teleOpChooser);
-
 		if (teleop !=  null) teleop.start();
-		*/
 	}
 
 	/*

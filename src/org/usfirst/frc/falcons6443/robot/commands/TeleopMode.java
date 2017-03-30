@@ -8,7 +8,7 @@ import org.usfirst.frc.falcons6443.robot.utilities.Smashboard;
  * Teleoperated mode for the robot.
  * The execute method of this class handles all possible inputs from the driver during the game.
  *
- * @author Ivan Kenevich, Christopher Medlin
+ * @author Ivan Kenevich, Christopher Medlin, Shivashriganesh Mahato
  */
 public class TeleopMode extends SimpleCommand {
 

@@ -1,9 +1,4 @@
-/**
- * 
- */
 package org.usfirst.frc.falcons6443.robot.commands;
-
-import org.usfirst.frc.falcons6443.robot.Robot;
 
 /**
  * Command to toggle the gear holder to close when it's open and to open when it's closed.
@@ -24,7 +19,7 @@ public class ToggleGearHolder extends SimpleCommand {
 	}
 
 	public void execute () {
-		if (startState == false) {
+		if (!startState) {
 			gearHolder.open();
 		}
 		
