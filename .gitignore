@@ -64,9 +64,13 @@ frc-team6443.iml
 .floo
 .flooignore
 
+# STUPID ECLIPSE RETARDATION
+.project
+.classpath
+
 # irrelevant
 Patrick Higgins
 ADHD Kid
 D_O_G (and it's owner)
 Tyler the International Spy
-
+Muslim a.k.a. Christian
