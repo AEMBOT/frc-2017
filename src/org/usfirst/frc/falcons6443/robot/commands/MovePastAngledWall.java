@@ -1,12 +1,7 @@
 package org.usfirst.frc.falcons6443.robot.commands;
 
-import edu.wpi.first.wpilibj.Timer;
-
 /**
- * Moves the robot passed one of four angled walls at the corners of
- * the field.
- *
- * @author Christopher Medlin
+ * Created by chris-medlin on 2/18/17.
  */
 public class MovePastAngledWall extends SimpleCommand {
 
@@ -16,10 +11,6 @@ public class MovePastAngledWall extends SimpleCommand {
     private final double DELTA_TOLERANCE = 0.5;
     private String ultra;
 
-    /**
-     * @param ultra Ultrasonic sensor on the side of the robot facing
-     *              the angled wall.
-     */
     public MovePastAngledWall (String ultra) {
         super("Move Past Angled Wall");
         this.ultra = ultra;

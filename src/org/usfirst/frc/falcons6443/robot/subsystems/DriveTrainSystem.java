@@ -4,11 +4,8 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import org.usfirst.frc.falcons6443.robot.Robot;
 import org.usfirst.frc.falcons6443.robot.RobotMap;
 import org.usfirst.frc.falcons6443.robot.hardware.SpeedControllerGroup;
-import org.usfirst.frc.falcons6443.robot.commands.*;
 
 /**
  * Subsystem for the robot's drive train.
@@ -58,7 +55,7 @@ public class DriveTrainSystem extends Subsystem {
 
 		speedLevel = 1; //start in highest speed mode
 	}
-	
+
 	@Override
 	public void initDefaultCommand () {
 
@@ -109,7 +106,7 @@ public class DriveTrainSystem extends Subsystem {
 	public void tankDriveWithRobotDrive (double left, double right) {
 		drive.tankDrive(left, right);
 	}
-	
+
 	/**
 	 * Spins the robot counterclockwise.
 	 *
@@ -150,7 +147,7 @@ public class DriveTrainSystem extends Subsystem {
 
 		reversed = !reversed;
 	}
-	
+
 
 	/**
 	 * Increases the maximum speed level.
@@ -160,7 +157,7 @@ public class DriveTrainSystem extends Subsystem {
 			speedLevel--;
 		}
 	}
-	
+
 	/**
 	 * Decreases the max speed level.
 	 */
@@ -178,14 +175,14 @@ public class DriveTrainSystem extends Subsystem {
 	public void shiftTo(int gear) {
 		speedLevel = gear;
 	}
-	
+
 	/**
 	 * @return whether the robot is reversed
 	 */
 	public boolean isReversed() {
 		return reversed;
 	}
-	
+
 	/**
 	 * Gets the current maximum speed level.
 	 *

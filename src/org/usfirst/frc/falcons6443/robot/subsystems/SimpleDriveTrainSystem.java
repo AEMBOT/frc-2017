@@ -5,7 +5,9 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.falcons6443.robot.RobotMap;
 import org.usfirst.frc.falcons6443.robot.commands.MoveStraightWithTime;
+import org.usfirst.frc.falcons6443.robot.commands.TeleopMode;
 import org.usfirst.frc.falcons6443.robot.hardware.SpeedControllerGroup;
+import org.usfirst.frc.falcons6443.robot.hardware.UltrasonicSensor;
 
 /**
  * Subsystem for the robot's drive train.
@@ -13,11 +15,11 @@ import org.usfirst.frc.falcons6443.robot.hardware.SpeedControllerGroup;
  * Contains 2 VictorSPGroups for the left and right motors and several boolean values pertaining
  * to the drive train.
  *
- * @author Christopher Medlin, Patrick Higgins, Shivashriganesh Mahato
+ * @author Christopher Medlin, Ivan Kenevich, Shivashriganesh Mahato
  */
 public class SimpleDriveTrainSystem extends Subsystem {
 
-    public static final double KP = 0.05;  //.04
+    public static final double KP = 0.04;  //.04
     public static final double KI = 0.001; //.001
     public static final double KD = 0.00;  //.00
     public static final double KF = 0.00;
@@ -31,8 +33,10 @@ public class SimpleDriveTrainSystem extends Subsystem {
     private SpeedControllerGroup leftMotors;
     private SpeedControllerGroup rightMotors;
 
-	private boolean isSpinning;
-	private boolean reversed;
+    private UltrasonicSensor uSensor;
+
+    private boolean isSpinning;
+    private boolean reversed;
 
     private int speedLevel;
 
@@ -58,10 +62,13 @@ public class SimpleDriveTrainSystem extends Subsystem {
 
         speedLevel = 1; //start in lowest speed mode
         drive.setMaxOutput(GEAR_TWO);
+
+        uSensor = new UltrasonicSensor(116);
     }
 
     @Override
-    public void initDefaultCommand() {}
+    public void initDefaultCommand() {
+    }
 
     /**
      * Allows for custom setting of motor power level.
@@ -154,5 +161,10 @@ public class SimpleDriveTrainSystem extends Subsystem {
         } else {
             drive.setMaxOutput(GEAR_THREE);
         }
+    }
+
+    public double read() {
+        uSensor.ping();
+        return uSensor.readInches();
     }
 }
