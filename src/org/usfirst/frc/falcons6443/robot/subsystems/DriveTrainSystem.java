@@ -63,7 +63,9 @@ public class DriveTrainSystem extends Subsystem {
 
         reversed = false;
 
-        speedLevel = 1; //start in lowest speed mode [SAFETY FIRST]
+        speedLevel = 2; //start in lowest speed mode [SAFETY FIRST]
+        // ^ lies, forget safety
+        drive.setMaxOutput(GEAR_TWO);
     }
 
     @Override

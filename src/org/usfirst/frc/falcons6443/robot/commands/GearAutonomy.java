@@ -12,7 +12,7 @@ public class GearAutonomy extends CommandGroup {
     private final double CHARGE = 12.64;
 
     public GearAutonomy() {
-        addSequential(new AutonomousMove(9, CHARGE, false));
+        addSequential(new MoveToSurface(10));
         addSequential(new AutonomousRecenter(1, false));
         addSequential(new ToggleGearHolder());
         addSequential(new Delay(0.5));
