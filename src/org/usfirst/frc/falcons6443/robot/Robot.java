@@ -1,23 +1,29 @@
 package org.usfirst.frc.falcons6443.robot;
 
-import org.usfirst.frc.falcons6443.robot.commands.*;
-import org.usfirst.frc.falcons6443.robot.subsystems.*;
-
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.falcons6443.robot.commands.GearAutonomy;
+import org.usfirst.frc.falcons6443.robot.commands.TeleopMode;
+import org.usfirst.frc.falcons6443.robot.subsystems.DriveTrainSystem;
+import org.usfirst.frc.falcons6443.robot.subsystems.GearHolderSystem;
+import org.usfirst.frc.falcons6443.robot.subsystems.NavigationSystem;
+import org.usfirst.frc.falcons6443.robot.subsystems.RopeClimberSystem;
+import org.usfirst.frc.falcons6443.robot.utilities.CommandChooser;
 
 /**
+ * ROBOTS DON'T QUIT!
  * The Robot class is FRC team 6443's implementation of WPIlib's IterativeRobot class.
  *
  * @author Christopher Medlin
  */
 public class Robot extends IterativeRobot {
 
-	public static final SimpleDriveTrainSystem DriveTrain = new SimpleDriveTrainSystem();
+	// All the subsystems that the robot possesses
+	// If a new subsystem is added, it must also be added to SimpleCommand.
+	// From there the subsystem can be referred to from any command that inherits SimpleCommand.
+	public static final DriveTrainSystem DriveTrain = new DriveTrainSystem();
 	public static final GearHolderSystem GearHolder = new GearHolderSystem();
 	public static final NavigationSystem Navigation = new NavigationSystem();
 	public static final RopeClimberSystem RopeClimber = new RopeClimberSystem();
@@ -26,8 +32,8 @@ public class Robot extends IterativeRobot {
 
 	private Command autonomy;
 	private Command teleop;
-	private SendableChooser<Command> teleOpChooser;
-	private SendableChooser<Command> autonomyChooser;
+
+	private CommandChooser teleOpChooser;
 
 	/*
 	 * Called when the robot first starts.
@@ -37,16 +43,6 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		autonomy = new GearAutonomy();
 		teleop = new TeleopMode();
-		/*
-		teleOpChooser = new SendableChooser<Command>();
-		teleOpChooser.addDefault("Tank Drive With Triggers", new TankDriveWithTriggers());
-		teleOpChooser.addObject("Simple Tank Drive With Joystiscks", new SimpleTankDriveWithJoysticks());
-		SmartDashboard.putData("TeleOp", teleOpChooser);
-
-		autonomyChooser = new SendableChooser<Command>();
-		autonomyChooser.addDefault("Displacement Test", new DisplacementTest());
-		SmartDashboard.putData("Autonomy", autonomyChooser);
-		*/
 
 		assert RobotMap.isOK();
 	}

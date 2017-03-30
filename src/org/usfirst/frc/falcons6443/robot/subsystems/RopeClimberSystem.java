@@ -1,71 +1,44 @@
 package org.usfirst.frc.falcons6443.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Ultrasonic;
-import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.falcons6443.robot.RobotMap;
-import org.usfirst.frc.falcons6443.robot.commands.TankDriveWithTriggers;
-import org.usfirst.frc.falcons6443.robot.hardware.UltrasonicSensor;
 
 /**
  * Subsystem containing the motor for the rope climber as well as the sensor.
  *
- * @author Christopher Medlin
+ * @author Christopher Medlin, Ivan Kenevich
  */
 public class RopeClimberSystem extends Subsystem {
 
-    private Victor motor;
+    // Just like a Victor
+    private Spark motor;
 
-    private boolean climbing;
-    private boolean descending;
-
-    public RopeClimberSystem () {
-        motor = new Victor(RobotMap.BackRightVictor);
-        climbing = false;
-        descending = false;
+    public RopeClimberSystem() {
+        motor = new Spark(RobotMap.RopeClimberSpark);
     }
 
     @Override
-    public void initDefaultCommand () {}
+    public void initDefaultCommand() {}
 
     /**
-     * Turns on the rope climber motor.
+     * Used for directly setting the power of the rope climber motor.
+     *
+     * @param power the desired power.
      */
-    public void climb () {
-        motor.set(0.3);
-        climbing = true;
-        descending = false;
+    public void set(double power) {
+        motor.set(power);
     }
 
     /**
-     * Turns off the rope climber motor.
+     * Pulsates the motor.
+     * <p>
+     * The motor will run at full power for a certain amount of time and then stop the thread
+     * for the same amount of time. This method is meant to be called repeatedly.
+     *
+     * @param pulseInterval the interval between pulses. 0 < pulseInterval <= 1
      */
-    public void stop () {
-        motor.set(0);
-        climbing = false;
-        descending = false;
-    }
-
-    /**
-     * Sets the rope climber motor to reverse.
-     */
-    public void descend () {
-        motor.set(-0.3);
-        climbing = false;
-        descending = true;
-    }
-
-    /**
-     * @return Whether or not the rope climber mechanism is in reverse.
-     */
-    public boolean isDescending () {
-        return descending;
-    }
-
-    /**
-     * @return Whether or not the rope climber mechanism is climbing.
-     */
-    public boolean isClimbing () {
-        return climbing;
+    public void pulse(double pulseInterval) {
+        set(pulseInterval);
     }
 }

@@ -1,8 +1,8 @@
 package org.usfirst.frc.falcons6443.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.falcons6443.robot.RobotMap;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * Subsystem which contains the components of the pneumatics control system.
@@ -10,7 +10,7 @@ import org.usfirst.frc.falcons6443.robot.RobotMap;
  *     This includes the solenoid, which is used to open or close the gear holder.
  * </p>
  *
- * @author Christopher Medlin, Patrick Higgins, Shivashriganesh Mahato
+ * @author Christopher Medlin, Ivan Kenevich, Shivashriganesh Mahato
  */
 public class GearHolderSystem extends Subsystem {
 
@@ -29,6 +29,7 @@ public class GearHolderSystem extends Subsystem {
 
 	@Override
 	public void initDefaultCommand() {
+		//setDefaultCommand(new ToggleGearHolder());
 	}
 
 
@@ -48,5 +49,13 @@ public class GearHolderSystem extends Subsystem {
 		open = false;
 	}
 
+	public void toggle () {
+		if (!open) {
+			open();
+		}
+		else {
+			close();
+		}
+	}
 }
 
