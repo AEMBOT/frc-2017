@@ -11,12 +11,13 @@ public class MoveStraightWithTime extends SimpleCommand implements PIDOutput {
 
     private double pidOutput;
     private double duration;
+
     /**
      * Constructor for MoveStraightWithTime.
      *
      * @param sec duration of the command.
      */
-    public MoveStraightWithTime (double sec) {
+    public MoveStraightWithTime(double sec) {
         super("Move Straight With Tine");
         requires(navigation);
         requires(driveTrain);
@@ -32,7 +33,7 @@ public class MoveStraightWithTime extends SimpleCommand implements PIDOutput {
     }
 
     @Override
-    public void initialize () {
+    public void initialize() {
         navigation.reset();
         navigation.initPIDController(this);
         navigation.pidSetPoint(0);
@@ -40,21 +41,21 @@ public class MoveStraightWithTime extends SimpleCommand implements PIDOutput {
     }
 
     @Override
-    public void execute () {
+    public void execute() {
         driveTrain.tankDrive(0.6 + pidOutput, 0.6 - pidOutput);
     }
 
     @Override
-    public boolean isFinished () {
+    public boolean isFinished() {
         if (isTimedOut()) {
-            driveTrain.tankDrive(0,0);
+            driveTrain.tankDrive(0, 0);
             return true;
         }
         return false;
     }
 
     @Override
-    public void pidWrite (double output) {
+    public void pidWrite(double output) {
         pidOutput = output;
     }
 }

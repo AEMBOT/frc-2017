@@ -1,6 +1,5 @@
 package org.usfirst.frc.falcons6443.robot.commands;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -14,7 +13,7 @@ public class GearAutonomy extends CommandGroup {
 
     public GearAutonomy() {
         addSequential(new AutonomousMove(9, CHARGE, false));
-        addSequential(new AutonomousRecenter(1,false));
+        addSequential(new AutonomousRecenter(1, false));
         addSequential(new ToggleGearHolder());
         addSequential(new Delay(0.5));
         addSequential(new ToggleGearHolder());

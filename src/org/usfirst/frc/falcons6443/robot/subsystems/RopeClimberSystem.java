@@ -19,7 +19,8 @@ public class RopeClimberSystem extends Subsystem {
     }
 
     @Override
-    public void initDefaultCommand() {}
+    public void initDefaultCommand() {
+    }
 
     /**
      * Used for directly setting the power of the rope climber motor.

@@ -2,7 +2,7 @@ package org.usfirst.frc.falcons6443.robot.commands;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
-import org.usfirst.frc.falcons6443.robot.subsystems.SimpleDriveTrainSystem;
+import org.usfirst.frc.falcons6443.robot.subsystems.DriveTrainSystem;
 
 
 /**
@@ -38,10 +38,10 @@ public class AutonomousRecenter extends SimpleCommand implements PIDOutput {
     }
 
     public void initPIDController() {
-        pid = new PIDController(SimpleDriveTrainSystem.KP,
-                SimpleDriveTrainSystem.KI,
-                SimpleDriveTrainSystem.KD,
-                SimpleDriveTrainSystem.KF,
+        pid = new PIDController(DriveTrainSystem.KP,
+                DriveTrainSystem.KI,
+                DriveTrainSystem.KD,
+                DriveTrainSystem.KF,
                 navigation.navx.ahrs(), this);
         pid.setInputRange(-180.0f, 180.0f);
         pid.setOutputRange(-0.6, 0.6);
@@ -54,7 +54,7 @@ public class AutonomousRecenter extends SimpleCommand implements PIDOutput {
     @Override
     protected boolean isFinished() {
         if (pid.onTarget() && isTimedOut()) {
-            driveTrain.tankDrive(0,0);
+            driveTrain.tankDrive(0, 0);
             pid.disable();
             pid.free();
             return true;

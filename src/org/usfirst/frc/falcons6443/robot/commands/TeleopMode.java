@@ -15,7 +15,7 @@ public class TeleopMode extends SimpleCommand {
     private Gamepad gamepad;
     boolean reversed, gearToggled;
 
-    public TeleopMode () {
+    public TeleopMode() {
         super("Teleop Command");
 
         requires(driveTrain);
@@ -24,14 +24,14 @@ public class TeleopMode extends SimpleCommand {
     }
 
     @Override
-    public void initialize () {
+    public void initialize() {
         gamepad = Robot.oi.getGamepad();
         reversed = false;
         gearToggled = false;
     }
 
     @Override
-    public void execute () {
+    public void execute() {
         double throttle = gamepad.rightTrigger();
         double turn = gamepad.leftStickX();
         double ropeClimberThrottle = gamepad.leftTrigger();
@@ -39,20 +39,18 @@ public class TeleopMode extends SimpleCommand {
         // left bumper downshifts, right bumper upshifts.
         if (gamepad.leftBumper()) {
             driveTrain.downshift();
-        }
-        else if (gamepad.rightBumper()) {
+        } else if (gamepad.rightBumper()) {
             driveTrain.upshift();
         }
 
         // the A button will toggle the gear holder
         if (gamepad.A()) {
             // safeguard for if the driver holds the A button
-            if (!gearToggled)  {
+            if (!gearToggled) {
                 gearHolder.open();
                 gearToggled = true;
             }
-        }
-        else {
+        } else {
             gearHolder.close();
             gearToggled = false;
         }
@@ -64,16 +62,14 @@ public class TeleopMode extends SimpleCommand {
                 driveTrain.reverse();
                 reversed = true;
             }
-        }
-        else {
+        } else {
             reversed = false;
         }
 
         // set the driveTrain power.
         if (throttle == 0) {
             driveTrain.spin(turn);
-        }
-        else {
+        } else {
             driveTrain.drive(throttle, turn);
         }
 
@@ -84,7 +80,7 @@ public class TeleopMode extends SimpleCommand {
         Smashboard.putBoolean("reversed", driveTrain.isReversed());
     }
 
-    public boolean isFinished () {
+    public boolean isFinished() {
         return false;
     }
 }

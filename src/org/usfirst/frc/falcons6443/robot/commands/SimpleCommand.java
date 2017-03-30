@@ -17,37 +17,45 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public abstract class SimpleCommand extends Command {
 
-	// Subsystems.
-	// When a subsystem is added to Robot, it must also be added here.
-	// It can then be referred to from any command inheriting this class.
-	public RopeClimberSystem ropeClimber = Robot.RopeClimber;
-	public DriveTrainSystem driveTrain = Robot.DriveTrain;
-	public GearHolderSystem gearHolder = Robot.GearHolder;
-	public NavigationSystem navigation = Robot.Navigation;
-	//public RopeClimberSystem ropeClimber = Robot.RopeClimber;
+    // Subsystems.
+    // When a subsystem is added to Robot, it must also be added here.
+    // It can then be referred to from any command inheriting this class.
+    public RopeClimberSystem ropeClimber = Robot.RopeClimber;
+    public DriveTrainSystem driveTrain = Robot.DriveTrain;
+    public GearHolderSystem gearHolder = Robot.GearHolder;
+    public NavigationSystem navigation = Robot.Navigation;
 
-	/**
-	 * Constructor for SimpleCommand.
-	 *
-	 * @param name name of the command.
-	 */
-	public SimpleCommand(String name) {super(name);}
+    /**
+     * Constructor for SimpleCommand.
+     *
+     * @param name name of the command.
+     */
+    public SimpleCommand(String name) {
+        super(name);
+    }
 
-	public void initialize(){}
-	public void end(){}
-	public void execute(){}
-	public void interrupted(){}
+    public void initialize() {
+    }
 
-	/**
-	 * Multipies input by the absolute value of input to maintain sign when squaring.
-	 * <p>
-	 * This is important for axes.
-	 *
-	 * @param input the unadjusted input.
-	 * @return the adjusted input.
-	 */
-	protected double adjustedInput(double input) {
-		return input * Math.abs(input);
-	}
-	
+    public void end() {
+    }
+
+    public void execute() {
+    }
+
+    public void interrupted() {
+    }
+
+    /**
+     * Multipies input by the absolute value of input to maintain sign when squaring.
+     * <p>
+     * This is important for axes.
+     *
+     * @param input the unadjusted input.
+     * @return the adjusted input.
+     */
+    protected double adjustedInput(double input) {
+        return input * Math.abs(input);
+    }
+
 }
