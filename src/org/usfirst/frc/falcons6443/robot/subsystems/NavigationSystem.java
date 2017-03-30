@@ -1,21 +1,15 @@
 package org.usfirst.frc.falcons6443.robot.subsystems;
 
-import java.util.HashMap;
-
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.Ultrasonic;
-import org.usfirst.frc.falcons6443.robot.RobotMap;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.falcons6443.robot.hardware.NavX;
 import org.usfirst.frc.falcons6443.robot.hardware.UltrasonicSensor;
-
-import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.Timer;
 
 /**
  * Subsystem containing the NavX sensor as well as ultrasonic sensors.
  *
- * @author Shivashriganesh Mahato, Christopher Medlin, Ivan Kenevich, Patrick Higgins
+ * @author Shivashriganesh Mahato, Christopher Medlin, Ivan Kenevich
  */
 public class NavigationSystem extends Subsystem {
 
@@ -24,20 +18,14 @@ public class NavigationSystem extends Subsystem {
     public NavX navx;
     PIDController pid;
     private boolean isPIDInitialized;
-    private HashMap<String, UltrasonicSensor> sensors;
+    private UltrasonicSensor uSensor;
 
     /**
      * Constructor for NavigationSystem.
      */
     public NavigationSystem() {
         navx = NavX.get();
-
-        sensors = new HashMap<String, UltrasonicSensor>(4) {{
-            put("Left", new UltrasonicSensor(RobotMap.LeftUltrasonic));
-            put("Front", new UltrasonicSensor(RobotMap.FrontUltrasonic));
-            put("Back", new UltrasonicSensor(RobotMap.BackUltrasonic));
-            put("Right", new UltrasonicSensor(RobotMap.RightUltrasonic));
-        }};
+        uSensor = new UltrasonicSensor(116);
     }
 
     @Override
@@ -87,10 +75,10 @@ public class NavigationSystem extends Subsystem {
      */
     public void initPIDController(PIDOutput output) {
         isPIDInitialized = true;
-        pid = new PIDController(SimpleDriveTrainSystem.KP,
-                SimpleDriveTrainSystem.KI,
-                SimpleDriveTrainSystem.KD,
-                SimpleDriveTrainSystem.KF,
+        pid = new PIDController(DriveTrainSystem.KP,
+                DriveTrainSystem.KI,
+                DriveTrainSystem.KD,
+                DriveTrainSystem.KF,
                 navx.ahrs(), output);
         pid.setInputRange(-180.0f, 180.0f);
         pid.setOutputRange(-0.04, 0.04);
@@ -99,7 +87,7 @@ public class NavigationSystem extends Subsystem {
         pid.enable();
     }
 
-    public boolean onTarget () {
+    public boolean onTarget() {
         return pid.onTarget();
     }
 
@@ -122,21 +110,19 @@ public class NavigationSystem extends Subsystem {
         }
     }
 
-    public void freePID () {
+    public void freePID() {
         pid.disable();
         pid.free();
     }
 
-    /**
-     * Read from one of the 4 ultrasonic sensors on the robot.
-     * <p>
-     * The 4 keys that this method takes are Left, Back, Front, and Right.
-     *
-     * @param key one of four possible ultrasonic sensors.
-     */
-    public double read(String key) {
-        sensors.get(key).ping();
-        Timer.delay(PingTimeDelay);
-        return sensors.get(key).read();
+    public double read() {
+        uSensor.ping();
+        return uSensor.read();
     }
+
+    public double readInches() {
+        uSensor.ping();
+        return uSensor.readInches();
+    }
+
 }

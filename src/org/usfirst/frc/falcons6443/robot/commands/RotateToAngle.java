@@ -1,10 +1,8 @@
 package org.usfirst.frc.falcons6443.robot.commands;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.Timer;
-import org.usfirst.frc.falcons6443.robot.subsystems.SimpleDriveTrainSystem;
+import org.usfirst.frc.falcons6443.robot.subsystems.DriveTrainSystem;
 
 /**
  * Command to rotate the robot to an angle specified in a constructor parameter.
@@ -20,10 +18,10 @@ public class RotateToAngle extends SimpleCommand implements PIDOutput {
 
     /**
      * Constructor for RotateToAngle.
-	 * 
-	 * @param angle the angle at which to rotate.
+     *
+     * @param angle the angle at which to rotate.
      */
-    public RotateToAngle (float angle, double seconds) {
+    public RotateToAngle(float angle, double seconds) {
         super("Restricted PID Drive");
         requires(navigation);
         requires(driveTrain);
@@ -32,17 +30,17 @@ public class RotateToAngle extends SimpleCommand implements PIDOutput {
     }
 
     @Override
-    public void initialize () {
-		navigation.reset();
+    public void initialize() {
+        navigation.reset();
         initPIDController();
-		setTimeout(time);
+        setTimeout(time);
     }
 
     public void initPIDController() {
-        pid = new PIDController(SimpleDriveTrainSystem.KP,
-                SimpleDriveTrainSystem.KI,
-                SimpleDriveTrainSystem.KD,
-                SimpleDriveTrainSystem.KF,
+        pid = new PIDController(DriveTrainSystem.KP,
+                DriveTrainSystem.KI,
+                DriveTrainSystem.KD,
+                DriveTrainSystem.KF,
                 navigation.navx.ahrs(), this);
         pid.setInputRange(-180.0f, 180.0f);
         pid.setOutputRange(-0.6, 0.6);
@@ -53,25 +51,24 @@ public class RotateToAngle extends SimpleCommand implements PIDOutput {
     }
 
     @Override
-    public void execute () {
+    public void execute() {
         driveTrain.tankDrive(pidOutput, -pidOutput);
     }
 
     @Override
-    public boolean isFinished () {
+    public boolean isFinished() {
         if (pid.onTarget() && isTimedOut()) {
-            driveTrain.tankDrive(0,0);
+            driveTrain.tankDrive(0, 0);
             pid.disable();
             pid.free();
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
 
     @Override
-    public void pidWrite (double output) {
+    public void pidWrite(double output) {
         pidOutput = output;
     }
 }

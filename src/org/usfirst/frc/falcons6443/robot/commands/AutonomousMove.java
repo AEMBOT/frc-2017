@@ -45,9 +45,9 @@ public class AutonomousMove extends SimpleCommand implements PIDOutput {
     @Override
     protected boolean isFinished() {
         if (isTimedOut()) {
-            driveTrain.tankDrive(0,0);
+            driveTrain.tankDrive(0, 0);
             Timer.delay(2);
-            DriverStation.reportWarning("Finished moving",false);
+            DriverStation.reportWarning("Finished moving", false);
             navigation.freePID();
             return true;
         }
