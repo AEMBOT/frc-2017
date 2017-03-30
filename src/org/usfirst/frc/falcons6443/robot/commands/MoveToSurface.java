@@ -1,26 +1,31 @@
 package org.usfirst.frc.falcons6443.robot.commands;
 
 /**
- * Created by chris-medlin on 3/8/17.
+ * @author Ivan Kenevich
  */
 public class MoveToSurface extends SimpleCommand {
 
-    public MoveToSurface () {
+    public MoveToSurface() {
         super("Move to surface.");
 
         requires(driveTrain);
         requires(navigation);
     }
 
-    public void initialize () {
-        driveTrain.tankDrive(0.5,0.5);
+    public void initialize() {
+        driveTrain.tankDrive(0.5, 0.5);
     }
 
-    public void end () {
-        driveTrain.tankDrive(0, 0);
+    public void execute() {
+
     }
 
-    public boolean isFinished () {
-        return navigation.isMoving();
+
+    public boolean isFinished() {
+        if (navigation.read() < 30) {
+            driveTrain.tankDrive(0, 0);
+            return true;
+        }
+        return false;
     }
 }

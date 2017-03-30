@@ -15,17 +15,18 @@ public class Line2D {
      * @param m Slope of the line.
      * @param b The Y intersect.
      */
-    public Line2D (double m, double b) {
+    public Line2D(double m, double b) {
         this.m = m;
         this.b = b;
     }
 
     /**
      * Calculates the y value for the given x coordinate.
+     *
      * @param x The given x coordinate.
      * @return The calculated y value.
      */
-    public double calcY (double x) {
+    public double calcY(double x) {
         return (m * x) + b;
     }
 }
