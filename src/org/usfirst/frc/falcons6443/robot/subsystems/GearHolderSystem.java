@@ -1,11 +1,8 @@
 package org.usfirst.frc.falcons6443.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import org.usfirst.frc.falcons6443.robot.RobotMap;
-import org.usfirst.frc.falcons6443.robot.commands.ToggleGearHolder;
-
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import org.usfirst.frc.falcons6443.robot.RobotMap;
 
 /**
  * Subsystem which contains the components of the pneumatics control system.

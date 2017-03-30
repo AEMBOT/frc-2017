@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.falcons6443.robot.RobotMap;
+import org.usfirst.frc.falcons6443.robot.commands.MoveStraightWithTime;
 import org.usfirst.frc.falcons6443.robot.commands.TeleopMode;
 import org.usfirst.frc.falcons6443.robot.hardware.SpeedControllerGroup;
 import org.usfirst.frc.falcons6443.robot.hardware.UltrasonicSensor;
@@ -23,9 +24,9 @@ public class SimpleDriveTrainSystem extends Subsystem {
     public static final double KD = 0.00;  //.00
     public static final double KF = 0.00;
 
-    private static final double GEAR_ONE = 0.3;
-    private static final double GEAR_TWO = 0.6;
-    private static final double GEAR_THREE = 1;
+    public static final double GEAR_ONE = 0.3;
+    public static final double GEAR_TWO = 0.6;
+    public static final double GEAR_THREE = 1;
 
     private static final double MAXIMUM_CURVE = 0.36787944;
 
@@ -60,13 +61,13 @@ public class SimpleDriveTrainSystem extends Subsystem {
         drive.setSafetyEnabled(false);
 
         speedLevel = 1; //start in lowest speed mode
+        drive.setMaxOutput(GEAR_TWO);
 
         uSensor = new UltrasonicSensor(116);
     }
 
     @Override
     public void initDefaultCommand() {
-
     }
 
     /**
@@ -165,9 +166,5 @@ public class SimpleDriveTrainSystem extends Subsystem {
     public double read() {
         uSensor.ping();
         return uSensor.readInches();
-    }
-
-    public UltrasonicSensor getSensor() {
-        return uSensor;
     }
 }
