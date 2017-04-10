@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import org.usfirst.frc.falcons6443.robot.commands.GearAutonomy;
+import org.usfirst.frc.falcons6443.robot.commands.StickTeleopMode;
 import org.usfirst.frc.falcons6443.robot.commands.TeleopMode;
 import org.usfirst.frc.falcons6443.robot.subsystems.DriveTrainSystem;
 import org.usfirst.frc.falcons6443.robot.subsystems.GearHolderSystem;
@@ -42,7 +43,14 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
         oi = new OI();
         autonomy = new GearAutonomy();
-        teleop = new TeleopMode();
+        
+        if (oi.getGamepad() != null) {
+        	teleop = new TeleopMode();
+        }
+        
+        else if (oi.getFlightsticks() != null) {
+        	teleop = new StickTeleopMode();
+        }
     }
 
     /*

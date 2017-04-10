@@ -3,6 +3,7 @@ package org.usfirst.frc.falcons6443.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
+import org.usfirst.frc.falcons6443.robot.hardware.JoystickPair;
 
 import java.util.HashMap;
 
@@ -16,9 +17,8 @@ import java.util.HashMap;
  */
 public class OI {
 
-    private final int GAMEPAD_PORT_NUMBER = 0;
-
     private Gamepad gamepad;
+    private JoystickPair flightsticks;
 
     private HashMap<String, Button> buttons;
 
@@ -26,17 +26,34 @@ public class OI {
      * Constructor for OI.
      */
     public OI() {
-        gamepad = new Gamepad(new Joystick(GAMEPAD_PORT_NUMBER));
+    	Joystick masterStick = new Joystick(0);
+    	
+    	if (masterStick.getIsXbox()) {
+            gamepad = new Gamepad(masterStick);
+            flightsticks = null;
+    	}
+    	
+    	else {
+    		flightsticks = new JoystickPair(masterStick, new Joystick(1));
+    		gamepad = null;
+    	}
+    	
         buttons = new HashMap<String, Button>(4);
+        
+        assert (gamepad != null ^ flightsticks != null);
     }
 
     /**
-     * Returns the Joystick associated with this OI object.
+     * Returns the Gamepad associated with this OI object.
      *
-     * @return the Joystick associated with this OI object.
+     * @return the Gamepad associated with this OI object.
      */
     public Gamepad getGamepad() {
         return gamepad;
+    }
+    
+    public JoystickPair getFlightsticks() {
+    	return flightsticks;
     }
 
     /**
