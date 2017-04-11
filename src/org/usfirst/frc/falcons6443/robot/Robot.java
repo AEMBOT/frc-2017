@@ -48,7 +48,7 @@ public class Robot extends IterativeRobot {
         	teleop = new TeleopMode();
         }
         
-        else if (oi.getFlightsticks() != null) {
+        else if (oi.getJoystick() != null) {
         	teleop = new StickTeleopMode();
         }
     }

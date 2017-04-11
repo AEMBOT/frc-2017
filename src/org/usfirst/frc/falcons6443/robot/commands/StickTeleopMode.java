@@ -5,6 +5,9 @@ import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
 import org.usfirst.frc.falcons6443.robot.hardware.JoystickPair;
 import org.usfirst.frc.falcons6443.robot.utilities.Smashboard;
 
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Joystick.AxisType;
+
 /**
  * Teleoperated mode for the robot.
  * The execute method of this class handles all possible inputs from the driver during the game.
@@ -13,7 +16,7 @@ import org.usfirst.frc.falcons6443.robot.utilities.Smashboard;
  */
 public class StickTeleopMode extends SimpleCommand {
 
-    private JoystickPair flightsticks;
+    private Joystick joystick;
     private boolean reversed, gearToggled, ropeClimberIdled;
 
     public StickTeleopMode() {
@@ -26,7 +29,7 @@ public class StickTeleopMode extends SimpleCommand {
 
     @Override
     public void initialize() {
-        flightsticks = Robot.oi.getFlightsticks();
+        joystick = Robot.oi.getJoystick();
         reversed = false;
         gearToggled = false;
         ropeClimberIdled = false;
@@ -36,7 +39,7 @@ public class StickTeleopMode extends SimpleCommand {
     public void execute() {
         
         // the left trigger will toggle the gear holder
-        if (flightsticks.leftTrigger()) {
+        if (joystick.getTrigger()) {
             // safeguard for if the driver holds the trigger
             if (!gearToggled) {
                 gearHolder.open();
@@ -48,7 +51,7 @@ public class StickTeleopMode extends SimpleCommand {
         }
 
         // set the driveTrain power
-            driveTrain.tankDrive(adjustedInput(flightsticks.leftStickY()), adjustedInput(flightsticks.rightStickY()));
+            driveTrain.drive(joystick.getAxis(AxisType.kY), joystick.getAxis(AxisType.kX));
 
         Smashboard.putBoolean("reversed", driveTrain.isReversed());
     }
