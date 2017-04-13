@@ -44,7 +44,7 @@ public class AutonomousRecenter extends SimpleCommand implements PIDOutput {
                 DriveTrainSystem.KF,
                 navigation.navx.ahrs(), this);
         pid.setInputRange(-180.0f, 180.0f);
-        pid.setOutputRange(-0.6, 0.6);
+        pid.setOutputRange(-1, 1);
         pid.setAbsoluteTolerance(2.0f);
         pid.setContinuous(true);
         pid.setSetpoint(0);

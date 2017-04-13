@@ -9,18 +9,21 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class GearAutonomy extends CommandGroup {
 
-    private final double CHARGE = 12.64;
+    private final double CHARGE = 12.60;
 
     public GearAutonomy() {
-        addSequential(new MoveToSurface(10));
-        addSequential(new AutonomousRecenter(1, false));
+        addSequential(new AutonomousMove(5.4,CHARGE,false));
+        addSequential(new AutonomousRecenter(3,false));
         addSequential(new ToggleGearHolder());
         addSequential(new Delay(0.5));
         addSequential(new ToggleGearHolder());
-        addSequential(new AutonomousMove(3, CHARGE, true));
-        addSequential(new AutonomousRecenter(1, false));
-        addSequential(new RotateToAngle(-30, 2));
-        addSequential(new AutonomousMove(10, CHARGE, false));
+        addSequential(new Delay(0.5));
+        addSequential(new ToggleGearHolder());
+        addSequential(new Delay(0.5));
+        addSequential(new ToggleGearHolder());
+        addSequential(new AutonomousMove(5.4,CHARGE,true));
+        addSequential(new RotateToAngle(-45,2));
+        addSequential(new AutonomousMove(5.4,CHARGE,false));
     }
 
 }
