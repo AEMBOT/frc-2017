@@ -14,12 +14,12 @@ import edu.wpi.first.wpilibj.Joystick.AxisType;
  *
  * @author Ivan Kenevich, Christopher Medlin, Shivashriganesh Mahato
  */
-public class StickTeleopMode extends SimpleCommand {
+public class TwoSticksNoTankDrive extends SimpleCommand {
 
     private Joystick leftJoystick, rightJoystick;
     private boolean reversed, gearToggled, ropeClimberIdled;
 
-    public StickTeleopMode() {
+    public TwoSticksNoTankDrive() {
         super("Teleop Command");
 
         requires(driveTrain);
@@ -38,10 +38,8 @@ public class StickTeleopMode extends SimpleCommand {
 
     @Override
     public void execute() {
-        double leftThrottle = -leftJoystick.getAxis(AxisType.kY);
-        double rightThrottle = -rightJoystick.getAxis(AxisType.kY);
-//        double curve = joystick.getAxis(AxisType.kX);
-//        double twist = joystick.getTwist();
+        double throttle = -leftJoystick.getAxis(AxisType.kY);
+        double curve = rightJoystick.getAxis(AxisType.kX);
 
 
         // the left trigger will toggle the gear holder
@@ -55,12 +53,12 @@ public class StickTeleopMode extends SimpleCommand {
             gearHolder.close();
             gearToggled = false;
         }
-//
-//        if (throttle == 0 && curve == 0) {
-//            driveTrain.spin(twist);
-//        } else {
-        driveTrain.tankDrive(leftThrottle, rightThrottle);
-//        }
+
+        if (Math.abs(throttle) < 0.05) {
+            driveTrain.spin(curve);
+        } else {
+        driveTrain.drive(throttle, curve);
+        }
 
         Smashboard.putBoolean("reversed", driveTrain.isReversed());
     }
@@ -69,3 +67,4 @@ public class StickTeleopMode extends SimpleCommand {
         return false;
     }
 }
+

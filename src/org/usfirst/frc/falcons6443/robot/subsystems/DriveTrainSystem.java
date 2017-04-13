@@ -25,7 +25,7 @@ public class DriveTrainSystem extends Subsystem {
     public static final double KF = 0.00;
 
     public static final double GEAR_ONE = 0.3; // Lowest speed
-    public static final double GEAR_TWO = 0.6;  // Medium speed
+    public static final double GEAR_TWO = 0.8;  // Medium speed
     public static final double GEAR_THREE = 1;  // Maximum speed
 
     // The constant that determines the maximum curvature at which the robot can move.

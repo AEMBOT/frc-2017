@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import org.usfirst.frc.falcons6443.robot.commands.GearAutonomy;
-import org.usfirst.frc.falcons6443.robot.commands.StickTeleopMode;
+import org.usfirst.frc.falcons6443.robot.commands.TwoSticksNoTankDrive;
 import org.usfirst.frc.falcons6443.robot.commands.TeleopMode;
 import org.usfirst.frc.falcons6443.robot.subsystems.DriveTrainSystem;
 import org.usfirst.frc.falcons6443.robot.subsystems.GearHolderSystem;
@@ -50,11 +50,13 @@ public class Robot extends IterativeRobot {
         	teleop = new TeleopMode();
         }
         
-        else if (oi.getLeftJoystick() != null) {
-        	teleop = new StickTeleopMode();
+        else if (oi.getLeftJoystick() != null && oi.getRightJoystick() != null) {
+        	teleop = new TwoSticksNoTankDrive();
         }
 
-        UsbCamera cam = new UsbCamera("cam",1);
+        UsbCamera cam = new UsbCamera("cam",0);
+        cam.setResolution(800,600);
+//        CameraServer.getInstance().
         CameraServer.getInstance().startAutomaticCapture(cam);
     }
 
