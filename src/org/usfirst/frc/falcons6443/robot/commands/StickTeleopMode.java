@@ -37,7 +37,11 @@ public class StickTeleopMode extends SimpleCommand {
 
     @Override
     public void execute() {
-        
+        double throttle = -joystick.getAxis(AxisType.kY);
+        double curve = joystick.getAxis(AxisType.kX);
+        double twist = joystick.getTwist();
+
+
         // the left trigger will toggle the gear holder
         if (joystick.getTrigger()) {
             // safeguard for if the driver holds the trigger
@@ -50,8 +54,11 @@ public class StickTeleopMode extends SimpleCommand {
             gearToggled = false;
         }
 
-        // set the driveTrain power
-            driveTrain.drive(joystick.getAxis(AxisType.kY), joystick.getAxis(AxisType.kX));
+        if (throttle == 0 && curve == 0) {
+            driveTrain.spin(twist);
+        } else {
+        driveTrain.drive(throttle, curve * Math.abs(curve)); // really unprofessional squaring
+        }
 
         Smashboard.putBoolean("reversed", driveTrain.isReversed());
     }
