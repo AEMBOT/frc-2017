@@ -18,7 +18,8 @@ import java.util.HashMap;
 public class OI {
 
     private Gamepad gamepad;
-    private Joystick joystick;
+    private Joystick leftJoystick;
+    private Joystick rightJoystick;
 
     private HashMap<String, Button> buttons;
 
@@ -27,20 +28,23 @@ public class OI {
      */
     public OI() {
     	Joystick masterStick = new Joystick(0);
+    	Joystick secondaryStick = new Joystick(1);
     	
     	if (masterStick.getIsXbox()) {
             gamepad = new Gamepad(masterStick);
-            joystick = null;
+            leftJoystick = null;
+            rightJoystick = null;
     	}
     	
     	else {
-    		joystick = masterStick;
+    		leftJoystick = masterStick;
+    		rightJoystick = secondaryStick;
     		gamepad = null;
     	}
     	
         buttons = new HashMap<String, Button>(4);
         
-        assert (gamepad != null ^ joystick != null);
+        assert (gamepad != null ^ (leftJoystick != null && rightJoystick != null));
     }
 
     /**
@@ -52,9 +56,11 @@ public class OI {
         return gamepad;
     }
     
-    public Joystick getJoystick() {
-    	return joystick;
+    public Joystick getLeftJoystick() {
+    	return leftJoystick;
     }
+
+    public Joystick getRightJoystick() { return rightJoystick; }
 
     /**
      * Returns the Button object associated with the key.

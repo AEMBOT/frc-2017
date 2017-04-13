@@ -1,5 +1,7 @@
 package org.usfirst.frc.falcons6443.robot;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -48,9 +50,12 @@ public class Robot extends IterativeRobot {
         	teleop = new TeleopMode();
         }
         
-        else if (oi.getJoystick() != null) {
+        else if (oi.getLeftJoystick() != null) {
         	teleop = new StickTeleopMode();
         }
+
+        UsbCamera cam = new UsbCamera("cam",1);
+        CameraServer.getInstance().startAutomaticCapture(cam);
     }
 
     /*

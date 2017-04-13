@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.Joystick.AxisType;
  */
 public class StickTeleopMode extends SimpleCommand {
 
-    private Joystick joystick;
+    private Joystick leftJoystick, rightJoystick;
     private boolean reversed, gearToggled, ropeClimberIdled;
 
     public StickTeleopMode() {
@@ -29,7 +29,8 @@ public class StickTeleopMode extends SimpleCommand {
 
     @Override
     public void initialize() {
-        joystick = Robot.oi.getJoystick();
+        leftJoystick = Robot.oi.getLeftJoystick();
+        rightJoystick = Robot.oi.getRightJoystick();
         reversed = false;
         gearToggled = false;
         ropeClimberIdled = false;
@@ -37,13 +38,14 @@ public class StickTeleopMode extends SimpleCommand {
 
     @Override
     public void execute() {
-        double throttle = -joystick.getAxis(AxisType.kY);
-        double curve = joystick.getAxis(AxisType.kX);
-        double twist = joystick.getTwist();
+        double leftThrottle = -leftJoystick.getAxis(AxisType.kY);
+        double rightThrottle = -rightJoystick.getAxis(AxisType.kY);
+//        double curve = joystick.getAxis(AxisType.kX);
+//        double twist = joystick.getTwist();
 
 
         // the left trigger will toggle the gear holder
-        if (joystick.getTrigger()) {
+        if (rightJoystick.getTrigger()) {
             // safeguard for if the driver holds the trigger
             if (!gearToggled) {
                 gearHolder.open();
@@ -53,12 +55,12 @@ public class StickTeleopMode extends SimpleCommand {
             gearHolder.close();
             gearToggled = false;
         }
-
-        if (throttle == 0 && curve == 0) {
-            driveTrain.spin(twist);
-        } else {
-        driveTrain.drive(throttle, curve * Math.abs(curve)); // really unprofessional squaring
-        }
+//
+//        if (throttle == 0 && curve == 0) {
+//            driveTrain.spin(twist);
+//        } else {
+        driveTrain.tankDrive(leftThrottle, rightThrottle);
+//        }
 
         Smashboard.putBoolean("reversed", driveTrain.isReversed());
     }
