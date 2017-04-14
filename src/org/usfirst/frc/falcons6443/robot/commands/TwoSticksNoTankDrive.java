@@ -55,7 +55,7 @@ public class TwoSticksNoTankDrive extends SimpleCommand {
         }
 
         if (Math.abs(throttle) < 0.05) {
-            driveTrain.spin(curve);
+            driveTrain.spin(curve / 2);
         } else {
         driveTrain.drive(throttle, curve);
         }
