@@ -20,9 +20,10 @@ public class MoveToSurface extends SimpleCommand implements PIDOutput {
     }
 
     public void initialize() {
-        navigation.reset();
         navigation.initPIDController(this);
-        navigation.pidSetPoint(0);
+        navigation.pid.setSetpoint(0);
+        navigation.pid.setOutputRange(0.05, 0.05);
+        navigation.enablePID();
     }
 
     public void execute() {

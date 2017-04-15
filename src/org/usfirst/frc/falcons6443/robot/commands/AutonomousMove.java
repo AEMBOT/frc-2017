@@ -13,24 +13,27 @@ public class AutonomousMove extends SimpleCommand implements PIDOutput {
     private double distance, charge, time;
     private int direction;
 
+    private final double TIME_TO_ROLl_TO_A_STOP = 0.5;
+
     /**
      * Constructor for SimpleCommand.
      */
     public AutonomousMove(double distance, double charge, boolean isReversed) {
         super("Autonomous Movement");
+
         requires(driveTrain);
         requires(navigation);
+
         this.distance = distance;
         this.charge = charge;
+
         time = 0;
         direction = isReversed ? -1 : 1;
     }
 
     @Override
     public void initialize() {
-        navigation.reset();
-        navigation.initPIDController(this);
-        navigation.pidSetPoint(0);
+        initPIDController();
 
         // magic numbers   WOOOOOOOH
         time = (-0.037819 * charge + 0.74216) * distance + (-0.3676 * charge + 4.26483);
@@ -42,6 +45,14 @@ public class AutonomousMove extends SimpleCommand implements PIDOutput {
         setTimeout(time);
     }
 
+    private void initPIDController() {
+        navigation.reset();
+        navigation.initPIDController(this);
+        navigation.pid.setOutputRange(-0.05, 0.05);
+        navigation.pid.setSetpoint((direction > 0) ? 0 : 179);
+        navigation.enablePID();
+    }
+
     @Override
     public void execute() {
         driveTrain.tankDrive(direction * (0.6 + pidOutput), direction * (0.6 - pidOutput));
@@ -51,7 +62,7 @@ public class AutonomousMove extends SimpleCommand implements PIDOutput {
     protected boolean isFinished() {
         if (isTimedOut()) {
             driveTrain.tankDrive(0, 0);
-            Timer.delay(2);
+            Timer.delay(TIME_TO_ROLl_TO_A_STOP);
             navigation.freePID();
             return true;
         }
