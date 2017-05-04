@@ -32,4 +32,8 @@ public class RobotMap {
     //rope climber
     public static final int RopeClimberSpark = 4;
 
+    //ball shooter flywheels
+    public static final int ShooterFlywheel = -1;
+    public static final int FeederFlywheel = -1;
+
 }
