@@ -37,11 +37,13 @@ public class BallShooterSystem {
     public BallShooterSystem () {
         shooterFlywheel = new Victor(RobotMap.ShooterFlywheel);
         feederFlywheel = new Victor (RobotMap.FeederFlywheel);
+        initPIDController(DEFAULT_RPM);
     }
 
     public BallShooterSystem (int rpm) {
         shooterFlywheel = new Victor (RobotMap.ShooterFlywheel);
         feederFlywheel = new Victor (RobotMap.FeederFlywheel);
+        initPIDController(rpm);
     }
 
     private void initPIDController (int rpm) {
@@ -50,6 +52,7 @@ public class BallShooterSystem {
         pid.setOutputRange(0, 1);
         pid.setAbsoluteTolerance(0.5);
         pid.setContinuous(true);
+        pid.setSetpoint(rpm/60);
     }
 
     /**
