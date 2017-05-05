@@ -37,12 +37,18 @@ public class BallShooterSystem {
     public BallShooterSystem () {
         shooterFlywheel = new Victor(RobotMap.ShooterFlywheel);
         feederFlywheel = new Victor (RobotMap.FeederFlywheel);
+        flywheelEncoder = new Encoder (RobotMap.ShooterEncoderChannelA,
+                                       RobotMap.ShooterEncoderChannelB,
+                                       true, Encoder.EncodingType.k1X);
         initPIDController(DEFAULT_RPM);
     }
 
     public BallShooterSystem (int rpm) {
         shooterFlywheel = new Victor (RobotMap.ShooterFlywheel);
         feederFlywheel = new Victor (RobotMap.FeederFlywheel);
+        flywheelEncoder = new Encoder (RobotMap.ShooterEncoderChannelA,
+                                       RobotMap.ShooterEncoderChannelB,
+                                       true, Encoder.EncodingType.k1X);
         initPIDController(rpm);
     }
 

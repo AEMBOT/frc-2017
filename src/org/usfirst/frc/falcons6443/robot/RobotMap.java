@@ -36,4 +36,7 @@ public class RobotMap {
     public static final int ShooterFlywheel = -1;
     public static final int FeederFlywheel = -1;
 
+    //ball shooter encoder
+    public static final int ShooterEncoderChannelA = -1;
+    public static final int ShooterEncoderChannelB = -1;
 }
