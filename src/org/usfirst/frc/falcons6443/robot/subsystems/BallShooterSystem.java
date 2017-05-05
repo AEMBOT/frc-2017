@@ -3,6 +3,7 @@ package org.usfirst.frc.falcons6443.robot.subsystems;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.falcons6443.robot.RobotMap;
 
 /**
@@ -12,7 +13,7 @@ import org.usfirst.frc.falcons6443.robot.RobotMap;
  *
  * @author Christopher Medlin
  */
-public class BallShooterSystem {
+public class BallShooterSystem extends Subsystem {
 
     // PID: proportional–integral–derivative controller
     // more info at https://en.wikipedia.org/wiki/PID_controller
@@ -63,6 +64,8 @@ public class BallShooterSystem {
         pid.setContinuous(true);
         pid.setSetpoint(rpm/60);
     }
+
+    public void initDefaultCommand () {}
 
     /**
      * Starts the shooter flywheel with an initial power of 0.5.

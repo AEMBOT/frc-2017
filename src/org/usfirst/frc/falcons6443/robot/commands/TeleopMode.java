@@ -13,7 +13,7 @@ import org.usfirst.frc.falcons6443.robot.utilities.Smashboard;
 public class TeleopMode extends SimpleCommand {
 
     private Gamepad gamepad;
-    private boolean reversed, gearToggled, ropeClimberIdled;
+    private boolean reversed, gearToggled, ropeClimberIdled, ballShooterInitiated;
 
     public TeleopMode() {
         super("Teleop Command");
@@ -21,6 +21,7 @@ public class TeleopMode extends SimpleCommand {
         requires(driveTrain);
         requires(gearHolder);
         requires(ropeClimber);
+        requires(ballShooter);
     }
 
     @Override
@@ -29,6 +30,7 @@ public class TeleopMode extends SimpleCommand {
         reversed = false;
         gearToggled = false;
         ropeClimberIdled = false;
+        ballShooterInitiated = false;
     }
 
     @Override
@@ -54,6 +56,14 @@ public class TeleopMode extends SimpleCommand {
         } else {
             gearHolder.close();
             gearToggled = false;
+        }
+
+        // the B button will start the ball shooter
+        if (gamepad.B()) {
+            // safeguard for if the driver holds the B button
+            if (!ballShooterInitiated) {
+
+            }
         }
 
         // the X button will toggle the rope climber to idleing mode

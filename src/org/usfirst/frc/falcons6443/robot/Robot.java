@@ -6,10 +6,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import org.usfirst.frc.falcons6443.robot.commands.GearAutonomy;
 import org.usfirst.frc.falcons6443.robot.commands.TeleopMode;
-import org.usfirst.frc.falcons6443.robot.subsystems.DriveTrainSystem;
-import org.usfirst.frc.falcons6443.robot.subsystems.GearHolderSystem;
-import org.usfirst.frc.falcons6443.robot.subsystems.NavigationSystem;
-import org.usfirst.frc.falcons6443.robot.subsystems.RopeClimberSystem;
+import org.usfirst.frc.falcons6443.robot.subsystems.*;
 import org.usfirst.frc.falcons6443.robot.utilities.CommandChooser;
 
 /**
@@ -27,6 +24,7 @@ public class Robot extends IterativeRobot {
     public static final GearHolderSystem GearHolder = new GearHolderSystem();
     public static final NavigationSystem Navigation = new NavigationSystem();
     public static final RopeClimberSystem RopeClimber = new RopeClimberSystem();
+    public static final BallShooterSystem BallShooter = new BallShooterSystem();
 
     public static OI oi;
 
