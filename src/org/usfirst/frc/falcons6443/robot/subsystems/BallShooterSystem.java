@@ -22,6 +22,7 @@ public class BallShooterSystem {
     public static final double KF = 0.00;
 
     private final int DEFAULT_RPM = 1000;
+    private int rpm;
 
     //the first flywheel which feeds the collected steam to the second flywheel
     private Victor feederFlywheel;
@@ -41,6 +42,7 @@ public class BallShooterSystem {
                                        RobotMap.ShooterEncoderChannelB,
                                        true, Encoder.EncodingType.k1X);
         initPIDController(DEFAULT_RPM);
+        rpm = DEFAULT_RPM;
     }
 
     public BallShooterSystem (int rpm) {
@@ -50,6 +52,7 @@ public class BallShooterSystem {
                                        RobotMap.ShooterEncoderChannelB,
                                        true, Encoder.EncodingType.k1X);
         initPIDController(rpm);
+        this.rpm = rpm;
     }
 
     private void initPIDController (int rpm) {
@@ -97,5 +100,13 @@ public class BallShooterSystem {
      */
     public void setRPM (int rpm) {
         pid.setSetpoint(rpm/60);
+        this.rpm = rpm;
+    }
+
+    /**
+     * Returns the target RPM for the shooter flywheel.
+     */
+    public double getRPM () {
+        return rpm;
     }
 }
