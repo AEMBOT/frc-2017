@@ -14,6 +14,7 @@ public class TeleopMode extends SimpleCommand {
 
     private Gamepad gamepad;
     private boolean reversed, gearToggled, ropeClimberIdled, ballShooterInitiated;
+    private int bPressCount;
 
     public TeleopMode() {
         super("Teleop Command");
@@ -62,8 +63,20 @@ public class TeleopMode extends SimpleCommand {
         if (gamepad.B()) {
             // safeguard for if the driver holds the B button
             if (!ballShooterInitiated) {
-
+                ballShooter.initShooter();
+                bPressCount++;
+                //on second press, feeder flywheel starts
+                if (bPressCount == 1) {
+                    ballShooter.initFeeder();
+                }
+                //on third press, both flywheels stop
+                if (bPressCount == 2) {
+                    ballShooter.stop();
+                    bPressCount = 0;
+                }
             }
+        } else {
+            ballShooterInitiated = false;
         }
 
         // the X button will toggle the rope climber to idleing mode
