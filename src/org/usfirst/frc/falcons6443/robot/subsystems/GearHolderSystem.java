@@ -22,7 +22,7 @@ public class GearHolderSystem extends Subsystem {
      */
     public GearHolderSystem() {
         solenoid = new DoubleSolenoid(RobotMap.GearHolderSolenoidOpen,
-                RobotMap.GearHolderSolenoidClose);
+                                      RobotMap.GearHolderSolenoidClose);
 
         open = false;
     }

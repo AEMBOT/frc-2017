@@ -65,7 +65,7 @@ public class DriveTrainSystem extends Subsystem {
 
         speedLevel = 2; //start in lowest speed mode [SAFETY FIRST]
         // ^ lies, forget safety
-        drive.setMaxOutput(GEAR_TWO);
+        drive.setMaxOutput(GEAR_ONE);
     }
 
     @Override
@@ -167,6 +167,7 @@ public class DriveTrainSystem extends Subsystem {
      * GEAR_TWO and GEAR_THREE up above.
      */
     private void updateMaxOutput() {
+        /*
         if (speedLevel == 1) {
             drive.setMaxOutput(GEAR_ONE);
         } else if (speedLevel == 2) {
@@ -174,5 +175,8 @@ public class DriveTrainSystem extends Subsystem {
         } else {
             drive.setMaxOutput(GEAR_THREE);
         }
+        */
+
+        drive.setMaxOutput(GEAR_ONE);
     }
 }
