@@ -27,6 +27,8 @@ public class TwoSticksNoTankDrive extends SimpleCommand {
         requires(ropeClimber);
     }
 
+
+
     @Override
     public void initialize() {
         leftJoystick = Robot.oi.getLeftJoystick();
@@ -41,7 +43,6 @@ public class TwoSticksNoTankDrive extends SimpleCommand {
         double throttle = -leftJoystick.getAxis(AxisType.kY);
         double curve = rightJoystick.getAxis(AxisType.kX);
 
-
         // the left trigger will toggle the gear holder
         if (rightJoystick.getTrigger()) {
             // safeguard for if the driver holds the trigger
@@ -54,8 +55,18 @@ public class TwoSticksNoTankDrive extends SimpleCommand {
             gearToggled = false;
         }
 
+
+         //Climber on throddel
+        if(rightJoystick.getRawAxis(3) > 0.1 || rightJoystick.getRawAxis(3) < -0.1 ){
+            double climber = (rightJoystick.getRawAxis(3)/2);
+
+            ropeClimber.set(climber);
+        }
+
+
         if (Math.abs(throttle) < 0.05) {
-            driveTrain.spin(curve / 2);
+            // removed the curve speed cap for driving onn carpet. No longer is divided by 2
+            driveTrain.spin(curve);
         } else {
         driveTrain.drive(throttle, curve);
         }

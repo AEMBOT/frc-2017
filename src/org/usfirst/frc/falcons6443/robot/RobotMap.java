@@ -32,4 +32,9 @@ public class RobotMap {
     //rope climber
     public static final int RopeClimberSpark = 4;
 
+    //shooter
+    public static final int ShooterSpark = 4;//UPDATE VALUE
+    public static final int ShooterEncoderA = 3;//UPDATE VALUE
+    public static final int ShooterEncoderB = 4;//UPDATE VALUE
+
 }

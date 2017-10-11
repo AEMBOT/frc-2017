@@ -1,5 +1,6 @@
 package org.usfirst.frc.falcons6443.robot.commands;
 
+import edu.wpi.first.wpilibj.Joystick;
 import org.usfirst.frc.falcons6443.robot.Robot;
 import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
 import org.usfirst.frc.falcons6443.robot.utilities.Smashboard;
