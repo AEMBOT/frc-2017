@@ -67,7 +67,7 @@ public class TeleopMode extends SimpleCommand {
                 bPressCount++;
                 //on second press, feeder flywheel starts
                 if (bPressCount == 1) {
-                    ballShooter.initFeeder();
+                    ballShooter.feeder();
                 }
                 //on third press, both flywheels stop
                 if (bPressCount == 2) {

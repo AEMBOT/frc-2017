@@ -1,50 +1,27 @@
 package org.usfirst.frc.falcons6443.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.falcons6443.robot.RobotMap;
+import edu.wpi.first.wpilibj.Utility;
+import org.usfirst.frc.falcons6443.robot.subsystems.PID;
 
 /**
- * Subsystem for the robot's ball shooter mechanism.
- * <p>
  * Uses an encoder to spin the flywheel at a constant RPM.
- *
- * @author Christopher Medlin
  */
 public class BallShooterSystem extends Subsystem {
-
-    // PID: proportional–integral–derivative controller
-    // more info at https://en.wikipedia.org/wiki/PID_controller
-    public static final double KP = 0.04;  //.04
-    public static final double KI = 0.001; //.001
-    public static final double KD = 0.00;  //.00
-    public static final double KF = 0.00;
-
-    private final int DEFAULT_RPM = 1000;
-    private int rpm;
 
     //the first flywheel which feeds the collected steam to the second flywheel
     private Victor feederFlywheel;
     //the second flywheel which shoots the steam
     private Victor shooterFlywheel;
-
     //the encoder, which allows the flywheel to spin at a constant RPM
     private Encoder flywheelEncoder;
-
-    //PID controller to be used with the motor and the encoder
-    private PIDController pid;
-
-    public BallShooterSystem () {
-        shooterFlywheel = new Victor(RobotMap.ShooterFlywheel);
-        feederFlywheel = new Victor (RobotMap.FeederFlywheel);
-        flywheelEncoder = new Encoder (RobotMap.ShooterEncoderChannelA,
-                                       RobotMap.ShooterEncoderChannelB,
-                                       true, Encoder.EncodingType.k1X);
-        initPIDController(DEFAULT_RPM);
-        rpm = DEFAULT_RPM;
-    }
+    private PID pid;
+    private double currentRPM;
+    private double oldDistance;
+    private double oldTime;
 
     public BallShooterSystem (int rpm) {
         shooterFlywheel = new Victor (RobotMap.ShooterFlywheel);
@@ -52,29 +29,41 @@ public class BallShooterSystem extends Subsystem {
         flywheelEncoder = new Encoder (RobotMap.ShooterEncoderChannelA,
                                        RobotMap.ShooterEncoderChannelB,
                                        true, Encoder.EncodingType.k1X);
-        initPIDController(rpm);
-        this.rpm = rpm;
-    }
-
-    private void initPIDController (int rpm) {
-        pid = new PIDController(KP, KI, KD, KF, flywheelEncoder, shooterFlywheel);
-        pid.setInputRange(0, 25);
-        pid.setOutputRange(0, 1);
-        pid.setAbsoluteTolerance(0.5);
-        pid.setContinuous(true);
-        pid.setSetpoint(rpm/60);
+        pid = new PID(.1, .5, 0, 5);
+       // PID.initPIDController(rpm, flywheelEncoder, shooterFlywheel);
+        pid.setDesiredValue(rpm);
+        oldTime = Utility.getFPGATime() / 1000000.0;
     }
 
     public void initDefaultCommand () {}
 
+    public double getSpeed(){
+        return (updateSpeed());
+    }
+
+    public double updateSpeed(){
+        double distance = flywheelEncoder.getDistance() / 1024; //divide by ticks per rotation
+        double time = Utility.getFPGATime() / 1000000.0; //milliseconds to seconds
+        double speed = ((distance - oldDistance) / (time - oldTime)) * 60; //rotations per second
+        double rpm = speed * 60; //rotations per minute
+        oldDistance = distance;
+        oldTime = time;
+        return rpm;
+    }
+
     /**
-     * Starts the shooter flywheel with an initial power of 0.5.
+     * Starts the shooter flywheel with an initial power of 0.5
      */
     public void initShooter () {
         //set shooter flywheel to an initial power of 0.5
-        shooterFlywheel.set(0.5);
+        //shooterFlywheel.set(0.5);
         //begin the PID feedback loop
-        pid.enable();
+        //pid.calcPID(getSpeed());
+    }
+
+    //put in a periodic function
+    public void spin(){
+        shooterFlywheel.set(pid.calcPID(getSpeed()));
     }
 
     /**
@@ -83,7 +72,7 @@ public class BallShooterSystem extends Subsystem {
      * It is recommended to use this after a couple iterations of the
      * shooter flywheel so that it has had time to adjust to the proper RPM.
      */
-    public void initFeeder () {
+    public void feeder () {
         feederFlywheel.set(0.3);
     }
 
@@ -91,25 +80,7 @@ public class BallShooterSystem extends Subsystem {
      * Stops both flywheels.
      */
     public void stop () {
-        pid.disable();
         feederFlywheel.set(0);
         shooterFlywheel.set(0);
-    }
-
-    /**
-     * Set the target RPM for the shooter flywheel.
-     *
-     * @param rpm the desired target RPM
-     */
-    public void setRPM (int rpm) {
-        pid.setSetpoint(rpm/60);
-        this.rpm = rpm;
-    }
-
-    /**
-     * Returns the target RPM for the shooter flywheel.
-     */
-    public double getRPM () {
-        return rpm;
     }
 }
