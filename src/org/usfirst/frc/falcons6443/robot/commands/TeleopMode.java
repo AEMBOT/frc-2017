@@ -2,6 +2,7 @@ package org.usfirst.frc.falcons6443.robot.commands;
 
 import org.usfirst.frc.falcons6443.robot.Robot;
 import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
+import org.usfirst.frc.falcons6443.robot.subsystems.PID;
 import org.usfirst.frc.falcons6443.robot.utilities.Smashboard;
 
 /**
@@ -13,8 +14,9 @@ import org.usfirst.frc.falcons6443.robot.utilities.Smashboard;
 public class TeleopMode extends SimpleCommand {
 
     private Gamepad gamepad;
-    private boolean reversed, gearToggled, ropeClimberIdled, ballShooterInitiated;
-    private int bPressCount;
+    private boolean reversed, gearToggled, ropeClimberIdled;
+    //private int bPressCount;
+    private PID pid;
 
     public TeleopMode() {
         super("Teleop Command");
@@ -31,7 +33,7 @@ public class TeleopMode extends SimpleCommand {
         reversed = false;
         gearToggled = false;
         ropeClimberIdled = false;
-        ballShooterInitiated = false;
+        pid = new PID(0, 0, 0, 0); //CHANGE THESE VALUES!!!!
     }
 
     @Override
@@ -59,24 +61,20 @@ public class TeleopMode extends SimpleCommand {
             gearToggled = false;
         }
 
-        // the B button will start the ball shooter
+        // holding the B button will start the ball shooter
         if (gamepad.B()) {
-            // safeguard for if the driver holds the B button
-            if (!ballShooterInitiated) {
-                ballShooter.initShooter();
-                bPressCount++;
-                //on second press, feeder flywheel starts
-                if (bPressCount == 1) {
-                    ballShooter.feeder();
-                }
-                //on third press, both flywheels stop
-                if (bPressCount == 2) {
-                    ballShooter.stop();
-                    bPressCount = 0;
-                }
+            ballShooter.spin();
+            //the right trigger will start feeder wheel when the PID is done
+            if (gamepad.rightTrigger() > .8 && pid.isDone()) {
+                ballShooter.feeder();
+            }
+
+            //override of PID with start button
+            if(gamepad.back()){
+                ballShooter.feeder();
             }
         } else {
-            ballShooterInitiated = false;
+            ballShooter.stop();
         }
 
         // the X button will toggle the rope climber to idleing mode

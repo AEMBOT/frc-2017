@@ -18,8 +18,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * @author Simbotics 2015
  */
 public class PID {
-        // more info at https://en.wikipedia.org/wiki/PID_controller
-
         private double pConst;
         private double iConst;
         private double dConst;
@@ -193,6 +191,7 @@ public class PID {
             return output;
         }
 
+        //use in code
         public boolean isDone() {
             double currError = Math.abs(this.previousError);
 
@@ -211,57 +210,5 @@ public class PID {
         public void resetPreviousVal() {
             this.firstCycle = true;
         }
-
-        /*private static final double KP = 0.04;  //.04
-        private static final double KI = 0.00; //.00
-        private static final double KD = 0.001;  //.001
-        private static final double KF = 0.00;
-
-
-        private int rpm;
-
-        //PID controller to be used with the motor and the encoder
-        private PIDController pid;
-
-
-        public void initPIDController (int rpm, Encoder encoder, Victor motor) {
-            pid = new PIDController(KP, KI, KD, KF, encoder, motor);
-            pid.setInputRange(0, 25); //look at more
-            pid.setOutputRange(0, 1);
-            pid.setAbsoluteTolerance(0.5); //look at more
-            pid.setContinuous(true); //look at more
-            pid.setSetpoint(rpm/60); //why divided by 60??
-        }
-v
-        /**
-         * Starts the PID
-         */
-        //public void enablePID () {
-        //    pid.enable();
-        //}
-
-        /**
-        * Stops the PID
-        */
-        //public void disablePID () {
-        //    pid.disable();
-        //}
-
-        /**
-         * Set the target RPM for the shooter flywheel.
-         *
-         * @param rpm the desired target RPM
-         */
-        //public void setRPM (int rpm) {
-        //    pid.setSetpoint(rpm/60); //why 60?????
-        //    this.rpm = rpm;
-        //}
-
-        /**
-         * Returns the target RPM for the shooter flywheel.
-         */
-        //public double getRPM () {
-        //    return rpm;
-        //}
 
     }
