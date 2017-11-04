@@ -18,6 +18,7 @@ public class BallShooterSystem extends Subsystem {
     private PID pid;
     private double oldDistance;
     private double oldTime;
+    private double currentRPM;
     private double desiredRPM = 0; //CHANGE THIS VALUE!!!!!
     private boolean vomit = false; //puts values to dashboard (not integrated yet)
 
@@ -29,7 +30,6 @@ public class BallShooterSystem extends Subsystem {
                                        true, Encoder.EncodingType.k1X);
         pid = new PID(0, 0, 0, 5); //CHANGE THESE VALUES!!!
         pid.setDesiredValue(desiredRPM);
-        oldTime = Utility.getFPGATime() / 1000000.0;
         if(vomit){ pid.setVomitTrue(); }
     }
 
@@ -44,17 +44,19 @@ public class BallShooterSystem extends Subsystem {
     public double getDesiredShooterSpeed(){ return desiredRPM; }
 
     public double getSpeed(){
-        return (updateSpeed());
+        updateSpeed();
+        return currentRPM;
     }
 
-    public double updateSpeed(){
+    private void updateSpeed(){
         double distance = flywheelEncoder.getDistance() / 1024; //divide by ticks per rotation
         double time = Utility.getFPGATime() / 1000000.0; //milliseconds to seconds
-        double speed = ((distance - oldDistance) / (time - oldTime)) * 60; //rotations per second
-        double rpm = speed * 60; //rotations per minute
+        double dx = distance - oldDistance;
+        double dt = time - oldTime;
         oldDistance = distance;
         oldTime = time;
-        return rpm;
+        double rate = dx / dt; //rotations per second
+        currentRPM = rate * 60; //rotations per minute
     }
 
     /**
