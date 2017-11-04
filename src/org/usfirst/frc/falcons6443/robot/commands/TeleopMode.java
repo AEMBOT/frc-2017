@@ -2,7 +2,7 @@ package org.usfirst.frc.falcons6443.robot.commands;
 
 import org.usfirst.frc.falcons6443.robot.Robot;
 import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
-import org.usfirst.frc.falcons6443.robot.subsystems.PID;
+import org.usfirst.frc.falcons6443.robot.utilities.PID;
 import org.usfirst.frc.falcons6443.robot.utilities.Smashboard;
 
 /**
@@ -16,7 +16,6 @@ public class TeleopMode extends SimpleCommand {
     private Gamepad gamepad;
     private boolean reversed, gearToggled, ropeClimberIdled;
     //private int bPressCount;
-    private PID pid;
 
     public TeleopMode() {
         super("Teleop Command");
@@ -33,7 +32,6 @@ public class TeleopMode extends SimpleCommand {
         reversed = false;
         gearToggled = false;
         ropeClimberIdled = false;
-        pid = new PID(0, 0, 0, 0); //CHANGE THESE VALUES!!!!
     }
 
     @Override
@@ -65,7 +63,7 @@ public class TeleopMode extends SimpleCommand {
         if (gamepad.B()) {
             ballShooter.spin();
             //the right trigger will start feeder wheel when the PID is done
-            if (gamepad.rightTrigger() > .8 && pid.isDone()) {
+            if (gamepad.rightTrigger() > .8 && ballShooter.atSpeed()) {
                 ballShooter.feeder();
             }
 

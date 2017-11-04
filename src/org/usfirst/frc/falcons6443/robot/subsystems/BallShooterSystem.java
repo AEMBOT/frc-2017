@@ -5,37 +5,43 @@ import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.falcons6443.robot.RobotMap;
 import edu.wpi.first.wpilibj.Utility;
-import org.usfirst.frc.falcons6443.robot.subsystems.PID;
+import org.usfirst.frc.falcons6443.robot.utilities.PID;
 
 /**
  * Uses an encoder to spin the flywheel at a constant RPM.
  */
 public class BallShooterSystem extends Subsystem {
 
-    //the first flywheel which feeds the collected steam to the second flywheel
     private Victor feederFlywheel;
-    //the second flywheel which shoots the steam
     private Victor shooterFlywheel;
-    //the encoder, which allows the flywheel to spin at a constant RPM
     private Encoder flywheelEncoder;
     private PID pid;
-    private double currentRPM;
     private double oldDistance;
     private double oldTime;
+    private double desiredRPM = 0; //CHANGE THIS VALUE!!!!!
+    private boolean vomit = false; //puts values to dashboard (not integrated yet)
 
-    public BallShooterSystem (int rpm) {
+    public BallShooterSystem () {
         shooterFlywheel = new Victor (RobotMap.ShooterFlywheel);
         feederFlywheel = new Victor (RobotMap.FeederFlywheel);
         flywheelEncoder = new Encoder (RobotMap.ShooterEncoderChannelA,
                                        RobotMap.ShooterEncoderChannelB,
                                        true, Encoder.EncodingType.k1X);
-        pid = new PID(.1, .5, 0, 5);
-       // PID.initPIDController(rpm, flywheelEncoder, shooterFlywheel);
-        pid.setDesiredValue(rpm);
+        pid = new PID(0, 0, 0, 5); //CHANGE THESE VALUES!!!
+        pid.setDesiredValue(desiredRPM);
         oldTime = Utility.getFPGATime() / 1000000.0;
+        if(vomit){ pid.setVomitTrue(); }
     }
 
+    //???
     public void initDefaultCommand () {}
+
+    public void setShooterSpeed(double rpm){
+        desiredRPM = rpm;
+        pid.setDesiredValue(desiredRPM);
+    }
+
+    public double getDesiredShooterSpeed(){ return desiredRPM; }
 
     public double getSpeed(){
         return (updateSpeed());
@@ -52,13 +58,10 @@ public class BallShooterSystem extends Subsystem {
     }
 
     /**
-     * Starts the shooter flywheel with an initial power of 0.5
+     * Returns true if the shooter is at speed
      */
-    public void initShooter () {
-        //set shooter flywheel to an initial power of 0.5
-        //shooterFlywheel.set(0.5);
-        //begin the PID feedback loop
-        //pid.calcPID(getSpeed());
+    public boolean atSpeed () {
+        return pid.isDone();
     }
 
     //put in a periodic function
@@ -69,8 +72,7 @@ public class BallShooterSystem extends Subsystem {
     /**
      * Starts the feeder flywheel.
      * <p>
-     * It is recommended to use this after a couple iterations of the
-     * shooter flywheel so that it has had time to adjust to the proper RPM.
+     * Use this when shooter is atSpeed()
      */
     public void feeder () {
         feederFlywheel.set(0.3);
