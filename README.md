@@ -1,7 +1,7 @@
 # frc-2017
 Liberty Robotics 2017 FRC code
 
-# Liberty Robotics Code Guidelines (v2)
+# Liberty Robotics Code Guidelines (v3)
 When writing any project code, please follow these guidelines to maintain consistency.
 ## Line Breaks, Whitespace
 Use Egyptian Style Braces { }, where the opening brace is on the same line as the declaration:
@@ -88,5 +88,19 @@ public class Example {
   public void setZ (double z) {}
 }
   ```
+## Version Control
+We use git hosted on GitHub for Version Control. To effectively use this tool it is important to stay organised and consistent in versioning.
+### Commits
+Commits should document changes in code that represent milestones in work. It is better to commit too often than to not commit often enough. Commits should encapsulate a single task - this makes it easier to track changes to certain features over time.
+
+Commit names should be a single sentence summarising the effect of the changes in the commit. Commit descriptions are optional and to be used if necessary.
+
+### Branches
+Each feature should be contained in a separate branch as to not collide with the work of others. Branches are to be named after their purpose. Branch names are to be all lowercase with ```-``` used as a word separator when necessary.
+* Good branch names: ```ball-shooter```, ```optimize```, ```remove-deprecated```
+* Bad branch names: ```Xx_dustin's_branch_xX```, ```branch1```,```this-is-broken```
+
+### Merging
+In order to encourage collaboration, all merging is to be done in the form of pull requests, which are to be reviewed and improved by others. Competition code is to reside on the ```master``` branch and should be competition-ready at all times. The master branch is to be locked, with the only way to change it being through reviewed and approved merge requests.
 ## Attribution
 "Cite your sources!". No, really. FIRST allows (even encourages) sharing code. Make sure to respect the licenses of all public code, and it goes without saying that you should provide attribution to any adopted blocks. This can be as simple as commenting a URL with the source (Yes, cite StackOverflow if you steal a StackOverflow example, although that is less likely to come up in robotics). Changing the names of tokens (variables, method names, etc) does not magically make it your code!
