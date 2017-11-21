@@ -1,6 +1,9 @@
 package org.usfirst.frc.falcons6443.robot.commands;
 
+import edu.wpi.first.wpilibj.Ultrasonic;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.falcons6443.robot.Robot;
+import org.usfirst.frc.falcons6443.robot.RobotMap;
 import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
 import org.usfirst.frc.falcons6443.robot.utilities.Smashboard;
 
@@ -14,6 +17,7 @@ public class TeleopMode extends SimpleCommand {
 
     private Gamepad gamepad;
     private boolean reversed, gearToggled, ropeClimberIdled;
+    private Ultrasonic ultrasonic;
 
     public TeleopMode() {
         super("Teleop Command");
@@ -21,6 +25,7 @@ public class TeleopMode extends SimpleCommand {
         requires(driveTrain);
         requires(gearHolder);
         requires(ropeClimber);
+        ultrasonic = new Ultrasonic(RobotMap.UltrasonicA, RobotMap.UltrasonicB);
     }
 
     @Override
@@ -93,6 +98,9 @@ public class TeleopMode extends SimpleCommand {
         }
 
         Smashboard.putBoolean("reversed", driveTrain.isReversed());
+        SmartDashboard.putNumber("Ultrasonic", ultrasonic.getRangeInches());
+        //Back up:
+        // System.out.println("Ultrasonic: " + ultrasonic.getRangeInches());
     }
 
     public boolean isFinished() {

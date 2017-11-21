@@ -24,10 +24,8 @@ public class RobotMap {
     public static final int GearHolderSolenoidClose = 1;
 
     //ultrasonics
-    public static final int FrontUltrasonic = -1;
-    public static final int LeftUltrasonic = -1;
-    public static final int RightUltrasonic = -1;
-    public static final int BackUltrasonic = -1;
+    public static final int UltrasonicA = -1;
+    public static final int UltrasonicB = -1;
 
     //rope climber
     public static final int RopeClimberSpark = 4;
