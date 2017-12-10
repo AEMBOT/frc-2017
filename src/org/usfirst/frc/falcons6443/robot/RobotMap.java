@@ -24,8 +24,8 @@ public class RobotMap {
     public static final int GearHolderSolenoidClose = 1;
 
     //ultrasonics
-    public static final int UltrasonicA = -1;
-    public static final int UltrasonicB = -1;
+    public static final int UltrasonicA = 1;
+    public static final int UltrasonicB = 2;
 
     //rope climber
     public static final int RopeClimberSpark = 4;
