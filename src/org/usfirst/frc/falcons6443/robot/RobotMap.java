@@ -14,20 +14,30 @@ public class RobotMap {
      * You will, trust me. So DON'T FORGET TO SET YOUR PORTS PROPERLY. */
 
     //drive train victors
-    public static final int FrontRightVictor = 2;
-    public static final int FrontLeftVictor = 1;
-    public static final int BackRightVictor = 3;
-    public static final int BackLeftVictor = 0;
+    public static final int FrontRightVictor = -2;
+    public static final int FrontLeftVictor = -1;
+    public static final int BackRightVictor = -3;
+    public static final int BackLeftVictor = -1;
 
     //solenoid
-    public static final int GearHolderSolenoidOpen = 0;
-    public static final int GearHolderSolenoidClose = 1;
+    public static final int GearHolderSolenoidOpen = -1;
+    public static final int GearHolderSolenoidClose = -1;
 
     //ultrasonics
-    public static final int UltrasonicA = 1;
-    public static final int UltrasonicB = 2;
+    public static final int FrontUltrasonic = -1;
+    public static final int LeftUltrasonic = -1;
+    public static final int RightUltrasonic = -1;
+    public static final int BackUltrasonic = -1;
 
     //rope climber
-    public static final int RopeClimberSpark = 4;
+    public static final int RopeClimberSpark = -4;
+
+    //ball shooter flywheels
+    public static final int ShooterFlywheel = 4;
+    public static final int FeederFlywheel = -1;
+
+    //ball shooter encoder CHANGE VALS
+    public static final int ShooterEncoderChannelA = 1;
+    public static final int ShooterEncoderChannelB = 2;
 
 }
