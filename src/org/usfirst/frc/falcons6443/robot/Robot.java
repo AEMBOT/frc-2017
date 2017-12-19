@@ -4,10 +4,12 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import org.usfirst.frc.falcons6443.robot.commands.GearAutonomy;
+//import org.usfirst.frc.falcons6443.robot.commands.GearAutonomy;
 import org.usfirst.frc.falcons6443.robot.commands.TeleopMode;
 import org.usfirst.frc.falcons6443.robot.subsystems.*;
 import org.usfirst.frc.falcons6443.robot.utilities.CommandChooser;
+
+import org.usfirst.frc.falcons6443.robot.commands.AutonomousMove;
 
 /**
  * ROBOTS DON'T QUIT!
@@ -21,9 +23,9 @@ public class Robot extends IterativeRobot {
     // If a new subsystem is added, it must also be added to SimpleCommand.
     // From there the subsystem can be referred to from any command that inherits SimpleCommand.
     public static final DriveTrainSystem DriveTrain = new DriveTrainSystem();
-    public static final GearHolderSystem GearHolder = new GearHolderSystem();
+    //public static final GearHolderSystem GearHolder = new GearHolderSystem();
     public static final NavigationSystem Navigation = new NavigationSystem();
-    public static final RopeClimberSystem RopeClimber = new RopeClimberSystem();
+    //public static final RopeClimberSystem RopeClimber = new RopeClimberSystem();
     public static final BallShooterSystem BallShooter = new BallShooterSystem();
 
     public static OI oi;
@@ -39,7 +41,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void robotInit() {
         oi = new OI();
-        autonomy = new GearAutonomy();
+        autonomy = new AutonomousMove(5, 5, false);
         teleop = new TeleopMode();
     }
 

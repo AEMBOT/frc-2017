@@ -20,17 +20,14 @@ public class TeleopMode extends SimpleCommand {
         super("Teleop Command");
 
         requires(driveTrain);
-        requires(gearHolder);
-        requires(ropeClimber);
+        //requires(gearHolder);
+        //requires(ropeClimber);
         requires(ballShooter);
     }
 
     @Override
     public void initialize() {
         gamepad = Robot.oi.getGamepad();
-        reversed = false;
-        gearToggled = false;
-        ropeClimberIdled = false;
         ballShooterInitiated = false;
     }
 
@@ -47,72 +44,11 @@ public class TeleopMode extends SimpleCommand {
             driveTrain.upshift();
         }
 
-        // the A button will toggle the gear holder
-        if (gamepad.A()) {
-            // safeguard for if the driver holds the A button
-            if (!gearToggled) {
-                gearHolder.open();
-                gearToggled = true;
-            }
-        } else {
-            gearHolder.close();
-            gearToggled = false;
-        }
-
-        // the B button will start the ball shooter
-        if (gamepad.B()) {
-            // safeguard for if the driver holds the B button
-            if (!ballShooterInitiated) {
-                ballShooter.initShooter();
-                bPressCount++;
-                //on second press, feeder flywheel starts
-                if (bPressCount == 1) {
-                    ballShooter.initFeeder();
-                }
-                //on third press, both flywheels stop
-                if (bPressCount == 2) {
-                    ballShooter.stop();
-                    bPressCount = 0;
-                }
-            }
-        } else {
-            ballShooterInitiated = false;
-        }
-
-        // the X button will toggle the rope climber to idleing mode
-        if (gamepad.X()) {
-            // safeguard for if the driver holds down the X button.
-            if (!ropeClimberIdled) {
-                ropeClimber.toggleIdle();
-                ropeClimberIdled = true;
-            }
-        }
-        else {
-            ropeClimberIdled = false;
-        }
-
-        // the Y button will toggle the drive train to reverse mode
-        if (gamepad.Y()) {
-            // safeguard for if the driver holds down the Y button.
-            if (!reversed) {
-                driveTrain.reverse();
-                reversed = true;
-            }
-        } else {
-            reversed = false;
-        }
-
         // set the driveTrain power.
         if (throttle == 0) {
             driveTrain.spin(turn);
         } else {
             driveTrain.drive(throttle, turn);
-        }
-
-        // if the input from the joystick exceeds idle speed
-        if (ropeClimberThrottle > 0.3) {
-            // set the rope climber to that speed
-            ropeClimber.set(ropeClimberThrottle);
         }
 
         Smashboard.putBoolean("reversed", driveTrain.isReversed());

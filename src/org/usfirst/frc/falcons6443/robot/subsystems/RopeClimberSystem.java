@@ -1,4 +1,4 @@
-package org.usfirst.frc.falcons6443.robot.subsystems;
+/*package org.usfirst.frc.falcons6443.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -9,7 +9,7 @@ import org.usfirst.frc.falcons6443.robot.RobotMap;
  *
  * @author Christopher Medlin, Ivan Kenevich
  */
-public class RopeClimberSystem extends Subsystem {
+/*public class RopeClimberSystem extends Subsystem {
 
     // Just like a Victor
     private Spark motor;
@@ -35,14 +35,14 @@ public class RopeClimberSystem extends Subsystem {
      *
      * @param power the desired power.
      */
-    public void set(double power) {
+   /* public void set(double power) {
         motor.set(power);
     }
 
     /**
      * Toggles setting the rope climber to an idle speed, similar to a motor vehicle.
      */
-    public void toggleIdle() {
+    /*public void toggleIdle() {
         if (!idle) {
             set(IDLE_SPEED);
         }
@@ -52,4 +52,4 @@ public class RopeClimberSystem extends Subsystem {
 
         idle = !idle;
     }
-}
+}*/

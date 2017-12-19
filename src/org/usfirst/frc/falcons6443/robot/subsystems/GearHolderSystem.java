@@ -1,4 +1,4 @@
-package org.usfirst.frc.falcons6443.robot.subsystems;
+/* org.usfirst.frc.falcons6443.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import org.usfirst.frc.falcons6443.robot.RobotMap;
@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  * @author Christopher Medlin, Ivan Kenevich, Shivashriganesh Mahato
  */
-public class GearHolderSystem extends Subsystem {
+/*public class GearHolderSystem extends Subsystem {
 
     private DoubleSolenoid solenoid;
     private boolean open;
@@ -20,7 +20,7 @@ public class GearHolderSystem extends Subsystem {
     /**
      * Constructor for GearHolderSystem.
      */
-    public GearHolderSystem() {
+   /* public GearHolderSystem() {
         solenoid = new DoubleSolenoid(RobotMap.GearHolderSolenoidOpen,
                 RobotMap.GearHolderSolenoidClose);
 
@@ -55,5 +55,5 @@ public class GearHolderSystem extends Subsystem {
             close();
         }
     }
-}
+}*/
 

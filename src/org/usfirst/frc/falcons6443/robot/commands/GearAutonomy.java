@@ -1,13 +1,13 @@
-package org.usfirst.frc.falcons6443.robot.commands;
+//package org.usfirst.frc.falcons6443.robot.commands;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
+//import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  * Delivers a gear considering the robot starts in the center, to be used in autonomy.
  *
  * @author Shivashriganesh Mahato
  */
-public class GearAutonomy extends CommandGroup {
+/*public class GearAutonomy extends CommandGroup {
 
     private final double CHARGE = 12.64;
 
@@ -23,4 +23,4 @@ public class GearAutonomy extends CommandGroup {
         addSequential(new AutonomousMove(10, CHARGE, false));
     }
 
-}
+}*/
