@@ -36,7 +36,7 @@ public class MoveStraightWithTime extends SimpleCommand implements PIDOutput {
     public void initialize() {
         navigation.reset();
         navigation.initPIDController(this);
-        navigation.pidSetPoint(0);
+        //navigation.pidSetPoint(0);
         setTimeout(duration);
     }
 

@@ -23,8 +23,8 @@ public class TeleopMode extends SimpleCommand {
 
         requires(driveTrain);
         requires(ballShooter);
-        //requires(gearHolder);
-        //requires(ropeClimber);
+        requires(gearHolder);
+        requires(ropeClimber);
         //ultrasonic = new Ultrasonic(RobotMap.UltrasonicA, RobotMap.UltrasonicB);
     }
 
