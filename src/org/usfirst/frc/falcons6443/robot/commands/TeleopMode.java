@@ -33,25 +33,23 @@ public class TeleopMode extends SimpleCommand {
 
     @Override
     public void execute() {
-        double throttle = gamepad.rightTrigger();
-        double turn = gamepad.leftStickX();
-        double ropeClimberThrottle = gamepad.leftTrigger();
 
-        // left bumper downshifts, right bumper upshifts.
-        if (gamepad.leftBumper()) {
-            driveTrain.downshift();
-        } else if (gamepad.rightBumper()) {
-            driveTrain.upshift();
-        }
+        // holding the B button will start the ball shooter
+        if (gamepad.B()) {
+            ballShooter.spin();
+            //the right trigger will start feeder wheel when the PID is done
+            if (gamepad.rightTrigger() > .8) {
+                ballShooter.feeder();
+            }
 
-        // set the driveTrain power.
-        if (throttle == 0) {
-            driveTrain.spin(turn);
+            //override with start button
+            if(gamepad.back()){
+                ballShooter.feeder();
+            }
         } else {
-            driveTrain.drive(throttle, turn);
+            ballShooter.stop();
         }
 
-        Smashboard.putBoolean("reversed", driveTrain.isReversed());
     }
 
     public boolean isFinished() {

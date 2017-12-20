@@ -70,7 +70,7 @@ public class BallShooterSystem extends Subsystem {
     /**
      * Starts the shooter flywheel with an initial power of 0.5.
      */
-    public void initShooter () {
+    public void spin () {
         //set shooter flywheel to an initial power of 0.5
         shooterFlywheel.set(0.5);
         //begin the PID feedback loop
@@ -83,7 +83,7 @@ public class BallShooterSystem extends Subsystem {
      * It is recommended to use this after a couple iterations of the
      * shooter flywheel so that it has had time to adjust to the proper RPM.
      */
-    public void initFeeder () {
+    public void feeder () {
         feederFlywheel.set(0.3);
     }
 
