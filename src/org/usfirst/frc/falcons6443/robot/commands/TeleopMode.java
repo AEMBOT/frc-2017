@@ -1,7 +1,6 @@
 package org.usfirst.frc.falcons6443.robot.commands;
 
 import edu.wpi.first.wpilibj.Ultrasonic;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.falcons6443.robot.Robot;
 import org.usfirst.frc.falcons6443.robot.RobotMap;
 import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
@@ -25,7 +24,6 @@ public class TeleopMode extends SimpleCommand {
         requires(ballShooter);
         requires(gearHolder);
         requires(ropeClimber);
-        //ultrasonic = new Ultrasonic(RobotMap.UltrasonicA, RobotMap.UltrasonicB);
     }
 
     @Override
@@ -36,14 +34,20 @@ public class TeleopMode extends SimpleCommand {
 
     @Override
     public void execute() {
-        // left bumper downshifts, right bumper upshifts.
-        if (gamepad.rightTrigger() > .1) {
-            ballShooter.spin(gamepad.rightTrigger());
-        } else {
-            ballShooter.stop();
-        }
 
-        if (gamepad.A()){
+        // holding the B button will start the ball shooter
+        if (gamepad.B()) {
+            ballShooter.spin();
+            //the right trigger will start feeder wheel when the PID is done
+            if (gamepad.rightTrigger() > .8 && ballShooter.atSpeed()) {
+                ballShooter.feeder();
+            }
+
+            //override of PID with start button
+            if(gamepad.back()){
+                ballShooter.feeder();
+            }
+        } else {
             ballShooter.stop();
         }
 

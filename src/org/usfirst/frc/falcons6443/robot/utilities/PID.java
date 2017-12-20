@@ -179,9 +179,9 @@ public class PID {
         this.previousError = error;
 
         if (this.vomit) {
-            // SmartDashboard.putNumber("P out", pVal);
-            // SmartDashboard.putNumber("I out", iVal);
-            // SmartDashboard.putNumber("D out", dVal);
+             Smashboard.putNumber("P out", pVal);
+             Smashboard.putNumber("I out", iVal);
+             Smashboard.putNumber("D out", dVal);
         }
 
         return output;

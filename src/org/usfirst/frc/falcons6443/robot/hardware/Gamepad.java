@@ -126,4 +126,18 @@ public class Gamepad {
     public boolean Y() {
         return gamepad.getRawButton(4);
     }
+
+    /**
+     * @return the value of the start button.
+     */
+    public boolean start() {
+        return gamepad.getRawButton(8);
+    }
+
+    /**
+     * @return the value of the back button.
+     */
+    public boolean back() {
+        return gamepad.getRawButton(7);
+    }
 }
