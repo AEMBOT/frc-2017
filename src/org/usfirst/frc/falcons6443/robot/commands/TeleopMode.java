@@ -2,7 +2,8 @@ package org.usfirst.frc.falcons6443.robot.commands;
 
 import org.usfirst.frc.falcons6443.robot.Robot;
 import org.usfirst.frc.falcons6443.robot.hardware.Gamepad;
-import org.usfirst.frc.falcons6443.robot.utilities.Smashboard;
+import org.usfirst.frc.falcons6443.robot.subsystems.FlywheelSystem;
+
 
 /**
  * Teleoperated mode for the robot.
@@ -13,63 +14,58 @@ import org.usfirst.frc.falcons6443.robot.utilities.Smashboard;
 public class TeleopMode extends SimpleCommand {
 
     private Gamepad gamepad;
-    private boolean reversed, gearToggled, ropeClimberIdled;
+    private boolean reversed;
+    private FlywheelSystem flywheel;
 
     public TeleopMode() {
         super("Teleop Command");
 
         requires(driveTrain);
-        requires(gearHolder);
-        requires(ropeClimber);
+        requires(flywheel);
+        //requires(elevator);
     }
 
     @Override
     public void initialize() {
         gamepad = Robot.oi.getGamepad();
         reversed = false;
-        gearToggled = false;
-        ropeClimberIdled = false;
     }
 
     @Override
     public void execute() {
-        double throttle = gamepad.rightTrigger();
-        double turn = gamepad.leftStickX();
-        double ropeClimberThrottle = gamepad.leftTrigger();
+        //for testing
+        //elevator.manual(xbox.rightStickY(xbox.primary));
+        //manual rotation
+        flywheel.manual(gamepad.leftStickY());
 
-        // left bumper downshifts, right bumper upshifts.
-        if (gamepad.leftBumper()) {
-            driveTrain.downshift();
-        } else if (gamepad.rightBumper()) {
-            driveTrain.upshift();
-        }
+        System.out.println("intake: " + gamepad.leftStickY());
+        System.out.println("lift: " + gamepad.rightStickY());
 
-        // the A button will toggle the gear holder
-        if (gamepad.A()) {
-            // safeguard for if the driver holds the A button
-            if (!gearToggled) {
-                gearHolder.open();
-                gearToggled = true;
-            }
-        } else {
-            gearHolder.close();
-            gearToggled = false;
+        /*if(xbox.X(xbox.primary)){
+            elevator.up(true);
         }
 
-        // the X button will toggle the rope climber to idleing mode
-        if (gamepad.X()) {
-            // safeguard for if the driver holds down the X button.
-            if (!ropeClimberIdled) {
-                ropeClimber.toggleIdle();
-                ropeClimberIdled = true;
-            }
+        if(xbox.Y(xbox.primary)){
+            elevator.down(true);
         }
-        else {
-            ropeClimberIdled = false;
-        }
+
+        if (!xbox.X(xbox.primary) && !xbox.Y(xbox.primary) && xbox.rightStickY(xbox.primary) == 0) {
+            elevator.stop();
+        }*/
+
+        // set the driveTrain power.
+        driveTrain.tankDrive(gamepad.leftStickY(), gamepad.leftStickY());
+
+        /*
+        System.out.println("Left: " + driveTrain.get());
+        System.out.println("Right: " + driveTrain.getRightDistance());
+
+        System.out.println("Left: " + driveTrain.getLeftDistance());
+        System.out.println("Right: " + driveTrain.getRightDistance());
+        */
 
         // the Y button will toggle the drive train to reverse mode
-        if (gamepad.Y()) {
+        /*if (xbox.Y()) {
             // safeguard for if the driver holds down the Y button.
             if (!reversed) {
                 driveTrain.reverse();
@@ -77,22 +73,32 @@ public class TeleopMode extends SimpleCommand {
             }
         } else {
             reversed = false;
+        }*/
+        /*
+        if(gamepad.Y(gamepad.primary)){
+            driveTrain.reset();
+        }
+        */
+        //intake button
+        if (gamepad.leftBumper()) {
+            //if (flywheel.hasBlock()) {
+            //  flywheel.stop();
+            //} else {
+            flywheel.intake();
+            //}
         }
 
-        // set the driveTrain power.
-        if (throttle == 0) {
-            driveTrain.spin(turn);
-        } else {
-            driveTrain.drive(throttle, turn);
+        //output button
+        if (gamepad.rightBumper()) {
+            flywheel.output();
         }
 
-        // if the input from the joystick exceeds idle speed
-        if (ropeClimberThrottle > 0.3) {
-            // set the rope climber to that speed
-            ropeClimber.set(ropeClimberThrottle);
+        //stop
+        if (!gamepad.leftBumper() && !gamepad.rightBumper()){
+            flywheel.stop();
         }
 
-        Smashboard.putBoolean("reversed", driveTrain.isReversed());
+        //elevator.moveToHeight();
     }
 
     public boolean isFinished() {

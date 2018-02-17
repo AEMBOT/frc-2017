@@ -29,10 +29,9 @@ public class RobotMap {
     public static final int RightUltrasonic = -1;
     public static final int BackUltrasonic = -1;
 
-    //rope climber
-    public static final int RopeClimberSpark = 4;
-
-    //flywheel
-    public static final int Flywheel = 5;
+    //intake motors
+    public static final int IntakeLeftMotor = 4;
+    public static final int IntakeRightMotor = 5;
+    public static final int IntakeRotateMotor = 6;
 
 }

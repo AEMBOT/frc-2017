@@ -6,11 +6,9 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import org.usfirst.frc.falcons6443.robot.commands.GearAutonomy;
 import org.usfirst.frc.falcons6443.robot.commands.TeleopMode;
-import org.usfirst.frc.falcons6443.robot.subsystems.DriveTrainSystem;
-import org.usfirst.frc.falcons6443.robot.subsystems.GearHolderSystem;
-import org.usfirst.frc.falcons6443.robot.subsystems.NavigationSystem;
-import org.usfirst.frc.falcons6443.robot.subsystems.RopeClimberSystem;
+import org.usfirst.frc.falcons6443.robot.subsystems.*;
 import org.usfirst.frc.falcons6443.robot.utilities.CommandChooser;
+import org.usfirst.frc.falcons6443.robot.utilities.Camera;
 
 /**
  * ROBOTS DON'T QUIT!
@@ -26,7 +24,10 @@ public class Robot extends IterativeRobot {
     public static final DriveTrainSystem DriveTrain = new DriveTrainSystem();
     public static final GearHolderSystem GearHolder = new GearHolderSystem();
     public static final NavigationSystem Navigation = new NavigationSystem();
-    public static final RopeClimberSystem RopeClimber = new RopeClimberSystem();
+    //public static final RopeClimberSystem RopeClimber = new RopeClimberSystem();
+   // public static final FlywheelSystem flywheel = new FlywheelSystem(4,5);
+   // public static final FlywheelSystem wheel = new FlywheelSystem(5);
+    public static final Camera cam = new Camera();
 
     public static OI oi;
 
@@ -40,6 +41,7 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void robotInit() {
+        cam.capture();
         oi = new OI();
         autonomy = new GearAutonomy();
         teleop = new TeleopMode();

@@ -21,7 +21,7 @@ public class RopeClimberSystem extends Subsystem {
     private final double IDLE_SPEED = 0.3;
 
     public RopeClimberSystem() {
-        motor = new Spark(RobotMap.RopeClimberSpark);
+    //    motor = new Spark(RobotMap.RopeClimberSpark);
         idle = false;
         set(0);
     }

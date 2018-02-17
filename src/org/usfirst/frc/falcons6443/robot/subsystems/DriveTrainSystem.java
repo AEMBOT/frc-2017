@@ -96,7 +96,10 @@ public class DriveTrainSystem extends Subsystem {
      * @param speed the speed at which the robot spins.
      */
     public void spin(double speed) {
-        drive.tankDrive(speed, -speed);
+        if (speed < 0)
+            drive.tankDrive(0, speed);
+        else
+            drive.tankDrive(speed, 0);
     }
 
     /**
